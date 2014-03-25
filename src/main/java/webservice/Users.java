@@ -12,6 +12,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import services.UserService;
 import entities.User;
 
@@ -54,10 +56,12 @@ public class Users {
     							 @PathParam("email") String email, @PathParam("phone") String phone, @PathParam("fname") String fname, @PathParam("lname") String lname){
     	User user = new User();
     	user.setUserName(userName);
-    	user.setUserPassword(password);
+    	user.setUserPassword(DigestUtils.sha1Hex(password));
     	user.setUsertype(userType);
-    	
-    	System.out.println("Email: " + email + ", Phone: " + phone + ", FName: " + fname + ", LName: " + lname);
+    	user.setEmailAddress(email);
+    	user.setPhoneNumber(phone);
+    	user.setFirstName(fname);
+    	user.setLastName(lname);
     	
     	userEJB.registerUser(user);
     	Response.ResponseBuilder builder = Response.ok();

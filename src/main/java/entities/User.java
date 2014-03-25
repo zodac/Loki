@@ -1,7 +1,11 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 /**
  * The persistent class for the user database table.
@@ -19,7 +23,20 @@ public class User implements Serializable {
 	@Column(length=255)
 	private String userPassword;
 
+	@Column(length=55)
 	private String usertype;
+	
+	@Column(length=255)
+	private String firstName;
+	
+	@Column(length=255)
+	private String lastName;
+	
+	@Column(length=255)
+	private String emailAddress;
+	
+	@Column(length=255)
+	private String phoneNumber;
 
 	public User() {
 	}
@@ -46,5 +63,37 @@ public class User implements Serializable {
 
 	public void setUsertype(String usertype) {
 		this.usertype = usertype;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 }
