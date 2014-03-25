@@ -1,14 +1,3 @@
-login
-=====
-- Invalid username or password not giving an alert. 
-
-sysAddUser
-==========
-- Register user page doesn't redirect to "sysListUsers.jsp" correctly.
-- "required" tag in form inputs no longer works (since "Submit" is now input, not button).
-	- Either find a way to revert back to submit button, or add additional JS validation.
-- Email validation no longer working (is it even in JS file?).
-
 csr Query pages
 ============
 - IMSI not validated (must be all digits).

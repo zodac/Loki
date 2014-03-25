@@ -1,8 +1,13 @@
 function eventCauseByIMSI(){
 	var imsi = document.forms["csrquery"]["imsi"].value;
-	var imsiCount = makeJSONObject("./../../webservice/IMSI/" + imsi);	
 
-	if(imsiCount != 0){
+    if(!/^-{0,1}\d*\.{0,1}\d+$/.test(imsi)){
+    	alert("Invalid IMSI format!");
+    	document.forms["csrquery"]["imsi"].focus();
+    } else if(makeJSONObject("./../../webservice/IMSI/" + imsi) == 0){
+    	alert("Invalid IMSI value!");
+		document.forms["csrquery"]["imsi"].focus();
+    } else{
 		var results = makeJSONObject("./../../webservice/CSRQueries/EC/" + imsi);
 
 		var div = document.createElement("div");
@@ -35,9 +40,6 @@ function eventCauseByIMSI(){
 		
 		div.appendChild(table);
 		document.getElementById("queryresult").appendChild(div);
-	} else{
-		alert("Invalid IMSI value!");
-		document.forms["csrquery"]["imsi"].focus();
 	}
 }
 
