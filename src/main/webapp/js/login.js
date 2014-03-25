@@ -1,11 +1,9 @@
 function loginUser(){
 	var username = document.forms["loginform"]["userName"].value;
 	var password = document.forms["loginform"]["password"].value;
-	var userJSON = makeJSONObject("./webservice/Users/" + username);	
+	var userJSON = makeJSONObject("./webservice/Users/" + username);
 	
-	alert(hex_sha1(password));
-	
-	if (userJSON != null) {
+	if (userJSON != "") {
 		if (userJSON.userPassword == hex_sha1(password)) {
 			var type = userJSON.usertype;
 			
@@ -20,9 +18,13 @@ function loginUser(){
 			} else{
 				alert("Invalid usertype!");
 			}
+		} else {
+			alert("Invalid username and/or password!");
+			document.forms["loginform"]["userName"].focus();
 		}
 	} else {
 		alert("Invalid username and/or password!");
+		 document.forms["loginform"]["userName"].focus();
 	}
 }
 
@@ -39,33 +41,26 @@ function makeJSONObject(location) {
 
 var hexcase = 0; var b64pad  = "";
 function hex_sha1(s){ return rstr2hex(rstr_sha1(str2rstr_utf8(s))); }
-function rstr2hex(input)
-{
+function rstr2hex(input){
   try { hexcase; } catch(e) { hexcase=0; }
   var hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
   var output = "";
   var x;
-  for(var i = 0; i < input.length; i++)
-  {
+  for(var i = 0; i < input.length; i++){
     x = input.charCodeAt(i);
     output += hex_tab.charAt((x >>> 4) & 0x0F)
            +  hex_tab.charAt( x        & 0x0F);
   }
   return output;
 }
-function rstr_sha1(s)
-{
-  return binb2rstr(binb_sha1(rstr2binb(s), s.length * 8));
-}
-function binb2rstr(input)
-{
+function rstr_sha1(s){return binb2rstr(binb_sha1(rstr2binb(s), s.length * 8));}
+function binb2rstr(input){
   var output = "";
   for(var i = 0; i < input.length * 32; i += 8)
     output += String.fromCharCode((input[i>>5] >>> (24 - i % 32)) & 0xFF);
   return output;
 }
-function rstr2binb(input)
-{
+function rstr2binb(input){
   var output = Array(input.length >> 2);
   for(var i = 0; i < output.length; i++)
     output[i] = 0;
@@ -73,9 +68,7 @@ function rstr2binb(input)
     output[i>>5] |= (input.charCodeAt(i / 8) & 0xFF) << (24 - i % 32);
   return output;
 }
-function binb_sha1(x, len)
-{
-  /* append padding */
+function binb_sha1(x, len){
   x[len >> 5] |= 0x80 << (24 - len % 32);
   x[((len + 64 >> 9) << 4) + 15] = len;
 
@@ -86,16 +79,14 @@ function binb_sha1(x, len)
   var d =  271733878;
   var e = -1009589776;
 
-  for(var i = 0; i < x.length; i += 16)
-  {
+  for(var i = 0; i < x.length; i += 16){
     var olda = a;
     var oldb = b;
     var oldc = c;
     var oldd = d;
     var olde = e;
 
-    for(var j = 0; j < 80; j++)
-    {
+    for(var j = 0; j < 80; j++){
       if(j < 16) w[j] = x[i + j];
       else w[j] = bit_rol(w[j-3] ^ w[j-8] ^ w[j-14] ^ w[j-16], 1);
       var t = safe_add(safe_add(bit_rol(a, 5), sha1_ft(j, b, c, d)),
@@ -114,35 +105,27 @@ function binb_sha1(x, len)
   }
   return Array(a, b, c, d, e);
 }
-function safe_add(x, y)
-{
+function safe_add(x, y){
   var lsw = (x & 0xFFFF) + (y & 0xFFFF);
   var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
   return (msw << 16) | (lsw & 0xFFFF);
 }
-function sha1_kt(t)
-{
+function sha1_kt(t){
   return (t < 20) ?  1518500249 : (t < 40) ?  1859775393 :
          (t < 60) ? -1894007588 : -899497514;
 }
-function str2rstr_utf8(input)
-{
+function str2rstr_utf8(input){
   var output = "";
   var i = -1;
   var x, y;
 
-  while(++i < input.length)
-  {
-    /* Decode utf-16 surrogate pairs */
+  while(++i < input.length){
     x = input.charCodeAt(i);
     y = i + 1 < input.length ? input.charCodeAt(i + 1) : 0;
-    if(0xD800 <= x && x <= 0xDBFF && 0xDC00 <= y && y <= 0xDFFF)
-    {
+    if(0xD800 <= x && x <= 0xDBFF && 0xDC00 <= y && y <= 0xDFFF){
       x = 0x10000 + ((x & 0x03FF) << 10) + (y & 0x03FF);
       i++;
     }
-
-    /* Encode output as utf-8 */
     if(x <= 0x7F)
       output += String.fromCharCode(x);
     else if(x <= 0x7FF)
@@ -160,14 +143,10 @@ function str2rstr_utf8(input)
   }
   return output;
 }
-function sha1_ft(t, b, c, d)
-{
+function sha1_ft(t, b, c, d){
   if(t < 20) return (b & c) | ((~b) & d);
   if(t < 40) return b ^ c ^ d;
   if(t < 60) return (b & c) | (b & d) | (c & d);
   return b ^ c ^ d;
 }
-function bit_rol(num, cnt)
-{
-  return (num << cnt) | (num >>> (32 - cnt));
-}
+function bit_rol(num, cnt){return (num << cnt) | (num >>> (32 - cnt));}
