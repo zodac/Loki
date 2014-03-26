@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.jws.WebService;
 
 import jpas.JPA;
+import queryEntities.TopMOCGraphEntity;
 import daos.CallFailureDAO;
 import entities.EventCause;
 @Stateless
@@ -54,5 +55,10 @@ public class CallFailureEJB implements CallFailureService {
 
 	public List<Long> numberOfFailuresByIMSIByTimePeriod(long imsi, Date fromDate, Date toDate) {
 		return dao.numberOfFailuresByIMSIByTimePeriod(imsi, fromDate, toDate);
+	}
+
+	@Override
+	public List<TopMOCGraphEntity> getTopTenMOCGraphical() {
+		return dao.getTopTenMOCGraphical();
 	}
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Remote;
 import javax.jws.WebService;
 
+import queryEntities.TopMOCGraphEntity;
 import entities.EventCause;
 @WebService
 @Remote
@@ -19,4 +20,5 @@ public interface CallFailureService {
 	List<EventCause> findUniqueEventCauseByIMSI(long imsi);
 	List<Integer> findUniqueCauseCodesByIMSI(long imsi);
 	List<Long> numberOfFailuresByIMSIByTimePeriod(long imsi, Date fromDate, Date toDate);
+	List<TopMOCGraphEntity> getTopTenMOCGraphical();
 }

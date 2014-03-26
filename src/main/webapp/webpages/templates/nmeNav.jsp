@@ -1,4 +1,5 @@
 <%@ page import="main.*"%>
+<script src="../../js/highcharts.js"></script>
 <script src="../../queries/nmeQueries.js"></script>
 <div class="row">
 	<div class="col-md-3 text-left panel-group" id="accordion">
@@ -14,6 +15,8 @@
 							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.NUM_FAILURES_FOR_EACH_IMSI_BY_TIME_PERIOD%></a></li>
 					<li><a href="nmeCountEventCauseModel.jsp"><span
 							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.UNIQUE_EVENTID_AND_CAUSECODE_COMBINATION_AND_OCCURANCES_BY_MODEL%></a></li>
+					<li><a href="nmeTopMOCGraph.jsp"><span
+							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.TOP_10_MARKET_OPERATOR_CELL_NODES_GRAPHICAL%></a></li>
 				</ul>
 			</div>
 		</ul>

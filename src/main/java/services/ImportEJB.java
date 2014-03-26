@@ -18,7 +18,6 @@ import daos.UETypeDAO;
 @Remote(ImportService.class)
 
 public class ImportEJB implements ImportService {
-//	private static DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	private CallFailureDAO failureDAO;
 	private InvalidCallFailureDAO invalidDAO;
 	private EventCauseDAO eventCauseDAO;

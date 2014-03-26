@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import queryEntities.TopMOCGraphEntity;
 import services.CallFailureService;
 
 @Path("/NMEQueries")
@@ -31,7 +32,7 @@ public class NMEQueries {
     }
     
     @GET
-    @Path("/{fromDate}/{toDate}")
+    @Path("/FD/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Object[]> findNumberOfFailuresAndDuration(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
     	Date fDate = null;
@@ -43,7 +44,12 @@ public class NMEQueries {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-    	
         return cfEJB.findNumberOfFailuresAndDuration(fDate, tDate);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TopMOCGraphEntity> getTopTenMOCGraphical() {
+        return cfEJB.getTopTenMOCGraphical();
     }
 }

@@ -1,6 +1,4 @@
 <%@ page import="main.*"%>
-<%@ page import="java.util.*"%>
-<%@ page import="javax.servlet.*, javax.servlet.http.*"%>
 <!DOCTYPE>
 <html>
 <head>
