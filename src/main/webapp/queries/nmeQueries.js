@@ -83,7 +83,6 @@ function uniqueEventCauseAndOccurancesByModel(){
 
 function topMOCGraph(){
 	$(document).ready(function() {
-		//var results = makeJSONObject("./../../webservice/NMEQueries");
 		var categories = [];
 		var options = {
 			chart : {
@@ -121,7 +120,7 @@ function topMOCGraph(){
 				val1.push([yaxis,value.numberOfFailures]);
 			});
 			options.series[0].data = val1;
-			var chart = new Highcharts.Chart(options);
+			new Highcharts.Chart(options);
 		});
 
 	}); 

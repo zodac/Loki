@@ -81,11 +81,9 @@ public class CallFailureJPA implements CallFailureDAO {
 		
 		List<TopMOCGraphEntity> entities = new ArrayList<TopMOCGraphEntity>();
 		
-		for(int i = 0; i < results.size(); i++){
+		for(Object[] obj : results){
 			TopMOCGraphEntity top = new TopMOCGraphEntity();
-			Object[] obj = results.get(i);
 			
-			top.setId(i);
 			top.setCellId((Integer) obj[0]);
 			top.setCountry(String.valueOf(obj[1]));
 			top.setOperator(String.valueOf(obj[2]));
