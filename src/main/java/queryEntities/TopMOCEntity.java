@@ -10,7 +10,7 @@ import javax.persistence.Column;
  * The persistent class for the user database table.
  * 
  */
-public class TopMOCGraphEntity implements Serializable {
+public class TopMOCEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(length=255)
@@ -26,7 +26,7 @@ public class TopMOCGraphEntity implements Serializable {
 	
 	private BigDecimal ofAllFailures;
 
-	public TopMOCGraphEntity() {
+	public TopMOCEntity() {
 	}
 
 	public int getCellId() {

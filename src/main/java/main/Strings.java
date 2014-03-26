@@ -57,6 +57,7 @@ public class Strings {
 	//Navigation - NME
 	public static String NUM_FAILURES_FOR_EACH_IMSI_BY_TIME_PERIOD = "Failures and their duration for each IMSI";
 	public static String UNIQUE_EVENTID_AND_CAUSECODE_COMBINATION_AND_OCCURANCES_BY_MODEL = "List unique Event ID and Cause Code combinations and their occurances by phone model";
+	public static String TOP_10_MARKET_OPERATOR_CELL_NODES_BY_TIME_PERIOD = "Top 10 Market/Operator/Cell Nodes in a given time period";
 	public static String TOP_10_MARKET_OPERATOR_CELL_NODES_GRAPHICAL = "Top 10 Market/Operator/Cell Nodes with graphical representation";
 	
 	//Navigation - SysAdmin

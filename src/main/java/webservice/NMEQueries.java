@@ -14,7 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import queryEntities.TopMOCGraphEntity;
+import queryEntities.TopMOCEntity;
 import services.CallFailureService;
 
 @Path("/NMEQueries")
@@ -48,8 +48,24 @@ public class NMEQueries {
     }
     
     @GET
+    @Path("/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<TopMOCGraphEntity> getTopTenMOCGraphical() {
+    public List<Object[]> getTopTenMOC(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
+    	Date fDate = null;
+    	Date tDate = null;
+    	
+    	try {
+			fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fromDate.replace('T', ' '));
+			tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(toDate.replace('T', ' '));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        return cfEJB.getTopTenMOC(fDate, tDate);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TopMOCEntity> getTopTenMOCGraphical() {
         return cfEJB.getTopTenMOCGraphical();
     }
 }

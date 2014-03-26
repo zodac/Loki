@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.jws.WebService;
 
 import jpas.JPA;
-import queryEntities.TopMOCGraphEntity;
+import queryEntities.TopMOCEntity;
 import daos.CallFailureDAO;
 import entities.EventCause;
 @Stateless
@@ -58,7 +58,12 @@ public class CallFailureEJB implements CallFailureService {
 	}
 
 	@Override
-	public List<TopMOCGraphEntity> getTopTenMOCGraphical() {
+	public List<TopMOCEntity> getTopTenMOCGraphical() {
 		return dao.getTopTenMOCGraphical();
+	}
+
+	@Override
+	public List<Object[]> getTopTenMOC(Date fromDate, Date toDate) {
+		return dao.getTopTenMOC(fromDate, toDate);
 	}
 }

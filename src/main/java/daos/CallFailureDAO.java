@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
-import queryEntities.TopMOCGraphEntity;
+import queryEntities.TopMOCEntity;
 import entities.CallFailure;
 import entities.EventCause;
 
@@ -19,5 +19,6 @@ public interface CallFailureDAO {
 	List<EventCause> findUniqueEventCauseByIMSI(long imsi);
 	List<Integer> findUniqueCauseCodesByIMSI(long imsi);
 	List<Long> numberOfFailuresByIMSIByTimePeriod(long imsi, Date fromDate, Date toDate);
-	List<TopMOCGraphEntity> getTopTenMOCGraphical();
+	List<TopMOCEntity> getTopTenMOCGraphical();
+	List<Object[]> getTopTenMOC(Date fromDate, Date toDate);
 }

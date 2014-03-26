@@ -2,13 +2,6 @@ function numberOfFailuresAndDuration(){
 	var fromDate = document.forms["nmequery"]["from"].value;
 	var toDate = document.forms["nmequery"]["to"].value;
 	var results = makeJSONObject("./../../webservice/NMEQueries/FD/" + fromDate + "/" + toDate);
-	
-	for(var i = 0; i < results.length; i++){
-		console.log("Single Result: " + results[i]);
-		console.log("JSON.stringify() Single Result: " + JSON.stringify(results[i]));
-		console.log("All Results: " + results);
-		console.log("JSON.stringify() All Results: " + JSON.stringify(results));
-	}
 
 	var div = document.createElement("div");
 	div.setAttribute("style", "max-height: 400px; overflow: auto;");
@@ -92,9 +85,6 @@ function topMOCGraph(){
 				plotBorderWidth : null,
 				plotShadow : false
 			},
-			title : {
-				text : 'Top 10 Market/Operator/CellID combinations'
-			},
 			tooltip : {
 				formatter: function() {
 	                return '% Of All Failures:<b>'+ categories[this.x] +'</b><br/>'+
@@ -124,6 +114,58 @@ function topMOCGraph(){
 		});
 
 	}); 
+}
+
+function topMOC(){
+	var fromDate = document.forms["nmequery"]["from"].value;
+	var toDate = document.forms["nmequery"]["to"].value;
+	var results = makeJSONObject("./../../webservice/NMEQueries/" + fromDate + "/" + toDate);
+
+	var div = document.createElement("div");
+	div.setAttribute("style", "max-height: 400px; overflow: auto;");
+	var table = document.createElement("table");
+	table.setAttribute("class", "table table-striped table-bordered");
+	
+	var tbody = document.createElement("tbody");
+	var thead = document.createElement("thead");
+	var th = document.createElement("th");
+	th.appendChild(document.createTextNode("Cell ID"));
+	thead.appendChild(th);
+	th = document.createElement("th");
+	th.appendChild(document.createTextNode("Market"));
+	thead.appendChild(th);
+	th = document.createElement("th");
+	th.appendChild(document.createTextNode("Operator"));
+	thead.appendChild(th);
+	th = document.createElement("th");
+	th.appendChild(document.createTextNode("Failures"));
+	thead.appendChild(th);
+	table.appendChild(thead);
+	
+	for(var i = 0; i < results.length; i++){
+		var row = document.createElement("tr");
+		var cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(results[i][0]));
+		row.appendChild(cell);
+		
+		cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(results[i][1]));
+		row.appendChild(cell);
+		
+		cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(results[i][2]));
+		row.appendChild(cell);
+		
+		cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(results[i][3]));
+		row.appendChild(cell);
+		
+		tbody.appendChild(row);
+	}
+	table.appendChild(tbody);
+	
+	div.appendChild(table);
+	document.getElementById("queryresult").appendChild(div);
 }
 
 function createHead(t1, t2, t3) {
