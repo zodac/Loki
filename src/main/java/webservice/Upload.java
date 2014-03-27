@@ -43,13 +43,13 @@ public class Upload {
 				fileName = getFileName(header);
 				
 				String fileExtension = FilenameUtils.getExtension(fileName);
-
 				if(fileExtension.equals("xls") || fileExtension.equals("xlsx")){
 					if(!fileName.equals("unknown")){
 						InputStream inputStream = inputPart.getBody(InputStream.class, null);
 						byte[] bytes = IOUtils.toByteArray(inputStream);
 						
-						writeFile(bytes, fileName);
+						File uploadedFile = writeFile(bytes, fileName);
+						iEJB.addToDatabase(uploadedFile, fileExtension);
 					}
 				} else{
 					//TODO Alert for invalid file type
@@ -72,7 +72,7 @@ public class Upload {
 		return "unknown";
 	}
 	
-	private void writeFile(byte[] content, String filename){
+	private File writeFile(byte[] content, String filename){
 		createTempFolders();
         File file = new File("C:\\tmp\\" + filename);
         if (file.exists()) {
@@ -85,6 +85,7 @@ public class Upload {
 	        out.close();
 		} catch (IOException e) {
 		}
+        return file;
     }
 	
 	private static void createTempFolders(){

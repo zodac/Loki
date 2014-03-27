@@ -85,6 +85,9 @@ function topMOCGraph(){
 				plotBorderWidth : null,
 				plotShadow : false
 			},
+			title : {
+				test : ''
+			},
 			tooltip : {
 				formatter: function() {
 	                return '% Of All Failures:<b>'+ categories[this.x] +'</b><br/>'+

@@ -18,9 +18,7 @@ public class EventCauseJPA implements EventCauseDAO {
 	private EntityManager em;
 
 	public void addEventCause(EventCause ec) {
-		Query query = em.createQuery("from EventCause");
-		List<EventCause> eventcauses = (List<EventCause>) query.getResultList(); 
-		if (!eventcauses.contains(ec)){
+		if(em.find(EventCause.class, ec.getId()) == null){
 			em.persist(ec);
 		}
 	}

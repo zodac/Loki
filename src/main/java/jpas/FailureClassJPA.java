@@ -17,7 +17,7 @@ public class FailureClassJPA implements FailureClassDAO {
 	private EntityManager em;
 	
 	public void addFailureClass(FailureClass fc) {
-		if(em.find(FailureClass.class, fc) == null){
+		if(em.find(FailureClass.class, fc.getFailureClass()) == null){
 			em.persist(fc);
 		}
 	}

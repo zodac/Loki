@@ -12,10 +12,10 @@ public class EventCausePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(unique=true, nullable=false)
+	@Column
 	private int a_Event_ID;
 
-	@Column(unique=true, nullable=false)
+	@Column
 	private int b_Cause_Code;
 
 	public EventCausePK() {

@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import queryEntities.TopMOCEntity;
@@ -18,23 +20,35 @@ import entities.EventCause;
 @JPA
 @SuppressWarnings("unchecked")
 public class CallFailureJPA implements CallFailureDAO {
-
+	@PersistenceUnit
+	private EntityManagerFactory emf;
+	
 	@PersistenceContext
 	private EntityManager em;
 
 	public void addCallFailure(CallFailure cf) {
-		Query query = em.createQuery("from CallFailure");
-		List<CallFailure> callfailures = (List<CallFailure>) query
-				.getResultList();
-		if (!callfailures.contains(cf)) {
-			em.persist(cf);
+		em.persist(cf);
+	}
+	
+	public void addManyCallFailures(List<CallFailure> callFailures){
+//		EntityManager emMan = emf.createEntityManager();
+//
+//		emMan.getTransaction().begin();
+//		int count = 0;
+//		for(CallFailure callFailure : callFailures){
+//			emMan.persist(callFailure);
+//			System.out.print(count++);
+//		}
+//		emMan.getTransaction().commit();
+//		emMan.close();
+		for(CallFailure callFailure : callFailures){
+			em.persist(callFailure);
 		}
 	}
 
 	public long getNumberOfCallFailures() {
 		Query query = em.createQuery("from CallFailure");
-		List<CallFailure> callfailures = (List<CallFailure>) query
-				.getResultList();
+		List<CallFailure> callfailures = (List<CallFailure>) query.getResultList();
 		return callfailures.size();
 	}
 
@@ -149,5 +163,5 @@ public class CallFailureJPA implements CallFailureDAO {
 
 		return entities;*/
 		return results;
-	}
+	}	
 }

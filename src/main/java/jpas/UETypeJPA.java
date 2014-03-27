@@ -17,9 +17,7 @@ public class UETypeJPA implements UETypeDAO {
 	private EntityManager em;
 
 	public void addUEType(UEType uet) {
-		Query query = em.createQuery("from UEType");
-		List<UEType> ueTypes = (List<UEType>) query.getResultList(); 
-		if (!ueTypes.contains(uet)){
+		if(em.find(UEType.class, uet.getTac()) == null){
 			em.persist(uet);
 		}
 	}

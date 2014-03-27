@@ -17,11 +17,7 @@ public class InvalidCallFailureJPA implements InvalidCallFailureDAO {
 	private EntityManager em;
 
 	public void addInvalidCallFailure(InvalidCallFailure icf) {
-		Query query = em.createQuery("from InvalidCallFailure");
-		List<InvalidCallFailure> invalidcallfailures = (List<InvalidCallFailure>) query.getResultList(); 
-		if (!invalidcallfailures.contains(icf)){
-			em.persist(icf);
-		}
+		em.persist(icf);
 	}
 
 	public long getNumberOfInvalidCallFailures() {

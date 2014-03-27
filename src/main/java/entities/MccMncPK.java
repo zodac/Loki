@@ -12,10 +12,10 @@ public class MccMncPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(unique=true, nullable=false)
+	@Column
 	private int mcc;
 
-	@Column(unique=true, nullable=false)
+	@Column
 	private int mnc;
 
 	public MccMncPK() {

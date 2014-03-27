@@ -24,7 +24,7 @@ public class MccMnc implements Serializable {
 	private String operator;
 
 	//bi-directional many-to-one association to Callfailure
-	@OneToMany(mappedBy="mccMnc", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="mccMnc")
 	private List<CallFailure> callFailures;
 
 	public MccMnc() {

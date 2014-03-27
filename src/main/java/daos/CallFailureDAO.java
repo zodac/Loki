@@ -10,6 +10,7 @@ import entities.EventCause;
 
 public interface CallFailureDAO {
 	void addCallFailure(CallFailure cf);
+	void addManyCallFailures(List<CallFailure> callFailures);
 	long getNumberOfCallFailures();
 	long findIMSICount(long imsi);
 	List<Object[]> findUniqueEventCauseAndOccurancesByTAC(int tac);

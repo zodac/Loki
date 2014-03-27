@@ -35,13 +35,13 @@ public class InvalidCallFailure implements Serializable {
 	private String failureClass;
 
 	@Column(name="HIER3_ID")
-	private BigInteger hier3Id;
+	private long hier3Id;
 
 	@Column(name="HIER32_ID")
-	private BigInteger hier32Id;
+	private long hier32Id;
 
 	@Column(name="HIER321_ID")
-	private BigInteger hier321Id;
+	private long hier321Id;
 
 	private BigInteger imsi;
 
@@ -113,27 +113,27 @@ public class InvalidCallFailure implements Serializable {
 		this.failureClass = failureClass;
 	}
 
-	public BigInteger getHier3Id() {
+	public long getHier3Id() {
 		return this.hier3Id;
 	}
 
-	public void setHier3Id(BigInteger hier3Id) {
+	public void setHier3Id(long hier3Id) {
 		this.hier3Id = hier3Id;
 	}
 
-	public BigInteger getHier32Id() {
+	public long getHier32Id() {
 		return this.hier32Id;
 	}
 
-	public void setHier32Id(BigInteger hier32Id) {
+	public void setHier32Id(long hier32Id) {
 		this.hier32Id = hier32Id;
 	}
 
-	public BigInteger getHier321Id() {
+	public long getHier321Id() {
 		return this.hier321Id;
 	}
 
-	public void setHier321Id(BigInteger hier321Id) {
+	public void setHier321Id(long hier321Id) {
 		this.hier321Id = hier321Id;
 	}
 

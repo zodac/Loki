@@ -22,7 +22,7 @@ public class FailureClass implements Serializable {
 	private String description;
 
 	//bi-directional many-to-one association to Callfailure
-	@OneToMany(mappedBy="failureClass", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="failureClass")
 	private List<CallFailure> callFailures;
 
 	public FailureClass() {

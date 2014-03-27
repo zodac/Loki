@@ -1,8 +1,12 @@
 package services;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -15,9 +19,11 @@ import javax.jws.WebService;
 
 import jpas.JPA;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.common.collect.Lists;
 
@@ -28,15 +34,21 @@ import daos.InvalidCallFailureDAO;
 import daos.MccMncDAO;
 import daos.UETypeDAO;
 import entities.CallFailure;
+import entities.EventCause;
 import entities.EventCausePK;
+import entities.FailureClass;
 import entities.InvalidCallFailure;
+import entities.MccMnc;
 import entities.MccMncPK;
+import entities.UEType;
+
 @Stateless
 @WebService(endpointInterface="services.ImportService")
 @Remote(ImportService.class)
-
 public class ImportEJB implements ImportService {
 	private static DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	private List<CallFailure> callFailures = new ArrayList<CallFailure>();
+	private List<InvalidCallFailure> invalidCallFailures = new ArrayList<InvalidCallFailure>();
 	private CallFailureDAO failureDAO;
 	private InvalidCallFailureDAO invalidDAO;
 	private EventCauseDAO eventCauseDAO;
@@ -74,18 +86,173 @@ public class ImportEJB implements ImportService {
 		this.eventCauseDAO = dao;
 	}
 	
-	
-	public void addToDatabase(Object excelSheet){
-        Iterator<Row> rowIterator = ((HSSFSheet)excelSheet).iterator();
-        List<Row> rowList = Lists.newArrayList(rowIterator);
-        
-        for(int i = 1; i < rowList.size(); i++){
-            Iterator<Cell> cellIterator = rowList.get(i).cellIterator();
-            parseCells(cellIterator);	
-        }
+	public void addToDatabase(File uploadedFile, String fileExtension){
+		generateDatabase(uploadedFile, fileExtension);
 	}
 	
-	private void parseCells(Iterator<Cell> cellIterator) {
+	private void generateDatabase(File uploadedFile, String fileExtension) {
+		Workbook excelData = null;
+		try {
+			if(fileExtension.equals("xls")){
+				excelData = new HSSFWorkbook(new FileInputStream(uploadedFile));
+			} else if(fileExtension.equals("xlsx")){
+				excelData = new XSSFWorkbook(new FileInputStream(uploadedFile));
+			}
+			
+			List<Row> eventCauseRows = Lists.newArrayList(excelData.getSheetAt(1).iterator());
+			List<Row> failureClassRows = Lists.newArrayList(excelData.getSheetAt(2).iterator());
+			List<Row> ueTypeRows = Lists.newArrayList(excelData.getSheetAt(3).iterator());
+			List<Row> mccMncRows = Lists.newArrayList(excelData.getSheetAt(4).iterator());
+			List<Row> callFailureRows = Lists.newArrayList(excelData.getSheetAt(0).iterator());
+			
+			for(Row row : eventCauseRows.subList(1, eventCauseRows.size())){
+				parseEventCauseCells(row.cellIterator());
+			}
+			
+			for(Row row : failureClassRows.subList(1, failureClassRows.size())){
+				parseFailureClassCells(row.cellIterator());
+			}
+
+			for(Row row : ueTypeRows.subList(1, ueTypeRows.size())){
+				parseUETypeCells(row.cellIterator());
+			}
+			
+			for(Row row : mccMncRows.subList(1, mccMncRows.size())){
+				parseMCCMNCCells(row.cellIterator());
+			}
+			
+			for(Row row : callFailureRows.subList(1, callFailureRows.size())){
+				parseCallFailureCells(row.cellIterator());
+			}
+			
+//			int count = 0;
+//			for(CallFailure callFailure : callFailures){
+//				failureDAO.addCallFailure(callFailure);
+//				System.out.println(count++);
+//			}
+			
+			
+			failureDAO.addManyCallFailures(callFailures);
+			
+			for(InvalidCallFailure invalidCallFailure : invalidCallFailures){
+				invalidDAO.addInvalidCallFailure(invalidCallFailure);
+			}
+			
+			
+		} catch (IOException e) {
+		}
+	}
+	
+	private void parseEventCauseCells(Iterator<Cell> cellIterator) {
+		int causeCode;
+		String desc;
+		int eventId;
+
+		causeCode = (int) cellIterator.next().getNumericCellValue();
+    	eventId = (int) cellIterator.next().getNumericCellValue();
+    	desc = cellIterator.next().getStringCellValue();
+    	
+    	EventCause ec = new EventCause();
+    	EventCausePK ecPk = new EventCausePK();
+    	ecPk.setA_Event_ID(eventId);
+    	ecPk.setB_Cause_Code(causeCode);
+    	ec.setId(ecPk);
+    	ec.setDescription(desc);
+    
+    	eventCauseDAO.addEventCause(ec);
+	}
+	
+	private void parseFailureClassCells(Iterator<Cell> cellIterator){
+		int failureClass;
+		String desc;
+    	
+		failureClass = (int) cellIterator.next().getNumericCellValue();
+    	desc = cellIterator.next().getStringCellValue();
+    	
+    	FailureClass fc = new FailureClass();
+    	fc.setFailureClass(failureClass);
+    	fc.setDescription(desc);
+    	failureClassDAO.addFailureClass(fc);
+	}
+	
+	private void parseUETypeCells(Iterator<Cell> cellIterator) {
+		int tac;
+		String marketingName = "";
+		String manu;
+		String access;
+		String model = "";
+		String vName;
+		String ueType;
+		String os;
+		String inputMode;
+
+		Cell next;
+		int nextType;
+
+		tac = (int) cellIterator.next().getNumericCellValue();
+
+		next = cellIterator.next();
+		nextType = next.getCellType();
+
+		if(nextType == Cell.CELL_TYPE_NUMERIC)
+			marketingName = String.valueOf(next.getNumericCellValue());
+		else if(nextType == Cell.CELL_TYPE_STRING)
+			marketingName = next.getStringCellValue();
+
+		manu = cellIterator.next().getStringCellValue();
+		access = cellIterator.next().getStringCellValue();
+
+		next = cellIterator.next();
+		nextType = next.getCellType();
+
+		if(nextType == Cell.CELL_TYPE_NUMERIC)
+			model = String.valueOf(next.getNumericCellValue());
+		else if(nextType == Cell.CELL_TYPE_STRING)
+			model = next.getStringCellValue();
+
+		vName = cellIterator.next().getStringCellValue();
+		ueType = cellIterator.next().getStringCellValue();
+		os = cellIterator.next().getStringCellValue();
+		inputMode = cellIterator.next().getStringCellValue();
+
+
+		UEType uet = new UEType();
+		uet.setTac(tac);
+		uet.setMarketingName(marketingName);
+		uet.setManufacturer(manu);
+		uet.setAccessCapability(access);
+		uet.setModel(model);
+		uet.setVendorName(vName);
+		uet.setUEType(ueType);
+		uet.setOs(os);
+		uet.setInputMode(inputMode);
+		ueTypeDAO.addUEType(uet);
+	}
+	
+	private void parseMCCMNCCells(Iterator<Cell> cellIterator) {
+		int mcc;
+		int mnc;
+		String country;
+		String operator;
+
+		mcc = (int) cellIterator.next().getNumericCellValue();
+		mnc = (int) cellIterator.next().getNumericCellValue();
+		country = cellIterator.next().getStringCellValue();
+		operator = cellIterator.next().getStringCellValue();
+
+		MccMnc mccmnc = new MccMnc();
+		MccMncPK mpk = new MccMncPK();
+		mpk.setMcc(mcc);
+		mpk.setMnc(mnc);
+
+		mccmnc.setId(mpk);
+		mccmnc.setCountry(country);
+		mccmnc.setOperator(operator);
+
+    	mccMncDAO.addMccMnc(mccmnc);
+	}
+	
+	private void parseCallFailureCells(Iterator<Cell> cellIterator) {
 		Date date;
 		int eventId;
 		int ueType;
@@ -194,10 +361,11 @@ public class ImportEJB implements ImportService {
 			cf.setDuration(duration);
 			cf.setNEVersion(neVersion);
 			cf.setImsi(BigInteger.valueOf(imsi));
-			cf.setHier3Id(BigInteger.valueOf(hier3_id));
-			cf.setHier32Id(BigInteger.valueOf(hier32_id));
-			cf.setHier321Id(BigInteger.valueOf(hier321_id));
-			failureDAO.addCallFailure(cf);
+			cf.setHier3Id(hier3_id);
+			cf.setHier32Id(hier32_id);
+			cf.setHier321Id(hier321_id);
+//			failureDAO.addCallFailure(cf);
+			callFailures.add(cf);
 		} else{
 			InvalidCallFailure icf = new InvalidCallFailure();
 			icf.setDate(date);
@@ -210,10 +378,11 @@ public class ImportEJB implements ImportService {
 			icf.setDuration(duration);
 			icf.setCauseCode(invalidCauseCode);
 			icf.setImsi(BigInteger.valueOf(imsi));
-			icf.setHier3Id(BigInteger.valueOf(hier3_id));
-			icf.setHier32Id(BigInteger.valueOf(hier32_id));
-			icf.setHier321Id(BigInteger.valueOf(hier321_id));
-			invalidDAO.addInvalidCallFailure(icf);
+			icf.setHier3Id(hier3_id);
+			icf.setHier32Id(hier32_id);
+			icf.setHier321Id(hier321_id);
+//			invalidDAO.addInvalidCallFailure(icf);
+			invalidCallFailures.add(icf);
 		}
 	}
 	

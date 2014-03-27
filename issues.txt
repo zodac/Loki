@@ -1,3 +1,0 @@
-csr Query pages
-============
-- IMSI not validated (must be all digits).

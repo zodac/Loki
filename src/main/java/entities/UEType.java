@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -49,7 +48,7 @@ public class UEType implements Serializable {
 	private String vendorName;
 
 	//bi-directional many-to-one association to Callfailure
-	@OneToMany(mappedBy="ueType", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="ueType")
 	private List<CallFailure> callFailures;
 
 	public UEType() {
