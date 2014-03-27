@@ -57,4 +57,11 @@ public class SEQueries {
     	
         return cfEJB.findNumberOfFailuresByModelAndTimePeriod(model, fDate, tDate);
     }
+    
+    @GET
+    @Path("/{failureClassId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<BigInteger> findIMSIsByFailureClass(@PathParam("failureClassId") int failureClassId) {    	
+        return cfEJB.findIMSIsByFailureClass(failureClassId);
+    }
 }

@@ -21,8 +21,7 @@ import java.util.Date;
 	@NamedQuery(name = "CallFailure.EventCauseByIMSI",
 				query = "SELECT o.eventCause FROM CallFailure o WHERE o.imsi=:imsi GROUP BY o.eventCause"),
 	@NamedQuery(name = "CallFailure.NumOfFailuresByIMSIByTimePeriod",
-				query= "SELECT COUNT(o) FROM CallFailure o WHERE o.imsi=:imsi and o.date>=:fromDate and o.date<=:toDate"),
-				
+				query= "SELECT COUNT(o) FROM CallFailure o WHERE o.imsi=:imsi and o.date>=:fromDate and o.date<=:toDate"),				
 })
 public class CallFailure implements Serializable {
 	private static final long serialVersionUID = 1L;

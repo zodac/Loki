@@ -17,6 +17,8 @@
 							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.UNIQUE_EVENTID_AND_CAUSECODE_COMBINATION_AND_OCCURANCES_BY_MODEL%></a></li>
 					<li><a href="nmeTopMOC.jsp"><span
 							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.TOP_10_MARKET_OPERATOR_CELL_NODES_BY_TIME_PERIOD%></a></li>
+					<li><a href="nmeTopIMSI.jsp"><span
+							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.TOP_10_IMSIS%></a></li>
 					<li><a href="nmeTopMOCGraph.jsp"><span
 							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.TOP_10_MARKET_OPERATOR_CELL_NODES_GRAPHICAL%></a></li>
 				</ul>

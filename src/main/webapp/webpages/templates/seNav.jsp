@@ -14,11 +14,12 @@
 							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.ALL_IMSIS_BY_TIME_PERIOD%></a></li>
 					<li><a href="seCountForModel.jsp"><span
 							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.NUM_FAILURES_BY_MODEL_BY_TIME_PERIOD%></a></li>
+					<li><a href="seIMSIByFC.jsp"><span
+							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.IMSIS_BY_FAILURE_CLASS%></a></li>
 				</ul>
 			</div>
 		</ul>
-		<a class="twitter-timeline" width="250" height "250" data-dnt="true"
+		<a class="twitter-timeline" width="250" height="250" data-dnt="true"
 			href="https://twitter.com/ericsson"
 			data-widget-id="444114613219520513"><%=Strings.TWEETS%></a>
-
 	</div>

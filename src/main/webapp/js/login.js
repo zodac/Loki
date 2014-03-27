@@ -3,7 +3,7 @@ function loginUser(){
 	var password = document.forms["loginform"]["password"].value;
 	var userJSON = makeJSONObject("./webservice/Users/" + username);
 	
-	if (userJSON != "") {
+	if (userJSON != "" && userJSON != null) {
 		if (userJSON.userPassword == hex_sha1(password)) {
 			var type = userJSON.usertype;
 			
@@ -34,9 +34,9 @@ function makeJSONObject(location) {
 	request.send(null);
 	
 	if(request.responseText != "") {
-		result = eval("(" + request.responseText + ")");
+		return eval("(" + request.responseText + ")");
 	}
-	return result;
+	return null;
 }
 
 var hexcase = 0; var b64pad  = "";

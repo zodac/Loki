@@ -16,6 +16,8 @@
 							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.ALL_IMSIS_BY_TIME_PERIOD%></a></li>
 					<li><a href="seCountForModel.jsp"><span
 							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.NUM_FAILURES_BY_MODEL_BY_TIME_PERIOD%></a></li>
+					<li><a href="seIMSIByFC.jsp"><span
+							class="glyphicon glyphicon-arrow-right"></span> <%=Strings.IMSIS_BY_FAILURE_CLASS%></a></li>
 				</ul>
 			</div>
 		</ul>

@@ -22,4 +22,6 @@ public interface CallFailureDAO {
 	List<Long> numberOfFailuresByIMSIByTimePeriod(long imsi, Date fromDate, Date toDate);
 	List<TopMOCEntity> getTopTenMOCGraphical();
 	List<Object[]> getTopTenMOC(Date fromDate, Date toDate);
+	List<BigInteger> findIMSIsByFailureClass(int failureClassId);
+	List<Object[]> getTopTenIMSI(Date fromDate, Date toDate);
 }

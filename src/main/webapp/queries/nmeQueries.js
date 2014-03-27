@@ -132,6 +132,9 @@ function topMOC(){
 	var tbody = document.createElement("tbody");
 	var thead = document.createElement("thead");
 	var th = document.createElement("th");
+	th.appendChild(document.createTextNode("Rank"));
+	thead.appendChild(th);
+	th = document.createElement("th");
 	th.appendChild(document.createTextNode("Cell ID"));
 	thead.appendChild(th);
 	th = document.createElement("th");
@@ -148,6 +151,10 @@ function topMOC(){
 	for(var i = 0; i < results.length; i++){
 		var row = document.createElement("tr");
 		var cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(i+1));
+		row.appendChild(cell);
+		
+		cell = document.createElement("td");
 		cell.appendChild(document.createTextNode(results[i][0]));
 		row.appendChild(cell);
 		
@@ -161,6 +168,41 @@ function topMOC(){
 		
 		cell = document.createElement("td");
 		cell.appendChild(document.createTextNode(results[i][3]));
+		row.appendChild(cell);
+		
+		tbody.appendChild(row);
+	}
+	table.appendChild(tbody);
+	
+	div.appendChild(table);
+	document.getElementById("queryresult").appendChild(div);
+}
+
+function topIMSIs(){
+	var fromDate = document.forms["nmequery"]["from"].value;
+	var toDate = document.forms["nmequery"]["to"].value;
+	var results = makeJSONObject("./../../webservice/NMEQueries/IMSI/" + fromDate + "/" + toDate);
+
+	var div = document.createElement("div");
+	div.setAttribute("style", "max-height: 400px; overflow: auto;");
+	var table = document.createElement("table");
+	table.setAttribute("class", "table table-striped table-bordered");
+	
+	var tbody = document.createElement("tbody");
+	table.appendChild(createHead("Rank", "IMSI", "Number of failures"));
+	
+	for(var i = 0; i < results.length; i++){
+		var row = document.createElement("tr");
+		var cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(i+1));
+		row.appendChild(cell);
+		
+		cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(results[i][0]));
+		row.appendChild(cell);
+		
+		cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(results[i][1]));
 		row.appendChild(cell);
 		
 		tbody.appendChild(row);

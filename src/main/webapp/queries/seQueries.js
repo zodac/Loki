@@ -60,6 +60,41 @@ function numberOfFailuresByModelAndTimePeriod(){
 	}
 }
 
+function allIMSIsByFailureClass(){
+	var fc = document.forms["sequery"]["failureclass"].value;
+	
+	if(!/^-{0,1}\d*\.{0,1}\d+$/.test(fc)){
+    	alert("Invalid FailureClass format!");
+    	document.forms["sequery"]["failureclass"].focus();
+    } else if(makeJSONObject("./../../webservice/FailureClass/" + fc) == 0){
+    	alert("Invalid FailureClass value!");
+		document.forms["sequery"]["failureclass"].focus();
+    } else{
+    	var results = makeJSONObject("./../../webservice/SEQueries/" + fc);
+
+    	var div = document.createElement("div");
+    	div.setAttribute("style", "max-height: 400px; overflow: auto;");
+    	var table = document.createElement("table");
+    	table.setAttribute("class", "table table-striped table-bordered");
+    	
+    	var tbody = document.createElement("tbody");
+    	table.appendChild(createHead("IMSI"));		
+    	
+    	for(var i = 0; i < results.length; i++){
+    		var row = document.createElement("tr");
+    		var cell = document.createElement("td");
+    		cell.appendChild(document.createTextNode(results[i]));
+    		row.appendChild(cell);
+    		
+    		tbody.appendChild(row);
+    	}
+    	table.appendChild(tbody);
+    	
+    	div.appendChild(table);
+    	document.getElementById("queryresult").appendChild(div);
+    }
+}
+
 function createHead(t1) {
 	var thead = document.createElement("thead");
 	var th = document.createElement("th");

@@ -7,4 +7,5 @@ public interface FailureClassDAO {
 	void addFailureClass(FailureClass fc);
 	boolean doesFailureClassExist(int failureClassId);
 	long getNumberOfFailureClasses();
+	long getFailureClassCount(int failureClassId);
 }

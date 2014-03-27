@@ -64,6 +64,22 @@ public class NMEQueries {
     }
     
     @GET
+    @Path("/IMSI/{fromDate}/{toDate}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Object[]> getTopTenIMSI(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
+    	Date fDate = null;
+    	Date tDate = null;
+    	
+    	try {
+			fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fromDate.replace('T', ' '));
+			tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(toDate.replace('T', ' '));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        return cfEJB.getTopTenIMSI(fDate, tDate);
+    }
+    
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<TopMOCEntity> getTopTenMOCGraphical() {
         return cfEJB.getTopTenMOCGraphical();

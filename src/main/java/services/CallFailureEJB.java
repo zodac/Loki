@@ -66,4 +66,14 @@ public class CallFailureEJB implements CallFailureService {
 	public List<Object[]> getTopTenMOC(Date fromDate, Date toDate) {
 		return dao.getTopTenMOC(fromDate, toDate);
 	}
+
+	@Override
+	public List<BigInteger> findIMSIsByFailureClass(int failureClassId) {
+		return dao.findIMSIsByFailureClass(failureClassId);
+	}
+
+	@Override
+	public List<Object[]> getTopTenIMSI(Date fDate, Date tDate) {
+		return dao.getTopTenIMSI(fDate, tDate);
+	}
 }

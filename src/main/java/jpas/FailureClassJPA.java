@@ -1,5 +1,6 @@
 package jpas;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -34,5 +35,10 @@ public class FailureClassJPA implements FailureClassDAO {
 
 	public FailureClass getFailureClass(int failureClassId) {
 		return em.find(FailureClass.class, failureClassId);
+	}
+
+	public long getFailureClassCount(int failureClassId) {
+		return ((BigInteger) em.createNativeQuery("SELECT COUNT(*) FROM FailureClass WHERE FailureClass= ?;")
+				.setParameter(1, failureClassId).getSingleResult()).longValue();
 	}
 }
