@@ -38,7 +38,7 @@ public class FailureClassJPA implements FailureClassDAO {
 	}
 
 	public long getFailureClassCount(int failureClassId) {
-		return ((BigInteger) em.createNativeQuery("SELECT COUNT(*) FROM FailureClass WHERE FailureClass= ?;")
+		return ((BigInteger) em.createNativeQuery("SELECT COUNT(*) FROM FailureClass WHERE failureClass= ?")
 				.setParameter(1, failureClassId).getSingleResult()).longValue();
 	}
 }

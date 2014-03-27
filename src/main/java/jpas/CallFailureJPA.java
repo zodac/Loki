@@ -86,7 +86,7 @@ public class CallFailureJPA implements CallFailureDAO {
 	public long findIMSICount(long imsi) {
 		return ((BigInteger) em
 				.createNativeQuery(
-						"SELECT COUNT(IMSI) FROM CallFailure WHERE IMSI= ?;")
+						"SELECT COUNT(IMSI) FROM CallFailure WHERE IMSI= ?")
 				.setParameter(1, imsi).getSingleResult()).longValue();
 	}
 
@@ -99,7 +99,7 @@ public class CallFailureJPA implements CallFailureDAO {
 	public List<Integer> findUniqueCauseCodesByIMSI(long imsi) {
 		return (List<Integer>) em
 				.createNativeQuery(
-						"SELECT DISTINCT Cause_Code FROM CallFailure WHERE IMSI= ? ORDER BY Cause_Code;")
+						"SELECT DISTINCT Cause_Code FROM CallFailure WHERE IMSI= ? ORDER BY Cause_Code")
 				.setParameter(1, BigInteger.valueOf(imsi)).getResultList();
 	}
 

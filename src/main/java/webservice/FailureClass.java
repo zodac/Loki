@@ -21,7 +21,7 @@ public class FailureClass {
 	@GET
     @Path("/{failureClassId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public long findIMSICount(@PathParam("failureClassId") int failureClassId) {
+    public long findFailureClassCount(@PathParam("failureClassId") int failureClassId) {
         return fcEJB.findFailureClassCount(failureClassId);
     }
 }
