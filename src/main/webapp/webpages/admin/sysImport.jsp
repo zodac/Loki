@@ -9,10 +9,11 @@
 	<br /> <br /> <br />
 
 	<form name="upload" id="upload"
+		method="POST" action="./../../webservice/Upload"
 		enctype="multipart/form-data">
 		<div class="form-group">
 			<div class="col-md-offset-4 col-md-4">
-				<input type="file" value="Import" name="ImportFile"
+				<input type="file" value="Import" id="importfile" name="importfile"
 					accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 					required />
 			</div>
@@ -20,7 +21,7 @@
 		<br /> <br />
 		<div class="form-group">
 			<div class="col-md-offset-3 col-md-4">
-				<input type="button" class="btn btn-primary" onclick="import()" value="<%=Strings.UPLOAD%>" />
+				<input type="submit" class="btn btn-primary" value="<%=Strings.UPLOAD%>" />
 			</div>
 		</div>
 	</form>
