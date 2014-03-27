@@ -13,13 +13,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jws.WebService;
 
+import jpas.JPA;
+
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+
 import com.google.common.collect.Lists;
 
-import jpas.JPA;
-import services.ImportService;
 import daos.CallFailureDAO;
 import daos.EventCauseDAO;
 import daos.FailureClassDAO;
@@ -75,7 +76,6 @@ public class ImportEJB implements ImportService {
 	
 	
 	public void addToDatabase(Object excelSheet){
-		 
         Iterator<Row> rowIterator = ((HSSFSheet)excelSheet).iterator();
         List<Row> rowList = Lists.newArrayList(rowIterator);
         
@@ -202,7 +202,7 @@ public class ImportEJB implements ImportService {
 			InvalidCallFailure icf = new InvalidCallFailure();
 			icf.setDate(date);
 			icf.setEventId(eventId);
-			icf.setFailureClass(String.valueOf(failureClass));
+			icf.setFailureClass(invalidFailureClass);
 			icf.setUEType(ueType);
 			icf.setMarket(market);
 			icf.setOperator(operator);
@@ -262,8 +262,4 @@ public class ImportEJB implements ImportService {
 	private static boolean isLeapYear(int year){
 		return ((year%4 == 0) && (year%100 != 0) || (year%400 == 0));
 	}
-
-
-
-	
 }

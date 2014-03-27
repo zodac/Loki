@@ -1,7 +1,6 @@
 <%@ page import="main.*"%>
 <script src="../../js/showUsers.js"></script>
 <script src="../../js/register.js"></script>
-<script src="../../js/upload.js"></script>
 <div class="row">
 	<div class="col-md-3 text-left" id="border">
 		<ul class="nav nav-pills nav-stacked">

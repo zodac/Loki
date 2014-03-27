@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -14,22 +15,25 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MultivaluedMap;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
+
+import services.ImportService;
 
 @Path("/Upload")
 @Stateless
 @LocalBean
 public class Upload {
-	//@EJB
-	//CallFailureService cfEJB; //Needed to import datasets
+	@EJB
+	ImportService iEJB;
 	
 	@POST
 	@Consumes("multipart/form-data")
 	public void uploadFile(MultipartFormDataInput dataset) {
 		String fileName = "";
-		createTempFolders();
+		
 		Map<String, List<InputPart>> uploadForm = dataset.getFormDataMap();
 		List<InputPart> inputParts = uploadForm.get("importfile");
 		
@@ -38,12 +42,17 @@ public class Upload {
 				MultivaluedMap<String, String> header = inputPart.getHeaders();
 				fileName = getFileName(header);
 				
-				if(!fileName.equals("unknown")){
-					InputStream inputStream = inputPart.getBody(InputStream.class, null);
-					byte[] bytes = IOUtils.toByteArray(inputStream);
-					
-					String tmpFile = "C:\\tmp\\" + fileName;
-					writeFile(bytes, tmpFile);
+				String fileExtension = FilenameUtils.getExtension(fileName);
+
+				if(fileExtension.equals("xls") || fileExtension.equals("xlsx")){
+					if(!fileName.equals("unknown")){
+						InputStream inputStream = inputPart.getBody(InputStream.class, null);
+						byte[] bytes = IOUtils.toByteArray(inputStream);
+						
+						writeFile(bytes, fileName);
+					}
+				} else{
+					//TODO Alert for invalid file type
 				}
 			} catch(IOException e){
 			}
@@ -55,33 +64,31 @@ public class Upload {
  
 		for (String filename : contentDisposition) {
 			if ((filename.trim().startsWith("filename"))) {
- 
 				String[] name = filename.split("=");
  
-				String finalFileName = name[1].trim().replaceAll("\"", "");
-				return finalFileName;
+				return name[1].trim().replaceAll("\"", "");
 			}
 		}
 		return "unknown";
 	}
 	
 	private void writeFile(byte[] content, String filename){
-        File file = new File(filename);
-        if (!file.exists()) {
-            try {
-				file.createNewFile();
-				FileOutputStream fop = new FileOutputStream(file);
-		        fop.write(content);
-		        fop.flush();
-		        fop.close();
-			} catch (IOException e) {
-			}
+		createTempFolders();
+        File file = new File("C:\\tmp\\" + filename);
+        if (file.exists()) {
+        	file.delete();
         }
+        try {
+			file.createNewFile();
+			FileOutputStream out = new FileOutputStream(file);
+	        out.write(content);
+	        out.close();
+		} catch (IOException e) {
+		}
     }
 	
 	private static void createTempFolders(){
 		makeFolder(new File("C:\\tmp"));
-		makeFolder(new File("C:\\tmpFinal"));
 	}
 
 	private static void makeFolder(File folderName){
