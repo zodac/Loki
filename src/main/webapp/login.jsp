@@ -5,10 +5,13 @@
 <title><%=Strings.TITLE%></title>
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/alertify.core.css" rel="stylesheet">
+<link href="css/alertify.default.css" rel="stylesheet">
 <link href="css/styles.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/login.js"></script>
+<script src="js/alertify.min.js"></script>
 <script>
 	$(function() {
 		$('#loginform').submit(function(event) {
