@@ -150,7 +150,7 @@ public class CallFailureJPA implements CallFailureDAO {
 		return entities;
 	}
 
-	public List<Object[]> getTopTenMOC(Date fromDate, Date toDate) {
+	public List<TopMOCEntity> getTopTenMOC(Date fromDate, Date toDate) {
 		List<Object[]> results = (List<Object[]>) em
 				.createNativeQuery(
 						"SELECT t1.cellId, t2.country, t2.operator, count(*)"
@@ -159,7 +159,20 @@ public class CallFailureJPA implements CallFailureDAO {
 								+ " ORDER BY COUNT(*) DESC LIMIT 10")
 				.setParameter(1, fromDate).setParameter(2, toDate)
 				.getResultList();
-		return results;
+		List<TopMOCEntity> entities = new ArrayList<TopMOCEntity>();
+
+		for (Object[] obj : results) {
+			TopMOCEntity top = new TopMOCEntity();
+
+			top.setCellId((Integer) obj[0]);
+			top.setCountry(String.valueOf(obj[1]));
+			top.setOperator(String.valueOf(obj[2]));
+			top.setNumberOfFailures((BigInteger) obj[3]);
+
+			entities.add(top);
+		}
+
+		return entities;
 	}
 
 	public List<BigInteger> findIMSIsByFailureClass(int failureClassId) {

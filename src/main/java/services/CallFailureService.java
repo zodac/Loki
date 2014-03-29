@@ -22,7 +22,7 @@ public interface CallFailureService {
 	List<Integer> findUniqueCauseCodesByIMSI(long imsi);
 	List<Long> numberOfFailuresByIMSIByTimePeriod(long imsi, Date fromDate, Date toDate);
 	List<TopMOCEntity> getTopTenMOCGraphical();
-	List<Object[]> getTopTenMOC(Date fromDate, Date toDate);
+	List<TopMOCEntity> getTopTenMOC(Date fromDate, Date toDate);
 	List<BigInteger> findIMSIsByFailureClass(int failureClassId);
 	List<Object[]> getTopTenIMSI(Date fDate, Date tDate);
 }

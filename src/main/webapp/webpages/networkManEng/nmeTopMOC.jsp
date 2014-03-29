@@ -24,7 +24,8 @@
 				<span style="display:inline"><input class="btn btn-primary" type="button" onclick="topMOC()" value="<%=Strings.SUBMIT%>" /></span>
 
 	</form>
-	<div class="col-md-offset-2 col-md-7" id="queryresult"></div>
+	<div class="col-md-offset-2 col-md-7" id="queryresult"></div><br />
+	<div class="col-md-12" id="chartContainer">
 </div>
 
 <jsp:include page="../templates/footer.jsp" />

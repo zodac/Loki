@@ -51,7 +51,7 @@ public class NMEQueries {
     @GET
     @Path("/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Object[]> getTopTenMOC(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
+    public List<TopMOCEntity> getTopTenMOC(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
     	Date fDate = null;
     	Date tDate = null;
     	

@@ -65,7 +65,7 @@ public class CallFailureEJB implements CallFailureService {
 	}
 
 	@Override
-	public List<Object[]> getTopTenMOC(Date fromDate, Date toDate) {
+	public List<TopMOCEntity> getTopTenMOC(Date fromDate, Date toDate) {
 		return dao.getTopTenMOC(fromDate, toDate);
 	}
 

@@ -208,35 +208,78 @@ function topMOC() {
 	th.appendChild(document.createTextNode("Failures"));
 	thead.appendChild(th);
 	table.appendChild(thead);
+	
+	var counter = 1;
+	var dataForChart = []; 
 
-	for ( var i = 0; i < results.length; i++) {
+	$.each(results, function(key, value) {
 		var row = document.createElement("tr");
 		var cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(i + 1));
+		cell.appendChild(document.createTextNode(counter));
 		row.appendChild(cell);
 
 		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(results[i][0]));
+		cell.appendChild(document.createTextNode(value.cellId));
 		row.appendChild(cell);
 
 		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(results[i][1]));
+		cell.appendChild(document.createTextNode(value.country));
 		row.appendChild(cell);
 
 		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(results[i][2]));
+		cell.appendChild(document.createTextNode(value.operator));
 		row.appendChild(cell);
 
 		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(results[i][3]));
+		cell.appendChild(document.createTextNode(value.numberOfFailures));
 		row.appendChild(cell);
 
 		tbody.appendChild(row);
-	}
+		counter++;
+		
+		var yaxis = "cellId: " + value.cellId + ", "
+				+ value.country + ", " + value.operator;
+		dataForChart.push([ yaxis, value.numberOfFailures ]);
+	});
 	table.appendChild(tbody);
 
 	div.appendChild(table);
 	document.getElementById("queryresult").appendChild(div);
+	$(document).ready(
+			function() {
+				chart = new Highcharts.Chart({
+					chart : {
+						renderTo : 'chartContainer', 
+						type : 'column',
+						plotBackgroundColor : null,
+						plotBorderWidth : null,
+						plotShadow : false
+					},
+					title : {
+						text : null
+					},
+					tooltip : {
+						formatter : function() {
+							return 'Number Of Failures:<b>'
+									+ this.y + '</b>';
+						}
+					},
+					xAxis : {
+						categories : []
+					},
+					yAxis : {
+						min : 0,
+						title : {
+							text : 'Number Of Failures'
+						}
+					},
+					series : [ {
+						showInLegend : false,
+						data: dataForChart
+					} ]
+				});
+
+			});
 }
 
 function topIMSIs() {
