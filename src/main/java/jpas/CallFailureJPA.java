@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopMOCEntity;
 import daos.CallFailureDAO;
 import entities.CallFailure;
@@ -52,11 +53,22 @@ public class CallFailureJPA implements CallFailureDAO {
 		return callfailures.size();
 	}
 
-	public List<Object[]> findUniqueEventCauseAndOccurancesByTAC(int tac) {
-		return (List<Object[]>) em
+	public List<EventIdCauseCodeCombo> findUniqueEventCauseAndOccurancesByTAC(int tac) {
+		List<Object[]> results = (List<Object[]>) em
 				.createNativeQuery(
 						"SELECT Event_ID, Cause_Code, COUNT(*) FROM CallFailure WHERE UE_Type=? GROUP BY Event_ID, Cause_Code")
 				.setParameter(1, tac).getResultList();
+		
+		List<EventIdCauseCodeCombo> entities = new ArrayList<EventIdCauseCodeCombo>();
+		
+		for (Object[] obj : results) {
+			EventIdCauseCodeCombo top = new EventIdCauseCodeCombo();
+			top.setEvent_ID((Integer)obj[0]);
+			top.setCause_Code((Integer)obj[1]);
+			top.setOccurrences((BigInteger)obj[2]);
+			entities.add(top);
+		}
+		return entities;
 	}
 
 	public List<Object[]> findNumberOfFailuresAndDuration(Date fromDate,

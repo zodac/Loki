@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopMOCEntity;
 import services.CallFailureService;
 
@@ -27,7 +28,7 @@ public class NMEQueries {
 	@GET
     @Path("/{tac}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Object[]> findUniqueEventCauseAndOccurancesByModel(@PathParam("tac") int tac) {
+    public List<EventIdCauseCodeCombo> findUniqueEventCauseAndOccurancesByModel(@PathParam("tac") int tac) {
         return cfEJB.findUniqueEventCauseAndOccurancesByTAC(tac);
     }
     

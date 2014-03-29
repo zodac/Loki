@@ -17,7 +17,9 @@
 		</div>
 		<input class="btn btn-primary" type="button" onclick="uniqueEventCauseAndOccurancesByModel()" value="<%=Strings.SUBMIT%>" />
 	</form>
-	<div class="col-md-offset-2 col-md-7" id="queryresult"></div>
+	<div class="col-md-5" id="queryresult"></div><br />
+	<div class="col-md-7" id="causeContainer"></div>
+	
 </div>
 
 <jsp:include page="../templates/footer.jsp" />

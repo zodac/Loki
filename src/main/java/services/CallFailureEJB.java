@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.jws.WebService;
 
 import jpas.JPA;
+import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopMOCEntity;
 import daos.CallFailureDAO;
 import entities.EventCause;
@@ -25,7 +26,8 @@ public class CallFailureEJB implements CallFailureService {
 		this.dao = dao;
 	}
 
-	public List<Object[]> findUniqueEventCauseAndOccurancesByTAC(int tac) {
+	@Override
+	public List<EventIdCauseCodeCombo> findUniqueEventCauseAndOccurancesByTAC(int tac) {
 		return dao.findUniqueEventCauseAndOccurancesByTAC(tac);
 	}
 	
