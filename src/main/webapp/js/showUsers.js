@@ -7,10 +7,16 @@ function showUsers(){
 	var tbody = document.createElement("tbody");
 	var thead = document.createElement("thead");
 	var th = document.createElement("th");
-	th.appendChild(document.createTextNode("UserName"));
+	th.appendChild(document.createTextNode("Username"));
 	thead.appendChild(th);
 	th = document.createElement("th");
-	th.appendChild(document.createTextNode("UserType"));
+	th.appendChild(document.createTextNode("First Name"));
+	thead.appendChild(th);
+	th = document.createElement("th");
+	th.appendChild(document.createTextNode("Surname"));
+	thead.appendChild(th);
+	th = document.createElement("th");
+	th.appendChild(document.createTextNode("User Role"));
 	thead.appendChild(th);
 	
 	table.appendChild(thead);
@@ -19,8 +25,16 @@ function showUsers(){
 		var row = document.createElement("tr");
 		var cell = document.createElement("td");
 		cell.appendChild(document.createTextNode(users[i].userName));
-		
 		row.appendChild(cell);
+		
+		cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(users[i].firstName));
+		row.appendChild(cell);
+		
+		cell = document.createElement("td");
+		cell.appendChild(document.createTextNode(users[i].lastName));
+		row.appendChild(cell);
+		
 		cell = document.createElement("td");
 		cell.appendChild(document.createTextNode(users[i].usertype));
 		row.appendChild(cell);
