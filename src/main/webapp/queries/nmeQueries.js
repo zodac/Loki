@@ -12,27 +12,101 @@ function numberOfFailuresAndDuration() {
 	var tbody = document.createElement("tbody");
 	table.appendChild(createHead("IMSI", "Number of failures",
 			"Total Duration (ms)"));
+	
+	var dataForChart = [];
 
-	for ( var i = 0; i < results.length; i++) {
+	$.each(results, function(key, value) {
 		var row = document.createElement("tr");
 		var cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(results[i][0]));
+		cell.appendChild(document.createTextNode(value.imsi));
 		row.appendChild(cell);
 
 		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(results[i][1]));
+		cell.appendChild(document.createTextNode(value.count));
 		row.appendChild(cell);
 
 		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(results[i][2]));
+		cell.appendChild(document.createTextNode(value.numofFailures));
 		row.appendChild(cell);
 
 		tbody.appendChild(row);
-	}
+		// for the tool-tips when count and duration are the same, entries are on top of each other 
+		$.each(dataForChart, function(){
+			if(this.x == value.count && this.y == value.numofFailures){ 
+				this.tooltip = this.tooltip + '<br />IMSI: ' +value.imsi;
+			}
+		});
+		dataForChart.push({x : value.count, 
+					y: value.numofFailures,
+					tooltip: 'IMSI: ' + value.imsi});
+		
+		
+	});
 	table.appendChild(tbody);
 
 	div.appendChild(table);
 	document.getElementById("queryresult").appendChild(div);
+	
+	$(document).ready(function() {
+		chart = new Highcharts.Chart({
+			chart : {
+				renderTo : 'scatterplot',
+				type : 'scatter'
+			},
+			xAxis: {
+                title: {
+                    enabled: true,
+                    text: 'Number of Call Failures'
+                },
+                startOnTick: true,
+                endOnTick: true,
+                showLastLabel: true
+            },
+			yAxis : {
+				min : 0,
+				title : {
+					text : 'Total Duration',
+					align : 'middle'
+				},
+				labels : {
+					overflow : 'justify',
+					format: '{value} m/s'
+				}
+			},
+			title : {
+				text : null
+			},
+			 plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineColor: 'rgb(100,100,100)'
+                            }
+                        }
+                    },
+                    states: {
+                        hover: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    }
+                }
+            },
+			tooltip : {
+							formatter : function() {
+								return this.point.tooltip;
+							}
+						},
+			series : [{
+				showInLegend : false,
+				data : dataForChart
+			}]
+		});
+	});
 }
 
 function uniqueEventCauseAndOccurancesByModel() {

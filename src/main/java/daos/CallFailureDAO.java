@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
+import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
@@ -16,7 +17,7 @@ public interface CallFailureDAO {
 	long getNumberOfCallFailures();
 	long findIMSICount(long imsi);
 	List<EventIdCauseCodeCombo> findUniqueEventCauseAndOccurancesByTAC(int tac);
-	List<Object[]> findNumberOfFailuresAndDuration(Date fromDate, Date toDate);
+	List<CountAndDuarationOfIMSI> findNumberOfFailuresAndDuration(Date fromDate, Date toDate);
 	List<BigInteger> findAllIMSIsByTimePeriod(Date fromDate, Date toDate);
 	List<BigInteger> findNumberOfFailuresByModelAndTimePeriod(String model, Date fromDate, Date toDate);
 	List<EventCause> findUniqueEventCauseByIMSI(long imsi);

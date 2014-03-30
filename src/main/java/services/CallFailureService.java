@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Remote;
 import javax.jws.WebService;
 
+import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
@@ -16,7 +17,7 @@ import entities.EventCause;
 public interface CallFailureService {
 	long findIMSICount(long imsi);
 	List<EventIdCauseCodeCombo> findUniqueEventCauseAndOccurancesByTAC(int tac);
-	List<Object[]> findNumberOfFailuresAndDuration(Date fromDate, Date toDate);
+	List<CountAndDuarationOfIMSI> findNumberOfFailuresAndDuration(Date fromDate, Date toDate);
 	List<BigInteger> findAllIMSIsByTimePeriod(Date fromDate, Date toDate);
 	List<BigInteger> findNumberOfFailuresByModelAndTimePeriod(String model, Date fromDate, Date toDate);
 	List<EventCause> findUniqueEventCauseByIMSI(long imsi);

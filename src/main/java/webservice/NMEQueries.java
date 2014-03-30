@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
@@ -36,7 +37,7 @@ public class NMEQueries {
     @GET
     @Path("/FD/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Object[]> findNumberOfFailuresAndDuration(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
+    public List<CountAndDuarationOfIMSI> findNumberOfFailuresAndDuration(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
     	Date fDate = null;
     	Date tDate = null;
     	

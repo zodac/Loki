@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.jws.WebService;
 
 import jpas.JPA;
+import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
@@ -32,7 +33,7 @@ public class CallFailureEJB implements CallFailureService {
 		return dao.findUniqueEventCauseAndOccurancesByTAC(tac);
 	}
 	
-	public List<Object[]> findNumberOfFailuresAndDuration(Date fromDate, Date toDate){
+	public List<CountAndDuarationOfIMSI> findNumberOfFailuresAndDuration(Date fromDate, Date toDate){
 		return dao.findNumberOfFailuresAndDuration(fromDate, toDate);
 	}
 

@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
@@ -72,12 +73,23 @@ public class CallFailureJPA implements CallFailureDAO {
 		return entities;
 	}
 
-	public List<Object[]> findNumberOfFailuresAndDuration(Date fromDate,
+	public List<CountAndDuarationOfIMSI> findNumberOfFailuresAndDuration(Date fromDate,
 			Date toDate) {
-		return (List<Object[]>) em
+		List<Object[]> results = (List<Object[]>) em
 				.createNamedQuery("CallFailure.NumOfFailuresAndDuration")
 				.setParameter("fromDate", fromDate)
 				.setParameter("toDate", toDate).getResultList();
+		
+		List<CountAndDuarationOfIMSI> entities = new ArrayList<CountAndDuarationOfIMSI>();
+		
+		for (Object[] obj : results) {
+			CountAndDuarationOfIMSI top = new CountAndDuarationOfIMSI();
+			top.setIMSI((BigInteger)obj[0]);
+			top.setCount((Long)obj[1]);
+			top.setNumofFailures((Long)obj[2]);
+			entities.add(top);
+		}
+		return entities;	
 	}
 
 	public List<BigInteger> findAllIMSIsByTimePeriod(Date fromDate, Date toDate) {
