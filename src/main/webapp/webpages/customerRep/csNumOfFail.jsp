@@ -2,7 +2,14 @@
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/csrepNav.jsp" />
 <!-- content here -->
-
+<script>
+	$(function() {
+		$('#csrquery').submit(function(event) {
+			event.preventDefault();
+			numberOfFailuresByIMSIByTimePeriod();
+		});
+	});
+</script>
 <div class="col-md-9 text-center">
 	<h4 class="col-md-12 text-center"><%=Strings.NUM_FAILURES_BY_IMSI_BY_TIME_PERIOD%></h4>
 	<br /> <br /> <br />
@@ -25,11 +32,11 @@
 		<div class="form-group">
 			<div class="col-md-1">
 				<input type="datetime-local" class="form-control" id="to"
-					value="2013-12-31T23:59:00" step="1" name="to" required
+					value="2013-12-31T23:59:59" step="1" name="to" required
 					title="<%=Strings.TT_TO%>">
 			</div>
 		</div>
-		<span style="display: inline"><input class="btn btn-primary" type="button" onclick="numberOfFailuresByIMSIByTimePeriod()" value="<%=Strings.SUBMIT%>" /></span>
+		<span style="display: inline"><input class="btn btn-primary" type="submit" value="<%=Strings.SUBMIT%>" /></span>
 	</form>
 	<div class="col-md-offset-2 col-md-7" id="queryresult"></div>
 

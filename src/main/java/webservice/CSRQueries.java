@@ -49,7 +49,12 @@ public class CSRQueries {
 			fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fromDate.replace('T', ' '));
 			tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(toDate.replace('T', ' '));
 		} catch (ParseException e) {
-			e.printStackTrace();
+			try{
+				fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fromDate.replace('T', ' '));
+				tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toDate.replace('T', ' '));
+			} catch (ParseException e1){
+				e1.printStackTrace();
+			}
 		}
         return cfEJB.numberOfFailuresByIMSIByTimePeriod(imsi, fDate, tDate);
     }
