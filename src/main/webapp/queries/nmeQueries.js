@@ -126,10 +126,20 @@ function uniqueEventCauseAndOccurancesByModel() {
 		var tbody = document.createElement("tbody");
 		table.appendChild(createHead("Event ID", "Cause Code", "Occurrences"));
 		
-		
-
+		var chart = $('#container').highcharts();;
+		function toggleElement(index){
+		 		$.each(chart.series[0].data, function(key, value){
+		 			if(value.idForClick === index){
+		 				this.select(); 
+		 			}
+		 		});    
+		}
 		$.each(results, function(key, value) {
 			var row = document.createElement("tr");
+			var idText = '' + value.event_ID + value.cause_Code;
+			row.setAttribute('id', idText);
+			row.setAttribute('class', 'more');
+			
 			var cell = document.createElement("td");
 			cell.appendChild(document.createTextNode(value.event_ID));
 			row.appendChild(cell);
@@ -149,7 +159,8 @@ function uniqueEventCauseAndOccurancesByModel() {
 			dataForChart.push({
 				causeName : cause,
 				evtName : evt,
-				y : value.occurrences
+				y : value.occurrences,
+				idForClick : idText
 			});
 		});
 		table.appendChild(tbody);
@@ -196,6 +207,9 @@ function uniqueEventCauseAndOccurancesByModel() {
 					data : dataForChart
 				} ]
 			});
+			$(".more").click(function(){
+	            toggleElement($(this).attr('id'));
+	        }); 
 		});
 	} else {
 		alert("Invalid phone model!");
