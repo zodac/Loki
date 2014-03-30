@@ -2,7 +2,14 @@
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/seNav.jsp" />
 <!-- content here -->
-
+<script>
+	$(function() {
+		$('#sequery').submit(function(event) {
+			event.preventDefault();
+			numberOfFailuresByModelAndTimePeriod();
+		});
+	});
+</script>
 <div class="col-md-9 text-center">
 	<h4 class="col-md-12 text-center"><%=Strings.NUM_FAILURES_BY_MODEL_BY_TIME_PERIOD%></h4>
 	<br /> <br /> <br />
@@ -26,11 +33,11 @@
 		<div class="form-group">
 			<div class="col-md-1">
 				<input type="datetime-local" class="form-control" id="to" name="to"
-					value="2013-12-31T23:59:00" step="1" data-toggle="tooltip"
+					value="2013-12-31T23:59:59" step="1" data-toggle="tooltip"
 					data-placement="bottom" required title="<%=Strings.TT_TO%>">
 			</div>
 		</div>
-		<span style="display: inline"><input class="btn btn-primary" type="button" onclick="numberOfFailuresByModelAndTimePeriod()" value="<%=Strings.SUBMIT%>" /></span>
+		<span style="display: inline"><input class="btn btn-primary" type="submit" value="<%=Strings.SUBMIT%>" /></span>
 	</form>
 	<div class="col-md-offset-2 col-md-7" id="queryresult"></div>
 </div>

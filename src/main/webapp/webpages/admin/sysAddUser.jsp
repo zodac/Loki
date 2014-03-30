@@ -2,7 +2,14 @@
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/sysNav.jsp" />
 <!-- content here -->
-
+<script>
+	$(function() {
+		$('#register').submit(function(event) {
+			event.preventDefault();
+			registerUser();
+		});
+	});
+</script>
 <div class="col-md-9 text-center">
 	<h3 class="col-md-offset-5 col-md-8 text-left">
 		<em><%=Strings.CREATE_USER%></em>
@@ -77,7 +84,7 @@
 		<br />
 		<div class="form-group">
 			<div class="col-md-offset-4 col-md-4">
-				<input type="button" class="btn btn-primary" onclick="registerUser()" value="<%=Strings.CREATE_USER%>" />
+				<input type="submit" class="btn btn-primary" value="<%=Strings.CREATE_USER%>" />
 			</div>
 		</div>
 	</form>

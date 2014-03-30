@@ -1,112 +1,122 @@
 function numberOfFailuresAndDuration() {
 	var fromDate = document.forms["nmequery"]["from"].value;
 	var toDate = document.forms["nmequery"]["to"].value;
-	var results = makeJSONObject("./../../webservice/NMEQueries/FD/" + fromDate
-			+ "/" + toDate);
 
-	var div = document.createElement("div");
-	div.setAttribute("style", "max-height: 400px; overflow: auto;");
-	var table = document.createElement("table");
-	table.setAttribute("class", "table table-striped table-bordered");
+	if (new Date(fromDate) > new Date(toDate)) {
+		clearResult();
+		clearChart("scatterplot");
+		alert("Invalid date range!");
+		document.forms["nmequery"]["from"].focus();
+	} else {
+		var results = makeJSONObject("./../../webservice/NMEQueries/FD/"
+				+ fromDate + "/" + toDate);
 
-	var tbody = document.createElement("tbody");
-	table.appendChild(createHead("IMSI", "Number of failures",
-			"Total Duration (ms)"));
-	
-	var dataForChart = [];
+		var div = document.createElement("div");
+		div.setAttribute("style", "max-height: 400px; overflow: auto;");
+		var table = document.createElement("table");
+		table.setAttribute("class", "table table-striped table-bordered");
 
-	$.each(results, function(key, value) {
-		var row = document.createElement("tr");
-		var cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(value.imsi));
-		row.appendChild(cell);
+		var tbody = document.createElement("tbody");
+		table.appendChild(createHead("IMSI", "Number of failures",
+				"Total Duration (ms)"));
 
-		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(value.count));
-		row.appendChild(cell);
+		var dataForChart = [];
 
-		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(value.numofFailures));
-		row.appendChild(cell);
+		$.each(results, function(key, value) {
+			var row = document.createElement("tr");
+			var cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(value.imsi));
+			row.appendChild(cell);
 
-		tbody.appendChild(row);
-		// for the tool-tips when count and duration are the same, entries are on top of each other 
-		$.each(dataForChart, function(){
-			if(this.x == value.count && this.y == value.numofFailures){ 
-				this.tooltip = this.tooltip + '<br />IMSI: ' +value.imsi;
-			}
-		});
-		dataForChart.push({x : value.count, 
-					y: value.numofFailures,
-					tooltip: 'IMSI: ' + value.imsi});
-		
-		
-	});
-	table.appendChild(tbody);
+			cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(value.count));
+			row.appendChild(cell);
 
-	div.appendChild(table);
-	document.getElementById("queryresult").appendChild(div);
-	
-	$(document).ready(function() {
-		chart = new Highcharts.Chart({
-			chart : {
-				renderTo : 'scatterplot',
-				type : 'scatter'
-			},
-			xAxis: {
-                title: {
-                    enabled: true,
-                    text: 'Number of Call Failures'
-                },
-                startOnTick: true,
-                endOnTick: true,
-                showLastLabel: true
-            },
-			yAxis : {
-				min : 0,
-				title : {
-					text : 'Total Duration',
-					align : 'middle'
-				},
-				labels : {
-					overflow : 'justify',
-					format: '{value} m/s'
+			cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(value.numofFailures));
+			row.appendChild(cell);
+
+			tbody.appendChild(row);
+			// for the tool-tips when count and duration are the same, entries
+			// are on top of each other
+			$.each(dataForChart, function() {
+				if (this.x == value.count && this.y == value.numofFailures) {
+					this.tooltip = this.tooltip + '<br />IMSI: ' + value.imsi;
 				}
-			},
-			title : {
-				text : null
-			},
-			 plotOptions: {
-                scatter: {
-                    marker: {
-                        radius: 5,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                lineColor: 'rgb(100,100,100)'
-                            }
-                        }
-                    },
-                    states: {
-                        hover: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    }
-                }
-            },
-			tooltip : {
-							formatter : function() {
-								return this.point.tooltip;
+			});
+			dataForChart.push({
+				x : value.count,
+				y : value.numofFailures,
+				tooltip : 'IMSI: ' + value.imsi
+			});
+
+		});
+		table.appendChild(tbody);
+
+		div.appendChild(table);
+		document.getElementById("queryresult").appendChild(div);
+
+		$(document).ready(function() {
+			chart = new Highcharts.Chart({
+				chart : {
+					renderTo : 'scatterplot',
+					type : 'scatter'
+				},
+				xAxis : {
+					title : {
+						enabled : true,
+						text : 'Number of Call Failures'
+					},
+					startOnTick : true,
+					endOnTick : true,
+					showLastLabel : true
+				},
+				yAxis : {
+					min : 0,
+					title : {
+						text : 'Total Duration',
+						align : 'middle'
+					},
+					labels : {
+						overflow : 'justify',
+						format : '{value} m/s'
+					}
+				},
+				title : {
+					text : null
+				},
+				plotOptions : {
+					scatter : {
+						marker : {
+							radius : 5,
+							states : {
+								hover : {
+									enabled : true,
+									lineColor : 'rgb(100,100,100)'
+								}
 							}
 						},
-			series : [{
-				showInLegend : false,
-				data : dataForChart
-			}]
+						states : {
+							hover : {
+								marker : {
+									enabled : false
+								}
+							}
+						}
+					}
+				},
+				tooltip : {
+					formatter : function() {
+						return this.point.tooltip;
+					}
+				},
+				series : [ {
+					showInLegend : false,
+					data : dataForChart
+				} ]
+			});
 		});
-	});
+	}
 }
 
 function uniqueEventCauseAndOccurancesByModel() {
@@ -115,8 +125,7 @@ function uniqueEventCauseAndOccurancesByModel() {
 	var dataForChart = [];
 
 	if (model != "") {
-		var results = makeJSONObject("./../../webservice/NMEQueries/"
-				+ model.tac);
+		var results = makeJSONObject("./../../webservice/NMEQueries/" + model.tac);
 
 		var div = document.createElement("div");
 		div.setAttribute("style", "max-height: 400px; overflow: auto;");
@@ -125,8 +134,6 @@ function uniqueEventCauseAndOccurancesByModel() {
 
 		var tbody = document.createElement("tbody");
 		table.appendChild(createHead("Event ID", "Cause Code", "Occurrences"));
-		
-		
 
 		$.each(results, function(key, value) {
 			var row = document.createElement("tr");
@@ -143,7 +150,7 @@ function uniqueEventCauseAndOccurancesByModel() {
 			row.appendChild(cell);
 
 			tbody.appendChild(row);
-			
+
 			var cause = "Cause Code: " + value.cause_Code;
 			var evt = "Event ID: " + value.event_ID;
 			dataForChart.push({
@@ -158,46 +165,49 @@ function uniqueEventCauseAndOccurancesByModel() {
 		document.getElementById("queryresult").appendChild(div);
 
 		// chart starts here
-		$(document).ready(function() {
-			chart = new Highcharts.Chart({
-				chart : {
-					renderTo : 'causeContainer',
-					plotBackgroundColor : null,
-					plotBorderWidth : null,
-					plotShadow : false
-				},
-				title : {
-					text : null
-				},
-				tooltip : {
-					formatter : function() {
-						return this.point.evtName + '<br />'
-								+ this.point.causeName + '<br />'
-								+ 'Occurrences: ' + this.y;
-					}
-				},
-				plotOptions : {
-					pie : {
-						allowPointSelect : true,
-						cursor : 'pointer',
-						dataLabels : {
-							enabled : true,
+		$(document).ready(
+				function() {
+					chart = new Highcharts.Chart({
+						chart : {
+							renderTo : 'causeContainer',
+							plotBackgroundColor : null,
+							plotBorderWidth : null,
+							plotShadow : false
+						},
+						title : {
+							text : null
+						},
+						tooltip : {
 							formatter : function() {
-								return Highcharts.numberFormat(this.percentage,
-										2)
-										+ '%';
+								return this.point.evtName + '<br />'
+										+ this.point.causeName + '<br />'
+										+ 'Occurrences: ' + this.y;
 							}
 						},
-						showInLegend : false
-					}
-				},
-				series : [ {
-					type : 'pie',
-					data : dataForChart
-				} ]
-			});
-		});
+						plotOptions : {
+							pie : {
+								allowPointSelect : true,
+								cursor : 'pointer',
+								dataLabels : {
+									enabled : true,
+									formatter : function() {
+										return Highcharts.numberFormat(
+												this.percentage, 2)
+												+ '%';
+									}
+								},
+								showInLegend : false
+							}
+						},
+						series : [ {
+							type : 'pie',
+							data : dataForChart
+						} ]
+					});
+				});
 	} else {
+		clearResult();
+		clearChart("causeContainer");
 		alert("Invalid phone model!");
 		document.forms["nmequery"]["model"].focus();
 	}
@@ -256,183 +266,199 @@ function topMOCGraph() {
 function topMOC() {
 	var fromDate = document.forms["nmequery"]["from"].value;
 	var toDate = document.forms["nmequery"]["to"].value;
-	var results = makeJSONObject("./../../webservice/NMEQueries/" + fromDate
-			+ "/" + toDate);
 
-	var div = document.createElement("div");
-	div.setAttribute("style", "max-height: 400px; overflow: auto;");
-	var table = document.createElement("table");
-	table.setAttribute("class", "table table-striped table-bordered");
+	if (new Date(fromDate) > new Date(toDate)) {
+		clearResult();
+		clearChart("chartContainer");
+		alert("Invalid date range!");
+		document.forms["nmequery"]["from"].focus();
+	} else {
+		var results = makeJSONObject("./../../webservice/NMEQueries/"
+				+ fromDate + "/" + toDate);
 
-	var tbody = document.createElement("tbody");
-	var thead = document.createElement("thead");
-	var th = document.createElement("th");
-	th.appendChild(document.createTextNode("Rank"));
-	thead.appendChild(th);
-	th = document.createElement("th");
-	th.appendChild(document.createTextNode("Cell ID"));
-	thead.appendChild(th);
-	th = document.createElement("th");
-	th.appendChild(document.createTextNode("Market"));
-	thead.appendChild(th);
-	th = document.createElement("th");
-	th.appendChild(document.createTextNode("Operator"));
-	thead.appendChild(th);
-	th = document.createElement("th");
-	th.appendChild(document.createTextNode("Failures"));
-	thead.appendChild(th);
-	table.appendChild(thead);
-	
-	var counter = 1;
-	var dataForChart = []; 
+		var div = document.createElement("div");
+		div.setAttribute("style", "max-height: 400px; overflow: auto;");
+		var table = document.createElement("table");
+		table.setAttribute("class", "table table-striped table-bordered");
 
-	$.each(results, function(key, value) {
-		var row = document.createElement("tr");
-		var cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(counter));
-		row.appendChild(cell);
+		var tbody = document.createElement("tbody");
+		var thead = document.createElement("thead");
+		var th = document.createElement("th");
+		th.appendChild(document.createTextNode("Rank"));
+		thead.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Cell ID"));
+		thead.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Market"));
+		thead.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Operator"));
+		thead.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Failures"));
+		thead.appendChild(th);
+		table.appendChild(thead);
 
-		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(value.cellId));
-		row.appendChild(cell);
+		var counter = 1;
+		var dataForChart = [];
 
-		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(value.country));
-		row.appendChild(cell);
+		$.each(results, function(key, value) {
+			var row = document.createElement("tr");
+			var cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(counter));
+			row.appendChild(cell);
 
-		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(value.operator));
-		row.appendChild(cell);
+			cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(value.cellId));
+			row.appendChild(cell);
 
-		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(value.numberOfFailures));
-		row.appendChild(cell);
+			cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(value.country));
+			row.appendChild(cell);
 
-		tbody.appendChild(row);
-		counter++;
-		
-		var yaxis = "cellId: " + value.cellId + ", "
-				+ value.country + ", " + value.operator;
-		dataForChart.push([ yaxis, value.numberOfFailures ]);
-	});
-	table.appendChild(tbody);
+			cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(value.operator));
+			row.appendChild(cell);
 
-	div.appendChild(table);
-	document.getElementById("queryresult").appendChild(div);
-	$(document).ready(
-			function() {
-				chart = new Highcharts.Chart({
-					chart : {
-						renderTo : 'chartContainer', 
-						type : 'column',
-						plotBackgroundColor : null,
-						plotBorderWidth : null,
-						plotShadow : false
-					},
-					title : {
-						text : null
-					},
-					tooltip : {
-						formatter : function() {
-							return 'Number Of Failures:<b>'
-									+ this.y + '</b>';
-						}
-					},
-					xAxis : {
-						categories : []
-					},
-					yAxis : {
-						min : 0,
-						title : {
-							text : 'Number Of Failures'
-						}
-					},
-					series : [ {
-						showInLegend : false,
-						data: dataForChart
-					} ]
-				});
+			cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(value.numberOfFailures));
+			row.appendChild(cell);
 
-			});
-}
+			tbody.appendChild(row);
+			counter++;
 
-function topIMSIs() {   
-	var fromDate = document.forms["nmequery"]["from"].value;
-	var toDate = document.forms["nmequery"]["to"].value;
-	var results = makeJSONObject("./../../webservice/NMEQueries/IMSI/"
-			+ fromDate + "/" + toDate);
+			var yaxis = "cellId: " + value.cellId + ", " + value.country + ", "
+					+ value.operator;
+			dataForChart.push([ yaxis, value.numberOfFailures ]);
+		});
+		table.appendChild(tbody);
 
-	var div = document.createElement("div");
-	div.setAttribute("style", "max-height: 400px; overflow: auto;");
-	var table = document.createElement("table");
-	table.setAttribute("class", "table table-striped table-bordered");
-
-	var tbody = document.createElement("tbody");
-	table.appendChild(createHead("Rank", "IMSI", "Number of failures"));
-
-	var counter = 1;
-	var dataForChart = [];
-	var categories = [];
-	$.each(results, function(key, value) {
-		var row = document.createElement("tr");
-		var cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(counter));
-		row.appendChild(cell);
-
-		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(value.imsi));
-		row.appendChild(cell);
-
-		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(value.numofFailures));
-		row.appendChild(cell);
-
-		tbody.appendChild(row);
-		counter++;
-		dataForChart.push({y : value.numofFailures});
-		categories.push([value.imsi]);
-	});
-	table.appendChild(tbody);
-	
-	div.appendChild(table);
-	document.getElementById("queryresult").appendChild(div);
-	
-	$(document).ready(function() {
-		chart = new Highcharts.Chart({
-			chart : {
-				renderTo : 'chartContainer',
-				type : 'bar'
-			},
-			xAxis : {
-				categories : categories,
+		div.appendChild(table);
+		document.getElementById("queryresult").appendChild(div);
+		$(document).ready(function() {
+			chart = new Highcharts.Chart({
+				chart : {
+					renderTo : 'chartContainer',
+					type : 'column',
+					plotBackgroundColor : null,
+					plotBorderWidth : null,
+					plotShadow : false
+				},
 				title : {
 					text : null
-				}
-			},
-			yAxis : {
-				min : 0,
-				title : {
-					text : 'Number Of Failures',
-					align : 'middle'
 				},
-				labels : {
-					overflow : 'justify'
-				}
-			},
-			title : {
-				text : null
-			},
-			tooltip : {
-				formatter : function() {
-					return 'Number Of Failures:<b>' + this.y + '</b>';
-				}
-			},
-			series : [{
-				showInLegend : false,
-				data : dataForChart
-			}]
+				tooltip : {
+					formatter : function() {
+						return 'Number Of Failures:<b>' + this.y + '</b>';
+					}
+				},
+				xAxis : {
+					categories : []
+				},
+				yAxis : {
+					min : 0,
+					title : {
+						text : 'Number Of Failures'
+					}
+				},
+				series : [ {
+					showInLegend : false,
+					data : dataForChart
+				} ]
+			});
+
 		});
-	});
+	}
+}
+
+function topIMSIs() {
+	var fromDate = document.forms["nmequery"]["from"].value;
+	var toDate = document.forms["nmequery"]["to"].value;
+
+	if (new Date(fromDate) > new Date(toDate)) {
+		clearResult();
+		clearChart("chartContainer");
+		alert("Invalid date range!");
+		document.forms["nmequery"]["from"].focus();
+	} else {
+		var results = makeJSONObject("./../../webservice/NMEQueries/IMSI/"
+				+ fromDate + "/" + toDate);
+
+		var div = document.createElement("div");
+		div.setAttribute("style", "max-height: 400px; overflow: auto;");
+		var table = document.createElement("table");
+		table.setAttribute("class", "table table-striped table-bordered");
+
+		var tbody = document.createElement("tbody");
+		table.appendChild(createHead("Rank", "IMSI", "Number of failures"));
+
+		var counter = 1;
+		var dataForChart = [];
+		var categories = [];
+		$.each(results, function(key, value) {
+			var row = document.createElement("tr");
+			var cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(counter));
+			row.appendChild(cell);
+
+			cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(value.imsi));
+			row.appendChild(cell);
+
+			cell = document.createElement("td");
+			cell.appendChild(document.createTextNode(value.numofFailures));
+			row.appendChild(cell);
+
+			tbody.appendChild(row);
+			counter++;
+			dataForChart.push({
+				y : value.numofFailures
+			});
+			categories.push([ value.imsi ]);
+		});
+		table.appendChild(tbody);
+
+		div.appendChild(table);
+		document.getElementById("queryresult").appendChild(div);
+
+		$(document).ready(function() {
+			chart = new Highcharts.Chart({
+				chart : {
+					renderTo : 'chartContainer',
+					type : 'bar'
+				},
+				xAxis : {
+					categories : categories,
+					title : {
+						text : null
+					}
+				},
+				yAxis : {
+					min : 0,
+					title : {
+						text : 'Number Of Failures',
+						align : 'middle'
+					},
+					labels : {
+						overflow : 'justify'
+					}
+				},
+				title : {
+					text : null
+				},
+				tooltip : {
+					formatter : function() {
+						return 'Number Of Failures:<b>' + this.y + '</b>';
+					}
+				},
+				series : [ {
+					showInLegend : false,
+					data : dataForChart
+				} ]
+			});
+		});
+	}
 }
 
 function createHead(t1, t2, t3) {
@@ -454,15 +480,25 @@ function makeJSONObject(location) {
 	request.open("GET", location, false);
 	request.send(null);
 
-	var mainNode = document.getElementById("queryresult");
-	while (mainNode.lastChild) {
-		mainNode.removeChild(mainNode.lastChild);
-	}
+	clearResult();
 
 	if (request.responseText != "") {
 		return eval("(" + request.responseText + ")");
 	} else {
 		return "";
 	}
+}
 
+function clearResult() {
+	var mainNode = document.getElementById("queryresult");
+	while (mainNode.lastChild) {
+		mainNode.removeChild(mainNode.lastChild);
+	}
+}
+
+function clearChart(chartName) {
+	var mainNode = document.getElementById(chartName);
+	while (mainNode.lastChild) {
+		mainNode.removeChild(mainNode.lastChild);
+	}
 }
