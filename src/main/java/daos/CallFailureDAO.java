@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import queryEntities.EventIdCauseCodeCombo;
+import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
 import entities.CallFailure;
 import entities.EventCause;
@@ -24,5 +25,5 @@ public interface CallFailureDAO {
 	List<TopMOCEntity> getTopTenMOCGraphical();
 	List<TopMOCEntity> getTopTenMOC(Date fromDate, Date toDate);
 	List<BigInteger> findIMSIsByFailureClass(int failureClassId);
-	List<Object[]> getTopTenIMSI(Date fromDate, Date toDate);
+	List<TopIMSIByFailure> getTopTenIMSI(Date fromDate, Date toDate);
 }

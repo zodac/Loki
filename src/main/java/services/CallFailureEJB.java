@@ -11,6 +11,7 @@ import javax.jws.WebService;
 
 import jpas.JPA;
 import queryEntities.EventIdCauseCodeCombo;
+import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
 import daos.CallFailureDAO;
 import entities.EventCause;
@@ -75,7 +76,7 @@ public class CallFailureEJB implements CallFailureService {
 	}
 
 	@Override
-	public List<Object[]> getTopTenIMSI(Date fDate, Date tDate) {
+	public List<TopIMSIByFailure> getTopTenIMSI(Date fDate, Date tDate) {
 		return dao.getTopTenIMSI(fDate, tDate);
 	}
 }

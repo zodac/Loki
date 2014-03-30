@@ -13,6 +13,7 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import queryEntities.EventIdCauseCodeCombo;
+import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
 import daos.CallFailureDAO;
 import entities.CallFailure;
@@ -180,10 +181,24 @@ public class CallFailureJPA implements CallFailureDAO {
 									.setParameter(1, failureClassId).getResultList();
 	}
 
-	public List<Object[]> getTopTenIMSI(Date fromDate, Date toDate) {
-		return (List<Object[]>) em.createNativeQuery("SELECT imsi, COUNT(imsi) FROM CallFailure"
+	public List<TopIMSIByFailure> getTopTenIMSI(Date fromDate, Date toDate) {
+		
+		List<Object[]> results = (List<Object[]>) em.createNativeQuery("SELECT imsi, COUNT(imsi) FROM CallFailure"
 														+ " WHERE date >= ?1 AND date <= ?2 GROUP BY imsi ORDER BY COUNT(imsi) DESC LIMIT 10")
 				.setParameter(1, fromDate)
 				.setParameter(2, toDate).getResultList();
+		
+		List<TopIMSIByFailure> entities = new ArrayList<TopIMSIByFailure>();
+
+		for (Object[] obj : results) {
+			TopIMSIByFailure top = new TopIMSIByFailure();
+
+			top.setIMSI((BigDecimal) obj[0]);
+			top.setNumofFailures((BigInteger) obj[1]);
+
+			entities.add(top);
+		}
+
+		return entities;
 	}	
 }

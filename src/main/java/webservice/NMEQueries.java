@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import queryEntities.EventIdCauseCodeCombo;
+import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
 import services.CallFailureService;
 
@@ -67,7 +68,7 @@ public class NMEQueries {
     @GET
     @Path("/IMSI/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Object[]> getTopTenIMSI(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
+    public List<TopIMSIByFailure> getTopTenIMSI(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
     	Date fDate = null;
     	Date tDate = null;
     	

@@ -282,7 +282,7 @@ function topMOC() {
 			});
 }
 
-function topIMSIs() {
+function topIMSIs() {   ///////////////////////////////////////////////////////////////////////////
 	var fromDate = document.forms["nmequery"]["from"].value;
 	var toDate = document.forms["nmequery"]["to"].value;
 	var results = makeJSONObject("./../../webservice/NMEQueries/IMSI/"
@@ -296,26 +296,69 @@ function topIMSIs() {
 	var tbody = document.createElement("tbody");
 	table.appendChild(createHead("Rank", "IMSI", "Number of failures"));
 
-	for ( var i = 0; i < results.length; i++) {
+	var counter = 1;
+	var dataForChart = [];
+	var categories = [];
+	$.each(results, function(key, value) {
 		var row = document.createElement("tr");
 		var cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(i + 1));
+		cell.appendChild(document.createTextNode(counter));
 		row.appendChild(cell);
 
 		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(results[i][0]));
+		cell.appendChild(document.createTextNode(value.imsi));
 		row.appendChild(cell);
 
 		cell = document.createElement("td");
-		cell.appendChild(document.createTextNode(results[i][1]));
+		cell.appendChild(document.createTextNode(value.numofFailures));
 		row.appendChild(cell);
 
 		tbody.appendChild(row);
-	}
+		counter++;
+		dataForChart.push({y : value.numofFailures});
+		categories.push([value.imsi]);
+	});
 	table.appendChild(tbody);
-
+	
 	div.appendChild(table);
 	document.getElementById("queryresult").appendChild(div);
+	
+	$(document).ready(function() {
+		chart = new Highcharts.Chart({
+			chart : {
+				renderTo : 'chartContainer',
+				type : 'bar'
+			},
+			xAxis : {
+				categories : categories,
+				title : {
+					text : null
+				}
+			},
+			yAxis : {
+				min : 0,
+				title : {
+					text : 'Number Of Failures',
+					align : 'middle'
+				},
+				labels : {
+					overflow : 'justify'
+				}
+			},
+			title : {
+				text : null
+			},
+			tooltip : {
+				formatter : function() {
+					return 'Number Of Failures:<b>' + this.y + '</b>';
+				}
+			},
+			series : [{
+				showInLegend : false,
+				data : dataForChart
+			}]
+		});
+	});
 }
 
 function createHead(t1, t2, t3) {

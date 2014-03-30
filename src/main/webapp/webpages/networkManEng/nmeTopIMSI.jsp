@@ -25,6 +25,7 @@
 
 	</form>
 	<div class="col-md-offset-2 col-md-7" id="queryresult"></div>
+	<div class="col-md-12" id="chartContainer"></div>
 </div>
 
 <jsp:include page="../templates/footer.jsp" />

@@ -8,6 +8,7 @@ import javax.ejb.Remote;
 import javax.jws.WebService;
 
 import queryEntities.EventIdCauseCodeCombo;
+import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
 import entities.EventCause;
 @WebService
@@ -24,5 +25,5 @@ public interface CallFailureService {
 	List<TopMOCEntity> getTopTenMOCGraphical();
 	List<TopMOCEntity> getTopTenMOC(Date fromDate, Date toDate);
 	List<BigInteger> findIMSIsByFailureClass(int failureClassId);
-	List<Object[]> getTopTenIMSI(Date fDate, Date tDate);
+	List<TopIMSIByFailure> getTopTenIMSI(Date fDate, Date tDate);
 }
