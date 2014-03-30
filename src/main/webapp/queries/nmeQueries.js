@@ -282,7 +282,7 @@ function topMOC() {
 			});
 }
 
-function topIMSIs() {   ///////////////////////////////////////////////////////////////////////////
+function topIMSIs() {   
 	var fromDate = document.forms["nmequery"]["from"].value;
 	var toDate = document.forms["nmequery"]["to"].value;
 	var results = makeJSONObject("./../../webservice/NMEQueries/IMSI/"
@@ -390,4 +390,5 @@ function makeJSONObject(location) {
 	} else {
 		return "";
 	}
+
 }

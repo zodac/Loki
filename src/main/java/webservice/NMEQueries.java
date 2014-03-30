@@ -86,4 +86,5 @@ public class NMEQueries {
     public List<TopMOCEntity> getTopTenMOCGraphical() {
         return cfEJB.getTopTenMOCGraphical();
     }
+
 }

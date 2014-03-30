@@ -202,3 +202,4 @@ public class CallFailureJPA implements CallFailureDAO {
 		return entities;
 	}	
 }
+

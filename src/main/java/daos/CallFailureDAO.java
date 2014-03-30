@@ -27,3 +27,4 @@ public interface CallFailureDAO {
 	List<BigInteger> findIMSIsByFailureClass(int failureClassId);
 	List<TopIMSIByFailure> getTopTenIMSI(Date fromDate, Date toDate);
 }
+

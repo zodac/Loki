@@ -80,3 +80,4 @@ public class CallFailureEJB implements CallFailureService {
 		return dao.getTopTenIMSI(fDate, tDate);
 	}
 }
+

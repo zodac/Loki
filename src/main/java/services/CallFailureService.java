@@ -27,3 +27,4 @@ public interface CallFailureService {
 	List<BigInteger> findIMSIsByFailureClass(int failureClassId);
 	List<TopIMSIByFailure> getTopTenIMSI(Date fDate, Date tDate);
 }
+

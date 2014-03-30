@@ -16,15 +16,15 @@ function loginUser(){
 			} else if(type == "Customer Service Rep"){
 				location.replace("webpages/customerRep/csHome.jsp");
 			} else{
-				alert("Invalid usertype!");
+				alertify.error("Invalid usertype!");
 			}
 		} else {
-			alert("Invalid username and/or password!");
+			alertify.alert("Invalid username and/or password!");
 			document.forms["loginform"]["userName"].focus();
 		}
 	} else {
-		alert("Invalid username and/or password!");
-		 document.forms["loginform"]["userName"].focus();
+		alertify.error("Invalid username and/or password!");
+		document.forms["loginform"]["userName"].focus();
 	}
 }
 
