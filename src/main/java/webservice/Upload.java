@@ -87,6 +87,7 @@ public class Upload {
 	        out.write(content);
 	        out.close();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
         return file;
     }

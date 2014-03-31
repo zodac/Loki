@@ -2,7 +2,7 @@ package main;
 
 public class Strings {	
 	//Header
-	public static String TITLE = "Project Loki";
+	public static String TITLE = "Project LOKI";
 	public static String LOGGED_IN_AS = "Logged in as";
 	public static String LOGOUT = "Logout";
 

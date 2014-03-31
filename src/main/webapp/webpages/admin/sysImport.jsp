@@ -4,27 +4,26 @@
 <!-- content here -->
 <script src="../../js/jquery.form.min.js"></script>
 <script>
-$('#upload')
-    .ajaxForm({
-        url : './../../webservice/Upload', // or whatever
-        type: 'post',
-        contentType: "application/json", //Maybe not??
-        dataType : 'multipart/form-data',
-        success : function (response) {
-            alert("The server says: " + response);
-        },
-        error : function(thing){
-			alert("Error");
-        }
-    })
-;
+$('#upload').ajaxForm({
+	url : './../../webservice/Upload', // or whatever
+	type : 'post',
+	contentType : "application/json", //Maybe not??
+	dataType : 'multipart/form-data',
+	success : function(response) {
+		alert("The server says: " + response);
+	},
+	error : function(error) {
+		alert("Error");
+	}
+});
 </script>
 <div class="col-md-9 text-center">
-	<h3 class="col-md-offset-4 col-md-7 text-left"><em><%=Strings.IMPORT%></em></h3>
+	<h3 class="col-md-offset-4 col-md-7 text-left">
+		<em><%=Strings.IMPORT%></em>
+	</h3>
 	<br /> <br /> <br />
 
-	<form name="upload" id="upload"
-		enctype="multipart/form-data">
+	<form name="upload" id="upload" enctype="multipart/form-data">
 		<div class="form-group">
 			<div class="col-md-offset-4 col-md-4">
 				<input type="file" value="Import" id="importfile" name="importfile"
@@ -35,12 +34,12 @@ $('#upload')
 		<br /> <br />
 		<div class="form-group">
 			<div class="col-md-offset-3 col-md-4">
-				<input type="submit" class="btn btn-primary" value="<%=Strings.UPLOAD%>" />
+				<input type="submit" class="btn btn-primary"
+					value="<%=Strings.UPLOAD%>" />
 			</div>
 		</div>
 	</form>
-	<br />
-	<br />
-	<div style="text-align:left" id="import"></div>
-
+	<br /> <br />
+	<div style="text-align: left" id="importresult"></div>
+</div>
 <jsp:include page="../templates/footer.jsp" />
