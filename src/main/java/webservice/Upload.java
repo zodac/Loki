@@ -32,10 +32,8 @@ public class Upload {
 	
 	@POST
 	@Consumes("multipart/form-data")
-	public Response uploadFile(MultipartFormDataInput dataset) {
-		String fileName = "";
-		Response.ResponseBuilder builder = null;
-		
+	public void uploadFile(MultipartFormDataInput dataset) {
+		String fileName = "";		
 		Map<String, List<InputPart>> uploadForm = dataset.getFormDataMap();
 		List<InputPart> inputParts = uploadForm.get("importfile");
 		
@@ -59,9 +57,6 @@ public class Upload {
 			} catch(IOException e){
 			}
 		}
-		builder = Response.ok();
-		System.out.println("Sending request...");
-		return builder.build();
     }
 	
 	private String getFileName(MultivaluedMap<String, String> header) {
