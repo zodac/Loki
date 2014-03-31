@@ -2,13 +2,28 @@
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/sysNav.jsp" />
 <!-- content here -->
-
+<script src="../../js/jquery.form.min.js"></script>
+<script>
+$('#upload')
+    .ajaxForm({
+        url : './../../webservice/Upload', // or whatever
+        type: 'post',
+        contentType: "application/json", //Maybe not??
+        dataType : 'multipart/form-data',
+        success : function (response) {
+            alert("The server says: " + response);
+        },
+        error : function(thing){
+			alert("Error");
+        }
+    })
+;
+</script>
 <div class="col-md-9 text-center">
 	<h3 class="col-md-offset-4 col-md-7 text-left"><em><%=Strings.IMPORT%></em></h3>
 	<br /> <br /> <br />
 
 	<form name="upload" id="upload"
-		method="POST" action="./../../webservice/Upload"
 		enctype="multipart/form-data">
 		<div class="form-group">
 			<div class="col-md-offset-4 col-md-4">

@@ -32,8 +32,9 @@ public class Upload {
 	
 	@POST
 	@Consumes("multipart/form-data")
-	public void uploadFile(MultipartFormDataInput dataset) {
-		String fileName = "";		
+	public Response uploadFile(MultipartFormDataInput dataset) {
+		String fileName = "";
+		Response.ResponseBuilder builder = null;
 		Map<String, List<InputPart>> uploadForm = dataset.getFormDataMap();
 		List<InputPart> inputParts = uploadForm.get("importfile");
 		
@@ -52,11 +53,13 @@ public class Upload {
 						iEJB.addToDatabase(uploadedFile, fileExtension);
 					}
 				} else{
-					//TODO Alert for invalid file type
 				}
 			} catch(IOException e){
+				e.printStackTrace();
 			}
 		}
+		builder = Response.ok();
+		return builder.build();
     }
 	
 	private String getFileName(MultivaluedMap<String, String> header) {
