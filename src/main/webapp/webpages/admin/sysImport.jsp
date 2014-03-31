@@ -1,5 +1,4 @@
 <%@ page import="main.*"%>
-<%@ page import="java.text.DecimalFormat"%>
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/sysNav.jsp" />
 <!-- content here -->
