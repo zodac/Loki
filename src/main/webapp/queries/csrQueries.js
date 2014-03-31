@@ -47,9 +47,16 @@ function eventCauseByIMSI(){
 
 function numberOfFailuresByIMSIByTimePeriod(){
 	var imsi = document.forms["csrquery"]["imsi"].value;
-	var imsiCount = makeJSONObject("./../../webservice/IMSI/" + imsi);	
 
-	if(imsiCount != 0){
+	if(!/^-{0,1}\d*\.{0,1}\d+$/.test(imsi)){
+    	clearResult();
+    	alert("Invalid IMSI format!");
+    	document.forms["csrquery"]["imsi"].focus();
+    } else if(makeJSONObject("./../../webservice/IMSI/" + imsi) == 0){
+    	clearResult();
+    	alert("Invalid IMSI value!");
+		document.forms["csrquery"]["imsi"].focus();
+    } else{
 		var fromDate = document.forms["csrquery"]["from"].value;
 		var toDate = document.forms["csrquery"]["to"].value;
 		
@@ -84,17 +91,20 @@ function numberOfFailuresByIMSIByTimePeriod(){
 			div.appendChild(table);
 			document.getElementById("queryresult").appendChild(div);
 		}
-	} else{
-		alert("Invalid IMSI value!");
-		document.forms["csrquery"]["imsi"].focus();
 	}
 }
 
 function uniqueCauseCodeByIMSI(){
 	var imsi = document.forms["csrquery"]["imsi"].value;
-	var imsiCount = makeJSONObject("./../../webservice/IMSI/" + imsi);	
-
-	if(imsiCount != 0){
+	if(!/^-{0,1}\d*\.{0,1}\d+$/.test(imsi)){
+    	clearResult();
+    	alert("Invalid IMSI format!");
+    	document.forms["csrquery"]["imsi"].focus();
+    } else if(makeJSONObject("./../../webservice/IMSI/" + imsi) == 0){
+    	clearResult();
+    	alert("Invalid IMSI value!");
+		document.forms["csrquery"]["imsi"].focus();
+    } else{
 		var results = makeJSONObject("./../../webservice/CSRQueries/CC/" + imsi);
 
 		var div = document.createElement("div");
@@ -121,9 +131,6 @@ function uniqueCauseCodeByIMSI(){
 		
 		div.appendChild(table);
 		document.getElementById("queryresult").appendChild(div);
-	} else{
-		alert("Invalid IMSI value!");
-		document.forms["csrquery"]["imsi"].focus();
 	}
 }
 
