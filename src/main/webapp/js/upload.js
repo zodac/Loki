@@ -89,18 +89,14 @@ error : function(error) {
 	button.setAttribute("class", "btn btn-success");
 	button.setAttribute("id", "importTableButton");
 	button.onclick = function(){
-		//$("#invalidfailures").hide();
-		//	var buttonText = $("#invalidfailures");
-		console.log("vsdavs");
-			$("#invalidfailures").toggle(function() {
-				if ($(this).css('display') == 'none') {
-					console.log("if");
-			//		buttonText.html('Show Table');
-				} else {
-					console.log("else");
-			//		buttonText.html('Hide Table');
-				}
-			});
+		var buttonText = $(this);
+		$("#invalidfailures").toggle(function() {
+			if ($(this).css('display') == 'none') {
+				buttonText.html('Show Table');
+			} else {
+				buttonText.html('Hide Table');
+			}
+		});
 	};
 	button.appendChild(document.createTextNode("Show Table"));
 	
@@ -109,12 +105,10 @@ error : function(error) {
 
 	var results = makeJSONObject("./../../webservice/InvalidCallFailure");
 
-	console.log("Got results");
 	div = document.createElement("div");
 	div.setAttribute("style","max-height: 400px; overflow: auto;");
 	table = document.createElement("table");
 	table.setAttribute("class","table table-striped table-bordered");
-	console.log("Making header");
 	tbody = document.createElement("tbody");
 	thead = document.createElement("thead");
 	th = document.createElement("th");
@@ -170,7 +164,6 @@ error : function(error) {
 	thead.appendChild(th);
 
 	table.appendChild(thead);
-	console.log("Added header");
 	for (var i = 0; i < results.length; i++) {
 		row = document.createElement("tr");
 		cell = document.createElement("td");
@@ -236,12 +229,9 @@ error : function(error) {
 	
 			tbody.appendChild(row);
 		}
-	console.log("Adding body");
 		table.appendChild(tbody);
 	
-		console.log("Adding table");
 		div.appendChild(table);
-		console.log("Adding div");
 		document.getElementById("invalidfailures").appendChild(div);
 		}
 });
