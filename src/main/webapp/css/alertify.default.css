@@ -7,8 +7,8 @@
 }
 .alertify {
 	background: #FFF;
-	border: 10px solid #333; /* browsers that don't support rgba */
-	border: 10px solid rgba(0,0,0,.7);
+	border: 1px solid #333; /* browsers that don't support rgba */
+	border: 1px solid rgba(0,0,0,.7);
 	border-radius: 0px;
 	box-shadow: 0 3px 3px rgba(0,0,0,.3);
 	-webkit-background-clip: padding;     /* Safari 4? Chrome 6? */
@@ -18,10 +18,10 @@
 	.alertify-text {
 		border: 1px solid #CCC;
 		padding: 10px;
-		border-radius: 4px;
+		border-radius: 1px;
 	}
 	.alertify-button {
-		border-radius: 4px;
+		border-radius: 2px;
 		color: #FFF;
 		font-weight: bold;
 		padding: 6px 15px;
@@ -44,7 +44,7 @@
 		background-image:         linear-gradient(top, rgba(0,0,0,.1), rgba(0,0,0,0));
 	}
 	.alertify-button:focus {
-		box-shadow: 0 0 15px #2B72D5;
+		box-shadow: 0 0 2px #2B72D5;
 	}
 	.alertify-button:active {
 		position: relative;
@@ -59,8 +59,8 @@
 		.alertify-button-ok,
 		.alertify-button-ok:hover,
 		.alertify-button-ok:focus {
-			background-color: #5CB811;
-			border: 1px solid #3B7808;
+			background-color: #049CDB;
+			border: 1px solid #2B72D5;
 		}
 
 .alertify-log {
