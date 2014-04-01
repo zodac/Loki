@@ -87,7 +87,21 @@ error : function(error) {
 	
 	var button = document.createElement("button");
 	button.setAttribute("class", "btn btn-success");
-	button.id = "importTableButton";
+	button.setAttribute("id", "importTableButton");
+	button.onclick = function(){
+		//$("#invalidfailures").hide();
+		//	var buttonText = $("#invalidfailures");
+		console.log("vsdavs");
+			$("#invalidfailures").toggle(function() {
+				if ($(this).css('display') == 'none') {
+					console.log("if");
+			//		buttonText.html('Show Table');
+				} else {
+					console.log("else");
+			//		buttonText.html('Hide Table');
+				}
+			});
+	};
 	button.appendChild(document.createTextNode("Show Table"));
 	
 	div.appendChild(button);
@@ -95,16 +109,15 @@ error : function(error) {
 
 	var results = makeJSONObject("./../../webservice/InvalidCallFailure");
 
-	var div = document.createElement("div");
-	div.setAttribute("style",
-			"max-height: 400px; overflow: auto;");
-	var table = document.createElement("table");
-	table.setAttribute("class",
-			"table table-striped table-bordered table-min");
-
-	var tbody = document.createElement("tbody");
-	var thead = document.createElement("thead");
-	var th = document.createElement("th");
+	console.log("Got results");
+	div = document.createElement("div");
+	div.setAttribute("style","max-height: 400px; overflow: auto;");
+	table = document.createElement("table");
+	table.setAttribute("class","table table-striped table-bordered");
+	console.log("Making header");
+	tbody = document.createElement("tbody");
+	thead = document.createElement("thead");
+	th = document.createElement("th");
 	th.appendChild(document.createTextNode("ID"));
 	thead.appendChild(th);
 	th = document.createElement("th");
@@ -157,10 +170,10 @@ error : function(error) {
 	thead.appendChild(th);
 
 	table.appendChild(thead);
-	
+	console.log("Added header");
 	for (var i = 0; i < results.length; i++) {
-		var row = document.createElement("tr");
-		var cell = document.createElement("td");
+		row = document.createElement("tr");
+		cell = document.createElement("td");
 		cell.appendChild(document
 				.createTextNode(results[i].id));
 		row.appendChild(cell);
@@ -223,11 +236,13 @@ error : function(error) {
 	
 			tbody.appendChild(row);
 		}
+	console.log("Adding body");
 		table.appendChild(tbody);
 	
+		console.log("Adding table");
 		div.appendChild(table);
-		document.getElementById("invalidfailures").appendChild(
-					div);
+		console.log("Adding div");
+		document.getElementById("invalidfailures").appendChild(div);
 		}
 });
 
