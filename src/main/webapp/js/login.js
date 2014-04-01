@@ -23,7 +23,7 @@ function loginUser(){
 			document.forms["loginform"]["userName"].focus();
 		}
 	} else {
-		alertify.error("Invalid username and/or password!");
+		alertify.alert("Invalid username and/or password!");
 		document.forms["loginform"]["userName"].focus();
 	}
 }
