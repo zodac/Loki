@@ -50,12 +50,8 @@ function makeJSONObject(location) {
 	request.open("GET", location, false);
 	request.send(null);
 	
-	console.log(request.responseText);
-	
 	if(request.responseText != "") {
-		result = eval("(" + request.responseText + ")");
+		return eval("(" + request.responseText + ")");
 	}
-	
-	console.log(result);
-	return result;
+	return request.responseText;
 }

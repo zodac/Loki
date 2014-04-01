@@ -21,7 +21,6 @@
 		</div>
 		<br /> <br />
 		
-		
 		<div class="form-group">
 			<div class="col-md-offset-3 col-md-4">
 				<input type="submit" class="btn btn-primary"

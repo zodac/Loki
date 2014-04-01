@@ -16,7 +16,7 @@ function loginUser(){
 			} else if(type == "Customer Service Rep"){
 				location.replace("webpages/customerRep/csHome.jsp");
 			} else{
-				alertify.error("Invalid usertype!");
+				alertify.alert("Invalid usertype!");
 			}
 		} else {
 			alertify.alert("Invalid username and/or password!");
