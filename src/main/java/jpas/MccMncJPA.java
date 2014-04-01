@@ -17,10 +17,12 @@ public class MccMncJPA implements MccMncDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-	public void addMccMnc(MccMnc mccmnc) {
+	public boolean addMccMnc(MccMnc mccmnc) {
 		if(em.find(MccMnc.class, mccmnc.getId()) == null){
 			em.persist(mccmnc);
+			return true;
 		}
+		return false;
 	}
 
 	public MccMnc getMCC_MNCByMCCAndMNC(MccMnc mccmnc) {

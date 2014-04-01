@@ -7,5 +7,5 @@ import javax.jws.WebService;
 @WebService
 @Remote
 public interface ImportService {
-	public void addToDatabase(File uploadedFile, String fileExtension);
+	public int[] addToDatabase(File uploadedFile, String fileExtension);
 }

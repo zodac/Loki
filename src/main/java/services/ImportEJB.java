@@ -86,12 +86,13 @@ public class ImportEJB implements ImportService {
 		this.eventCauseDAO = dao;
 	}
 	
-	public void addToDatabase(File uploadedFile, String fileExtension){
-		generateDatabase(uploadedFile, fileExtension);
+	public int[] addToDatabase(File uploadedFile, String fileExtension){
+		return generateDatabase(uploadedFile, fileExtension);
 	}
 	
-	private void generateDatabase(File uploadedFile, String fileExtension) {
+	private int[] generateDatabase(File uploadedFile, String fileExtension) {
 		Workbook excelData = null;
+		int[] results = new int[6]; //CallFailure, EventCause, FailureClass, MCC_MNC, UEType, InvalidCallFailure
 		try {
 			if(fileExtension.equals("xls")){
 				excelData = new HSSFWorkbook(new FileInputStream(uploadedFile));
@@ -105,45 +106,59 @@ public class ImportEJB implements ImportService {
 			List<Row> mccMncRows = Lists.newArrayList(excelData.getSheetAt(4).iterator());
 			List<Row> callFailureRows = Lists.newArrayList(excelData.getSheetAt(0).iterator());
 			
+			int numEventCause = 0;
 			for(Row row : eventCauseRows.subList(1, eventCauseRows.size())){
-				parseEventCauseCells(row.cellIterator());
+				if(parseEventCauseCells(row.cellIterator())){
+					numEventCause++;
+				}
 			}
+			results[1] = numEventCause;
 			
+			int numFailureClass = 0;
 			for(Row row : failureClassRows.subList(1, failureClassRows.size())){
-				parseFailureClassCells(row.cellIterator());
+				if(parseFailureClassCells(row.cellIterator())){
+					numFailureClass++;
+				}
 			}
+			results[2] = numFailureClass;
 
+			int numUEType = 0;
 			for(Row row : ueTypeRows.subList(1, ueTypeRows.size())){
-				parseUETypeCells(row.cellIterator());
+				if(parseUETypeCells(row.cellIterator())){
+					numUEType++;
+				}
 			}
+			results[4] = numUEType;
 			
+			int numMccMnc = 0;
 			for(Row row : mccMncRows.subList(1, mccMncRows.size())){
-				parseMCCMNCCells(row.cellIterator());
+				if(parseMCCMNCCells(row.cellIterator())){
+					numMccMnc++;
+				}
 			}
+			results[3] = numMccMnc;
+			
 			
 			for(Row row : callFailureRows.subList(1, callFailureRows.size())){
 				parseCallFailureCells(row.cellIterator());
-			}
-			
-//			int count = 0;
-//			for(CallFailure callFailure : callFailures){
-//				failureDAO.addCallFailure(callFailure);
-//				System.out.println(count++);
-//			}
-			
+			}			
 			
 			failureDAO.addManyCallFailures(callFailures);
+			
+			results[0] = callFailures.size();
 			
 			for(InvalidCallFailure invalidCallFailure : invalidCallFailures){
 				invalidDAO.addInvalidCallFailure(invalidCallFailure);
 			}
-			
-			
+			results[5] = invalidCallFailures.size();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+		return results;
 	}
 	
-	private void parseEventCauseCells(Iterator<Cell> cellIterator) {
+	private boolean parseEventCauseCells(Iterator<Cell> cellIterator) {
 		int causeCode;
 		String desc;
 		int eventId;
@@ -159,10 +174,10 @@ public class ImportEJB implements ImportService {
     	ec.setId(ecPk);
     	ec.setDescription(desc);
     
-    	eventCauseDAO.addEventCause(ec);
+    	return eventCauseDAO.addEventCause(ec);
 	}
 	
-	private void parseFailureClassCells(Iterator<Cell> cellIterator){
+	private boolean parseFailureClassCells(Iterator<Cell> cellIterator){
 		int failureClass;
 		String desc;
     	
@@ -172,10 +187,10 @@ public class ImportEJB implements ImportService {
     	FailureClass fc = new FailureClass();
     	fc.setFailureClass(failureClass);
     	fc.setDescription(desc);
-    	failureClassDAO.addFailureClass(fc);
+    	return failureClassDAO.addFailureClass(fc);
 	}
 	
-	private void parseUETypeCells(Iterator<Cell> cellIterator) {
+	private boolean parseUETypeCells(Iterator<Cell> cellIterator) {
 		int tac;
 		String marketingName = "";
 		String manu;
@@ -226,10 +241,10 @@ public class ImportEJB implements ImportService {
 		uet.setUEType(ueType);
 		uet.setOs(os);
 		uet.setInputMode(inputMode);
-		ueTypeDAO.addUEType(uet);
+		return ueTypeDAO.addUEType(uet);
 	}
 	
-	private void parseMCCMNCCells(Iterator<Cell> cellIterator) {
+	private boolean parseMCCMNCCells(Iterator<Cell> cellIterator) {
 		int mcc;
 		int mnc;
 		String country;
@@ -249,7 +264,7 @@ public class ImportEJB implements ImportService {
 		mccmnc.setCountry(country);
 		mccmnc.setOperator(operator);
 
-    	mccMncDAO.addMccMnc(mccmnc);
+    	return mccMncDAO.addMccMnc(mccmnc);
 	}
 	
 	private void parseCallFailureCells(Iterator<Cell> cellIterator) {

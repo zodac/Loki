@@ -16,10 +16,12 @@ public class UETypeJPA implements UETypeDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-	public void addUEType(UEType uet) {
+	public boolean addUEType(UEType uet) {
 		if(em.find(UEType.class, uet.getTac()) == null){
 			em.persist(uet);
+			return true;
 		}
+		return false;
 	}
 
 	public long getNumberOfUETypes() {

@@ -17,10 +17,12 @@ public class FailureClassJPA implements FailureClassDAO {
 	@PersistenceContext
 	private EntityManager em;
 	
-	public void addFailureClass(FailureClass fc) {
+	public boolean addFailureClass(FailureClass fc) {
 		if(em.find(FailureClass.class, fc.getFailureClass()) == null){
 			em.persist(fc);
+			return true;
 		}
+		return false;
 	}
 
 	public long getNumberOfFailureClasses() {

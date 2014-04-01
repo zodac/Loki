@@ -17,10 +17,12 @@ public class EventCauseJPA implements EventCauseDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-	public void addEventCause(EventCause ec) {
+	public boolean addEventCause(EventCause ec) {
 		if(em.find(EventCause.class, ec.getId()) == null){
 			em.persist(ec);
+			return true;
 		}
+		return false;
 	}
 
 	public long getNumberOfEventCauses() {

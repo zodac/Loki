@@ -3,20 +3,8 @@
 <jsp:include page="../templates/sysNav.jsp" />
 <!-- content here -->
 <script src="../../js/jquery.form.min.js"></script>
-<script>
-$('#upload').ajaxForm({
-	url : './../../webservice/Upload', // or whatever
-	type : 'post',
-	contentType : "application/json", //Maybe not??
-	dataType : 'multipart/form-data',
-	success : function(response) {
-		alert("The server says: " + response);
-	},
-	error : function(error) {
-		alert("Error");
-	}
-});
-</script>
+<script src="../../js/upload.js"></script>
+
 <div class="col-md-9 text-center">
 	<h3 class="col-md-offset-4 col-md-7 text-left">
 		<em><%=Strings.IMPORT%></em>
