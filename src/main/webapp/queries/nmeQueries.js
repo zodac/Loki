@@ -110,6 +110,9 @@ function numberOfFailuresAndDuration() {
 						return this.point.tooltip;
 					}
 				},
+				 credits: {
+				      enabled: false
+				 },
 				series : [ {
 					showInLegend : false,
 					data : dataForChart
@@ -214,6 +217,9 @@ function uniqueEventCauseAndOccurancesByModel() {
 								showInLegend : false
 							}
 						},
+						 credits: {
+						      enabled: false
+						 },
 						series : [ {
 							type : 'pie',
 							data : dataForChart
@@ -262,6 +268,9 @@ function topMOCGraph() {
 							text : 'Number Of Failures'
 						}
 					},
+					 credits: {
+					      enabled: false
+					  },
 					series : [ {
 						showInLegend : false,
 					} ]
@@ -380,6 +389,9 @@ function topMOC() {
 						text : 'Number Of Failures'
 					}
 				},
+				 credits: {
+				      enabled: false
+				 },
 				series : [ {
 					showInLegend : false,
 					data : dataForChart
@@ -465,6 +477,9 @@ function topIMSIs() {
 				title : {
 					text : null
 				},
+				 credits: {
+				      enabled: false
+				  },
 				tooltip : {
 					formatter : function() {
 						return 'Number Of Failures:<b>' + this.y + '</b>';

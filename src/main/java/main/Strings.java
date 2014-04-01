@@ -43,6 +43,9 @@ public class Strings {
 	//Navigation
 	public static String HOME = "Home";
 	public static String QUERIES = "Queries";
+	public static String CSQUERIES = "Customer Rep Queries";
+	public static String SEQUERIES = "Support Eng Queries";
+	public static String NMEQUERIES = "Network Management Eng Queries";
 	public static String TWEETS = "Tweets by @ericsson";
 	
 	//Navigation - CSRep
