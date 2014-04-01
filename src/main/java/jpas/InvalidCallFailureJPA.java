@@ -25,4 +25,8 @@ public class InvalidCallFailureJPA implements InvalidCallFailureDAO {
 		List<InvalidCallFailure> invalidcallfailures = (List<InvalidCallFailure>) query.getResultList(); 
 		return invalidcallfailures.size();
 	}
+	
+	public List<InvalidCallFailure> getAllInvalidCallFailures(){
+		return (List<InvalidCallFailure>) em.createNamedQuery("InvalidCallFailure.findAll").getResultList();
+	}
 }

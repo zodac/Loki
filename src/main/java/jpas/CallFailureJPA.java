@@ -34,16 +34,6 @@ public class CallFailureJPA implements CallFailureDAO {
 	}
 	
 	public void addManyCallFailures(List<CallFailure> callFailures){
-//		EntityManager emMan = emf.createEntityManager();
-//
-//		emMan.getTransaction().begin();
-//		int count = 0;
-//		for(CallFailure callFailure : callFailures){
-//			emMan.persist(callFailure);
-//			System.out.print(count++);
-//		}
-//		emMan.getTransaction().commit();
-//		emMan.close();
 		for(CallFailure callFailure : callFailures){
 			em.persist(callFailure);
 		}
@@ -57,17 +47,16 @@ public class CallFailureJPA implements CallFailureDAO {
 
 	public List<EventIdCauseCodeCombo> findUniqueEventCauseAndOccurancesByTAC(int tac) {
 		List<Object[]> results = (List<Object[]>) em
-				.createNativeQuery(
-						"SELECT Event_ID, Cause_Code, COUNT(*) FROM CallFailure WHERE UE_Type=? GROUP BY Event_ID, Cause_Code")
+				.createNativeQuery("SELECT Event_ID, Cause_Code, COUNT(*) FROM CallFailure WHERE UE_Type=? GROUP BY Event_ID, Cause_Code")
 				.setParameter(1, tac).getResultList();
 		
 		List<EventIdCauseCodeCombo> entities = new ArrayList<EventIdCauseCodeCombo>();
 		
 		for (Object[] obj : results) {
 			EventIdCauseCodeCombo top = new EventIdCauseCodeCombo();
-			top.setEvent_ID((Integer)obj[0]);
-			top.setCause_Code((Integer)obj[1]);
-			top.setOccurrences((BigInteger)obj[2]);
+			top.setEvent_ID((Integer) obj[0]);
+			top.setCause_Code((Integer) obj[1]);
+			top.setOccurrences((BigInteger) obj[2]);
 			entities.add(top);
 		}
 		return entities;

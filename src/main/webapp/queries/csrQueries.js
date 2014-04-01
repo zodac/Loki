@@ -143,9 +143,8 @@ function makeJSONObject(location) {
 	
 	if(request.responseText != "") {
 		return eval("(" + request.responseText + ")");
-	} else{
-		return "";
 	}
+	return request.responseText;
 }
 
 function clearResult() {

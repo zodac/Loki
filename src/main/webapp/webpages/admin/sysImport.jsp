@@ -4,6 +4,21 @@
 <!-- content here -->
 <script src="../../js/jquery.form.min.js"></script>
 <script src="../../js/upload.js"></script>
+<script>
+$(document).ready(function() {
+	$("#invalidfailures").hide();
+	$("#importTableButton").click(function() {
+		var buttonText = $(this);
+		$("#invalidfailures").toggle(function() {
+			if ($(this).css('display') == 'none') {
+				buttonText.html('Show Table');
+			} else {
+				buttonText.html('Hide Table');
+			}
+		});
+	});
+});
+</script>
 
 <div class="col-md-9 text-center">
 	<h3 class="col-md-offset-4 col-md-7 text-left">
@@ -29,5 +44,7 @@
 	</form>
 	<br /> <br />
 	<div style="text-align: left" id="importresult"></div>
+	<br /> <br />
+	<div style="text-align: left; display: none" id="invalidfailures"></div>
 </div>
 <jsp:include page="../templates/footer.jsp" />
