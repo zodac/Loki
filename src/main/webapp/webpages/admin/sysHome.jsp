@@ -6,25 +6,38 @@
 <script>
 	onload = checkAdmin();
 </script>
+
 <!-- content here -->
 
 <div class="col-md-9 text-center">
-	<h3 class="col-md-9 text-center"><em><%=Strings.PROFILE_PAGE%></em></h3>
+	<h3 class="col-md-9 text-center">
+		<em><%=Strings.PROFILE_PAGE%></em>
+	</h3>
 	<p style="padding: 10px;" class="col-md-12"></p>
 	<dl class="dl-horizontal col-md-12">
 		<dt><%=Strings.PROFILE_USERNAME%></dt>
-		<dd></dd>
+		<dd id="tblusername"> 
+		</dd>
 		<dt><%=Strings.PROFILE_ROLE%></dt>
+		<dd id="tblrole">
+		</dd>
 		<dd style="padding-bottom: 20px;"></dd>
 		<dt><%=Strings.PROFILE_FIRSTNAME%></dt>
-		<dd></dd>
+		<dd id="tblfirstname"> 
+		</dd>
 		<dt><%=Strings.PROFILE_LASTNAME%></dt>
+		<dd id="tbllastname"> 
+		</dd>
 		<dd style="padding-bottom: 20px;"></dd>
 		<dt><%=Strings.PROFILE_EMAIL%></dt>
-		<dd></dd>
+		<dd id="tblemail"> 
+		</dd>
 		<dt><%=Strings.PROFILE_PHONE%></dt>
-		<dd></dd>
+		<dd id="tblphone"> 
+		</dd>
 	</dl>
 </div>
-
+<script>
+loadUserDetails();
+</script>
 <jsp:include page="../templates/footer.jsp" />
