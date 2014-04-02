@@ -61,7 +61,7 @@ public class Upload {
 		}
 		
 		Map<String, String> responseObj = new HashMap<String, String>();
-		responseObj.put("error", Arrays.toString(results));
+		responseObj.put("Result", Arrays.toString(results));
 		
 		return Response.status(Response.Status.ACCEPTED).entity(responseObj).build();
     }

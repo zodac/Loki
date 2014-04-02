@@ -1,6 +1,10 @@
 <%@ page import="main.*"%>
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/seNav.jsp" />
+<script src="../../js/userConf.js"></script>
+<script>
+onload = checkSupp();
+</script>
 <!-- content here -->
 <script>
 	$(function() {

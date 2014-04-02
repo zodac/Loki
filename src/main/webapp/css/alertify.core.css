@@ -55,8 +55,8 @@
 .alertify-logs {
 	position: fixed;
 	z-index: 5000;
-	bottom: 10px;
-	right: 10px;
+	bottom: 20px;
+	right: 20px;
 	width: 300px;
 }
 .alertify-logs-hidden {
@@ -82,7 +82,7 @@
 		opacity: 0;
 	}
 	.alertify-dialog {
-		padding: 25px;
+		padding: 5px;
 	}
 		.alertify-resetFocus {
 			border: 0;

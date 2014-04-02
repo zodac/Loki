@@ -22,12 +22,10 @@ public class UserJPA implements UserDAO {
 	}
 
 	public User getUserByUsername(String userName) {
-		User user = em.find(User.class, userName);
-		return user;
+		return em.find(User.class, userName);
 	}
 
 	public List<User> findAllUsers() {
-		List<User> users = (List<User>) em.createNamedQuery("User.findAll").getResultList();
-		return users;
+		return (List<User>) em.createNamedQuery("User.findAll").getResultList();
 	}
 }

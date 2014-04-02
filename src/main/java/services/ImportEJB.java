@@ -379,7 +379,6 @@ public class ImportEJB implements ImportService {
 			cf.setHier3Id(hier3_id);
 			cf.setHier32Id(hier32_id);
 			cf.setHier321Id(hier321_id);
-//			failureDAO.addCallFailure(cf);
 			callFailures.add(cf);
 		} else{
 			InvalidCallFailure icf = new InvalidCallFailure();
@@ -391,12 +390,12 @@ public class ImportEJB implements ImportService {
 			icf.setOperator(operator);
 			icf.setCellId(cellId);
 			icf.setDuration(duration);
+			icf.setNEVersion(neVersion);
 			icf.setCauseCode(invalidCauseCode);
 			icf.setImsi(BigInteger.valueOf(imsi));
 			icf.setHier3Id(hier3_id);
 			icf.setHier32Id(hier32_id);
 			icf.setHier321Id(hier321_id);
-//			invalidDAO.addInvalidCallFailure(icf);
 			invalidCallFailures.add(icf);
 		}
 	}

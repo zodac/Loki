@@ -4,11 +4,12 @@ function allIMSIsByTimePeriod(){
 	
 	if (new Date(fromDate) > new Date(toDate)) {
 		clearResult();
-	    alert("Invalid date range!");
+		alertify.error("Invalid date range!");
 	    document.forms["sequery"]["from"].focus();
 	} else{
 		var results = makeJSONObject("./../../webservice/SEQueries/" + fromDate + "/" + toDate);
-
+		alertify.success(results.length + " results loaded!");
+		
 		var div = document.createElement("div");
 		div.setAttribute("style", "max-height: 400px; overflow: auto;");
 		var table = document.createElement("table");
@@ -41,10 +42,11 @@ function numberOfFailuresByModelAndTimePeriod(){
 		var toDate = document.forms["sequery"]["to"].value;
 		if(new Date(fromDate) > new Date(toDate)) {
 			clearResult();
-			alert("Invalid date range!");
+			alertify.error("Invalid date range!");
 			document.forms["sequery"]["from"].focus();
 		} else{
 			var results = makeJSONObject("./../../webservice/SEQueries/" + modelInput + "/" + fromDate + "/" + toDate);
+			alertify.success(results.length + " results loaded!");
 
 			var div = document.createElement("div");
 			div.setAttribute("style", "max-height: 400px; overflow: auto;");
@@ -68,7 +70,7 @@ function numberOfFailuresByModelAndTimePeriod(){
 			document.getElementById("queryresult").appendChild(div);
 		}
 	} else{
-		alert("Invalid phone model!");
+		alertify.log("Invalid phone model!");
 		document.forms["sequery"]["model"].focus();
 	}
 }
@@ -78,15 +80,16 @@ function allIMSIsByFailureClass(){
 	
 	if(!/^-{0,1}\d*\.{0,1}\d+$/.test(fc)){
 		clearResult();
-    	alert("Invalid FailureClass format!");
+		alertify.error("Invalid FailureClass format!");
     	document.forms["sequery"]["failureclass"].focus();
     } else if(makeJSONObject("./../../webservice/FailureClass/" + fc) == 0){
     	clearResult();
-    	alert("Invalid FailureClass value!");
+    	alertify.log("Invalid FailureClass value!");
 		document.forms["sequery"]["failureclass"].focus();
     } else{
     	var results = makeJSONObject("./../../webservice/SEQueries/" + fc);
-
+    	alertify.success(results.length + " results loaded!");
+    	
     	var div = document.createElement("div");
     	div.setAttribute("style", "max-height: 400px; overflow: auto;");
     	var table = document.createElement("table");

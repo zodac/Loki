@@ -5,11 +5,12 @@ function numberOfFailuresAndDuration() {
 	if (new Date(fromDate) > new Date(toDate)) {
 		clearResult();
 		clearChart("scatterplot");
-		alert("Invalid date range!");
+		alertify.error("Invalid date range!");
 		document.forms["nmequery"]["from"].focus();
 	} else {
 		var results = makeJSONObject("./../../webservice/NMEQueries/FD/"
 				+ fromDate + "/" + toDate);
+		alertify.success(results.length + " results loaded!");
 
 		var div = document.createElement("div");
 		div.setAttribute("style", "max-height: 400px; overflow: auto;");
@@ -129,6 +130,7 @@ function uniqueEventCauseAndOccurancesByModel() {
 
 	if (model != "") {
 		var results = makeJSONObject("./../../webservice/NMEQueries/" + model.tac);
+		alertify.success(results.length + " results loaded!");
 
 		var div = document.createElement("div");
 		div.setAttribute("style", "max-height: 400px; overflow: auto;");
@@ -232,7 +234,7 @@ function uniqueEventCauseAndOccurancesByModel() {
 	} else {
 		clearResult();
 		clearChart("causeContainer");
-		alert("Invalid phone model!");
+		alertify.log("Invalid phone model!");
 		document.forms["nmequery"]["model"].focus();
 	}
 }
@@ -297,11 +299,12 @@ function topMOC() {
 	if (new Date(fromDate) > new Date(toDate)) {
 		clearResult();
 		clearChart("chartContainer");
-		alert("Invalid date range!");
+		alertify.error("Invalid date range!");
 		document.forms["nmequery"]["from"].focus();
 	} else {
 		var results = makeJSONObject("./../../webservice/NMEQueries/"
 				+ fromDate + "/" + toDate);
+		alertify.success(results.length + " results loaded!");
 
 		var div = document.createElement("div");
 		div.setAttribute("style", "max-height: 400px; overflow: auto;");
@@ -409,11 +412,12 @@ function topIMSIs() {
 	if (new Date(fromDate) > new Date(toDate)) {
 		clearResult();
 		clearChart("chartContainer");
-		alert("Invalid date range!");
+		alertify.error("Invalid date range!");
 		document.forms["nmequery"]["from"].focus();
 	} else {
 		var results = makeJSONObject("./../../webservice/NMEQueries/IMSI/"
 				+ fromDate + "/" + toDate);
+		alertify.success(results.length + " results loaded!");
 
 		var div = document.createElement("div");
 		div.setAttribute("style", "max-height: 400px; overflow: auto;");

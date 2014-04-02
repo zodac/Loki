@@ -1,6 +1,10 @@
 <%@ page import="main.*"%>
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/csrepNav.jsp" />
+<script src="../../js/userConf.js"></script>
+<script>
+onload = checkCS();
+</script>
 <!-- content here -->
 <script>
 	$(function() {

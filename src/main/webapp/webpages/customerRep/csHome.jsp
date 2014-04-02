@@ -1,6 +1,11 @@
 <%@ page import="main.*"%>
 <%@ page import="java.util.*"%>
 <jsp:include page="../templates/header.jsp" />
+<script src="../../js/userConf.js"></script>
+<script>
+onload = checkCS();
+</script>
+
 <div class="row">
 	<div class="col-md-3 text-left panel-group" id="accordion">
 		<ul class="nav nav-pills nav-stacked">
@@ -35,9 +40,9 @@
 		<div class="col-md-6">
 			<dl class="dl-horizontal">
 				<dt><%=Strings.PROFILE_USERNAME%></dt>
-				<dd style="padding-bottom: 20px;"></dd>
+				<dd style="padding-bottom: 20px;" id= "tblusername"></dd>
 				<dt><%=Strings.PROFILE_ROLE%></dt>
-				<dd></dd>
+				<dd id = "tblrole"></dd>
 
 			</dl>
 			<h4 class="center col-md-offset-3"
@@ -46,18 +51,18 @@
 			</h4>
 			<dl class="dl-horizontal">
 				<dt><%=Strings.PROFILE_EMAIL%></dt>
-				<dd style="padding-bottom: 20px;"></dd>
+				<dd style="padding-bottom: 20px;" id = "tblemail"></dd>
 				<dt><%=Strings.PROFILE_PHONE%></dt>
-				<dd></dd>
+				<dd id = "tblphone"></dd>
 			</dl>
 
 		</div>
 		<div class="col-md-6">
 			<dl class="dl-horizontal">
 				<dt><%=Strings.PROFILE_FIRSTNAME%></dt>
-				<dd style="padding-bottom: 20px;"></dd>
+				<dd style="padding-bottom: 20px;" id = "tblfirstname"></dd>
 				<dt><%=Strings.PROFILE_LASTNAME%></dt>
-				<dd></dd>
+				<dd id = "tbllastname"></dd>
 			</dl>
 			<div class=" col-md-12 center">
 				<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
@@ -65,5 +70,5 @@
 			</div>
 		</div>
 	</div>
-
+<script>loadUserDetails();</script>
 	<jsp:include page="../templates/footer.jsp" />

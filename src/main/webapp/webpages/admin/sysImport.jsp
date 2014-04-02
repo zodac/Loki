@@ -4,7 +4,10 @@
 <!-- content here -->
 <script src="../../js/jquery.form.min.js"></script>
 <script src="../../js/upload.js"></script>
-
+<script src="../../js/userConf.js"></script>
+<script>
+	onload = checkAdmin();
+</script>
 <div class="col-md-9 text-center">
 	<h3 class="col-md-offset-4 col-md-7 text-left">
 		<em><%=Strings.IMPORT%></em>
@@ -20,6 +23,7 @@
 			</div>
 		</div>
 		<br /> <br />
+		
 		<div class="form-group">
 			<div class="col-md-offset-3 col-md-4">
 				<input type="submit" class="btn btn-primary"
@@ -29,5 +33,7 @@
 	</form>
 	<br /> <br />
 	<div style="text-align: left" id="importresult"></div>
+	<br />
+	<div style="text-align: left; display: none" id="invalidfailures"></div>
 </div>
 <jsp:include page="../templates/footer.jsp" />

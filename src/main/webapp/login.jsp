@@ -20,6 +20,11 @@
 		});
 	});
 </script>
+<script>
+onload = function(){
+	deleteUser();
+};
+</script>
 </head>
 <body>
 

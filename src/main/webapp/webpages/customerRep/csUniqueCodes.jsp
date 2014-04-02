@@ -1,7 +1,10 @@
 <%@ page import="main.*"%>
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/csrepNav.jsp" />
-<!-- content here -->
+<script src="../../js/userConf.js"></script>
+<script>
+onload = checkCS();
+</script>
 <script>
 	$(function() {
 		$('#csrquery').submit(function(event) {
@@ -10,6 +13,7 @@
 		});
 	});
 </script>
+<!-- content here -->
 <div class="col-md-9 text-center">
 	<h4 class="col-md-11 text-center"><%=Strings.UNIQUE_CAUSECODES_BY_IMSI%></h4>
 	<br /> <br /> <br />
