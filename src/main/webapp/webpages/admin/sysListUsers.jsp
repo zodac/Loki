@@ -29,7 +29,6 @@
 <!-- 	</div> -->
 	<script type="text/javascript">
 			var results = makeJSONObject("./../../webservice/Users");
-			var tbody = document.createElement("tbody");
 			var completearray = [];
 			$.each(results, function(key, value){
 				var array = [];

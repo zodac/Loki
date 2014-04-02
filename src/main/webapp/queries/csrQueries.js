@@ -13,36 +13,39 @@ function eventCauseByIMSI(){
 		var results = makeJSONObject("./../../webservice/CSRQueries/EC/" + imsi);
 		alertify.success(results.length + " results loaded!");
 
-		var div = document.createElement("div");
-		div.setAttribute("style", "max-height: 400px; overflow: auto;");
 		var table = document.createElement("table");
 		table.setAttribute("class", "table table-striped table-bordered");
+		table.setAttribute("id", "datatablehtml");
 		
 		var tbody = document.createElement("tbody");
 		var thead = document.createElement("thead");
+		var tr = document.createElement("tr");
 		var th = document.createElement("th");
 		th.appendChild(document.createTextNode("Event ID"));
-		thead.appendChild(th);
+		tr.appendChild(th);
 		th = document.createElement("th");
 		th.appendChild(document.createTextNode("Cause Code"));
-		thead.appendChild(th);
+		tr.appendChild(th);
+		thead.appendChild(tr);
 		table.appendChild(thead);
-		
-		for(var i = 0; i < results.length; i++){
-			var row = document.createElement("tr");
-			var cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(results[i].id.a_Event_ID));
-			row.appendChild(cell);
-			cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(results[i].id.b_Cause_Code));
-			row.appendChild(cell);
-			
-			tbody.appendChild(row);
-		}
 		table.appendChild(tbody);
+		document.getElementById("queryresult").appendChild(table);
 		
-		div.appendChild(table);
-		document.getElementById("queryresult").appendChild(div);
+		var completearray = [];
+		$.each(results, function(key, value){
+			var array = [];
+			array.push(value.id.a_Event_ID);
+			array.push(value.id.b_Cause_Code);
+			completearray.push(array);
+			
+		});
+		
+		$(document).ready(function(){
+		    $('#datatablehtml').dataTable({
+		    	"aaData": completearray
+		    });
+		});
+		
 	}
 }
 
@@ -111,30 +114,36 @@ function uniqueCauseCodeByIMSI(){
 		var results = makeJSONObject("./../../webservice/CSRQueries/CC/" + imsi);
 		alertify.success(results.length + " results loaded!");
 
-		var div = document.createElement("div");
-		div.setAttribute("style", "max-height: 400px; overflow: auto;");
+		
 		var table = document.createElement("table");
 		table.setAttribute("class", "table table-striped table-bordered");
+		table.setAttribute("id", "datatablehtml");
 		
 		var tbody = document.createElement("tbody");
 		var thead = document.createElement("thead");
+		var tr = document.createElement("tr");
 		var th = document.createElement("th");
 		th.appendChild(document.createTextNode("Cause Code"));
-		thead.appendChild(th);
+		tr.appendChild(th);
+		thead.appendChild(tr);
 		table.appendChild(thead);
-		
-		for(var i = 0; i < results.length; i++){
-			var row = document.createElement("tr");
-			var cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(results[i]));
-			row.appendChild(cell);
-			
-			tbody.appendChild(row);
-		}
 		table.appendChild(tbody);
 		
-		div.appendChild(table);
-		document.getElementById("queryresult").appendChild(div);
+		document.getElementById("queryresult").appendChild(table);
+		
+		var completearray = [];
+		$.each(results, function(value){
+			var array = [];
+			array.push(value);
+			completearray.push(array);
+			
+		});
+		
+		$(document).ready(function(){
+		    $('#datatablehtml').dataTable({
+		    	"aaData": completearray
+		    });
+		});
 	}
 }
 

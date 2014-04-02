@@ -28,7 +28,7 @@ onload = checkSupp();
 		</div>
 		<input class="btn btn-primary" type="submit" value="<%=Strings.SUBMIT%>" />
 	</form>
-	<div class="col-md-offset-2 col-md-7" id="queryresult"></div>
+	<div class="col-md-12" id="queryresult"></div>
 </div>
 
 <jsp:include page="../templates/footer.jsp" />
