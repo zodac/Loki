@@ -1,6 +1,10 @@
 <%@ page import="main.*"%>
 <%@ page import="java.util.*"%>
 <jsp:include page="../templates/header.jsp" />
+<script src="../../js/userConf.js"></script>
+<script>
+onload = checkSupp();
+</script>
 <div class="row">
 	<div class="col-md-3 text-left panel-group" id="accordion">
 		<ul class="nav nav-pills nav-stacked">

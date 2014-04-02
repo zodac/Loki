@@ -1,7 +1,10 @@
 <%@ page import="main.*"%>
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/sysNav.jsp" />
-
+<script src="../../js/userConf.js"></script>
+<script>
+	onload = checkAdmin();
+</script>
 <!-- content here -->
 
 <div class="col-md-9 text-center">

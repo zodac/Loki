@@ -1,4 +1,5 @@
 <%@ page import="main.*"%>
+
 <!DOCTYPE>
 <html>
 <head>
@@ -13,6 +14,7 @@
 <script src="../../js/bootstrap.min.js"></script>
 <script src="../../js/login.js"></script>
 <script src="../../js/alertify.min.js"></script>
+<script src="../../js/userConf.js"></script>
 <script>
 	$(function() {
 		$("#to, #from, #email, #phone").tooltip({
@@ -32,6 +34,19 @@
 			fjs.parentNode.insertBefore(js, fjs);
 		}
 	}(document, "script", "twitter-wjs");
+
+	function loadDetails(){
+
+		if(localStorage.getItem("User") != null){
+			var userInfo = localStorage.getItem("User");
+			var details = userInfo.split(",",6);
+			document.getElementById("username").innerHTML=details[0];
+			document.getElementById("usertype").innerHTML=details[1];
+			
+		}else{
+			location.replace("/Loki/");
+		}
+	}
 </script>
 
 </head>
@@ -43,8 +58,7 @@
 			</div>
 			<div class="col-md-10" id="banner"
 				style="background-image: url(../../images/banner.png); height: 120px; width: 950px;">
-				<form method="POST" name="logout" action="/JPASprint1/LoginServlet"
-					id="postionbt">
+				<form name="logout" action="/Loki" id="postionbt">
 					<button class="btn btn-danger right" type="submit">
 						<span class="glyphicon glyphicon-log-out"></span><%=Strings.LOGOUT%></button>
 				</form>
@@ -54,7 +68,10 @@
 				<p class="text-right center" id="margintext">
 					<span class="glyphicon glyphicon-user"></span>
 					<%=Strings.LOGGED_IN_AS%>
-					<!-- <strong></%=userName + " (" + userType + ")"%></strong> -->
+					<strong>
+						<element id="username"></element>
+					</strong><strong><element id="usertype"></element></strong>
+				<script>loadDetails();</script>
 				</p>
 				<!-- get from session -->
 			</div>

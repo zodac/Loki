@@ -1,7 +1,11 @@
 <%@ page import="main.*"%>
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/sysNav.jsp" />
-<!-- content here -->
+
+<script src="../../js/userConf.js"></script>
+<script>
+	onload = checkAdmin();
+</script>
 <script>
 	$(function() {
 		$('#register').submit(function(event) {
@@ -10,6 +14,7 @@
 		});
 	});
 </script>
+<!-- content here -->
 <div class="col-md-9 text-center">
 	<h3 class="col-md-offset-5 col-md-8 text-left">
 		<em><%=Strings.CREATE_USER%></em>

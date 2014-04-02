@@ -4,7 +4,10 @@
 <!-- content here -->
 <script src="../../js/jquery.form.min.js"></script>
 <script src="../../js/upload.js"></script>
-
+<script src="../../js/userConf.js"></script>
+<script>
+	onload = checkAdmin();
+</script>
 <div class="col-md-9 text-center">
 	<h3 class="col-md-offset-4 col-md-7 text-left">
 		<em><%=Strings.IMPORT%></em>
