@@ -6,5 +6,6 @@ import javax.jws.WebService;
 @WebService
 @Remote
 public interface FailureClassService {
-	 long findFailureClassCount(int failureClassId);
+	long findFailureClassCount(int failureClassId);
+	String[] getAllFailureClassesAndDescriptions();
 }

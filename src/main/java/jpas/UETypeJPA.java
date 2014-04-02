@@ -48,4 +48,16 @@ public class UETypeJPA implements UETypeDAO {
 			
 		return getUEType((Integer) uetypes.get(0)[0]);
 	}
+
+	@Override
+	public String[] getAllPhoneModels() {
+		List<Object> models = (List<Object>) em.createNativeQuery("SELECT model FROM UEType").getResultList();
+		int size = models.size();
+		String[] results = new String[size];
+		
+		for(int i = 0; i < size; i++){
+			results[i] = String.valueOf(models.get(i));
+		}
+		return results;
+	}
 }

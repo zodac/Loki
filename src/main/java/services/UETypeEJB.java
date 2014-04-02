@@ -23,4 +23,9 @@ public class UETypeEJB implements UETypeService {
 	public UEType getUETypeByModel(String model) {
 		return dao.getUETypeByModel(model);
 	}
+
+	@Override
+	public String[] getAllPhoneModels() {
+		return dao.getAllPhoneModels();
+	}
 }

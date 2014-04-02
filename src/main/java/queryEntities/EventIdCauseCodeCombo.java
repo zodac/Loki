@@ -3,8 +3,6 @@ package queryEntities;
 import java.io.Serializable;
 import java.math.BigInteger;
 
-import javax.persistence.Column;
-
 public class EventIdCauseCodeCombo implements Serializable {
 	private static final long serialVersionUID = 1L;
 		

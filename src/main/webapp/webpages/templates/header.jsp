@@ -45,8 +45,8 @@
 		if(localStorage.getItem("User") != null){
 			var userInfo = localStorage.getItem("User");
 			var details = userInfo.split(",",6);
-			document.getElementById("username").innerHTML=details[0];
-			document.getElementById("usertype").innerHTML=details[1];
+			document.getElementById("username").innerHTML= details[2] + " " + details[3];
+			document.getElementById("usertype").innerHTML= " (" + details[1] + ")";
 			
 		}else{
 			location.replace("/Loki/");
@@ -59,7 +59,7 @@
 	<div class="container" id="main">
 		<div class="row">
 			<div class="col-md-2 text-center">
-			<a href="../../login.jsp"><img src="../../images/logo.jpg" height="100" width="100" id="logo"></a>
+			<img onclick="redirectToHome()" src="../../images/logo.jpg" height="100" width="100" id="logo">
 			</div>
 			<div class="col-md-10" id="banner"
 				style="background-image: url(../../images/banner.png); height: 120px; width: 950px;">

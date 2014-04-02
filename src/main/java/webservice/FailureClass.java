@@ -24,4 +24,10 @@ public class FailureClass {
     public long findFailureClassCount(@PathParam("failureClassId") int failureClassId) {
         return fcEJB.findFailureClassCount(failureClassId);
     }
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String[] getAllFailureClassesAndDescriptions(){
+		return fcEJB.getAllFailureClassesAndDescriptions();
+	}
 }

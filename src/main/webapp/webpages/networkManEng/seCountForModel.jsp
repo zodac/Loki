@@ -1,7 +1,8 @@
 <%@ page import="main.*"%>
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/nmeNav.jsp" />
-<script src="../../js/userConf.js"></script>
+<script src="../../js/typeahead.bundle.js"></script>
+<script src="../../js/handlebars.js"></script>
 <script>
 onload = checkNME();
 </script>
@@ -14,15 +15,64 @@ onload = checkNME();
 		});
 	});
 </script>
+<script>
+function makeJSONObject(location) {
+	var request = new XMLHttpRequest();
+	request.open("GET", location, false);
+	request.send(null);
+
+	clearResult();
+
+	if (request.responseText != "") {
+		return eval("(" + request.responseText + ")");
+	}
+	return request.responseText;
+}
+</script>
+<script>
+$(document).ready(
+	function() {
+		var substringMatcher = function(strs) {
+			return function findMatches(q, cb) {
+				var matches;
+				matches = [];
+
+				var substrRegex = new RegExp(q, 'i');
+
+				$.each(strs, function(i, str) {
+					if (substrRegex.test(str)) {
+						matches.push({
+							value : str
+						});
+					}
+				});
+
+				cb(matches);
+			};
+		};
+
+		var phoneModels = makeJSONObject("./../../webservice/Phones/");
+
+		$('#the-basics .form-control').typeahead({
+			hint : true,
+			highlight : true,
+			minLength : 1
+		}, {
+			name : 'phoneModels',
+			displayKey : 'value',
+			source : substringMatcher(phoneModels)
+		});
+	});
+</script>
 <div class="col-md-9 text-center">
 	<h4 class="col-md-12 text-center"><%=Strings.NUM_FAILURES_BY_MODEL_BY_TIME_PERIOD%></h4>
 	<br /> <br /> <br />
 	<form name="sequery" id="sequery"
 		class="form-inline">
 		<div class="form-group">
-			<div class="col-md-1">
+			<div id="the-basics" class="col-md-1">
 				<input type="text" class="form-control" id="model" name="model"
-					placeholder="Phone Model" required />
+					placeholder="Phone Model" size=30 required />
 			</div>
 		</div>
 		<div class="form-group">

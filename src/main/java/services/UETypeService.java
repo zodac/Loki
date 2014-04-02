@@ -9,4 +9,5 @@ import entities.UEType;
 @Remote
 public interface UETypeService {
 	UEType getUETypeByModel(String model);
+	String[] getAllPhoneModels();
 }

@@ -23,4 +23,9 @@ public class FailureClassEJB implements FailureClassService {
 	public long findFailureClassCount(int failureClassId) {
 		return dao.getFailureClassCount(failureClassId);
 	}
+
+	@Override
+	public String[] getAllFailureClassesAndDescriptions() {
+		return dao.getAllFailureClassesAndDescriptions();
+	}
 }

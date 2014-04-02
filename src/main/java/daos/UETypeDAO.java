@@ -8,4 +8,5 @@ public interface UETypeDAO {
 	long getNumberOfUETypes();
 	boolean doesUETypeExist(int tac);
 	UEType getUETypeByModel(String model);
+	String[] getAllPhoneModels();
 }

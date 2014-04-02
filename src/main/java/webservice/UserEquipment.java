@@ -25,4 +25,10 @@ public class UserEquipment {
     public UEType getUETypeByModel(@PathParam("model") String model) {
         return uetEJB.getUETypeByModel(model);
     }
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String[] getAllPhoneModels(){
+		return uetEJB.getAllPhoneModels();
+	}
 }

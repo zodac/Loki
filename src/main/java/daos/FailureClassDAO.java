@@ -8,4 +8,5 @@ public interface FailureClassDAO {
 	boolean doesFailureClassExist(int failureClassId);
 	long getNumberOfFailureClasses();
 	long getFailureClassCount(int failureClassId);
+	String[] getAllFailureClassesAndDescriptions();
 }
