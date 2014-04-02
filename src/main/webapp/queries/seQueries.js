@@ -10,26 +10,34 @@ function allIMSIsByTimePeriod(){
 		var results = makeJSONObject("./../../webservice/SEQueries/" + fromDate + "/" + toDate);
 		alertify.success(results.length + " results loaded!");
 		
-		var div = document.createElement("div");
-		div.setAttribute("style", "max-height: 400px; overflow: auto;");
 		var table = document.createElement("table");
 		table.setAttribute("class", "table table-striped table-bordered");
+		table.setAttribute("id", "datatablehtml");
 		
 		var tbody = document.createElement("tbody");
-		table.appendChild(createHead("IMSI"));		
-		
-		for(var i = 0; i < results.length; i++){
-			var row = document.createElement("tr");
-			var cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(results[i]));
-			row.appendChild(cell);
-			
-			tbody.appendChild(row);
-		}
+		var thead = document.createElement("thead");
+		var tr = document.createElement("tr");
+		var th = document.createElement("th");
+		th.appendChild(document.createTextNode("IMSI"));
+		tr.appendChild(th);
+		thead.appendChild(tr);
+		table.appendChild(thead);
 		table.appendChild(tbody);
+		document.getElementById("queryresult").appendChild(table);		
 		
-		div.appendChild(table);
-		document.getElementById("queryresult").appendChild(div);
+		var completearray = [];
+		$.each(results, function(i, value){
+			var array = [];
+			array.push(value);
+			completearray.push(array);
+			
+		});
+		
+		$(document).ready(function(){
+		    $('#datatablehtml').dataTable({
+		    	"aaData": completearray
+		    });
+		});
 	}
 }
 
@@ -90,26 +98,34 @@ function allIMSIsByFailureClass(){
     	var results = makeJSONObject("./../../webservice/SEQueries/" + fc);
     	alertify.success(results.length + " results loaded!");
     	
-    	var div = document.createElement("div");
-    	div.setAttribute("style", "max-height: 400px; overflow: auto;");
     	var table = document.createElement("table");
-    	table.setAttribute("class", "table table-striped table-bordered");
-    	
-    	var tbody = document.createElement("tbody");
-    	table.appendChild(createHead("IMSI"));		
-    	
-    	for(var i = 0; i < results.length; i++){
-    		var row = document.createElement("tr");
-    		var cell = document.createElement("td");
-    		cell.appendChild(document.createTextNode(results[i]));
-    		row.appendChild(cell);
-    		
-    		tbody.appendChild(row);
-    	}
-    	table.appendChild(tbody);
-    	
-    	div.appendChild(table);
-    	document.getElementById("queryresult").appendChild(div);
+		table.setAttribute("class", "table table-striped table-bordered");
+		table.setAttribute("id", "datatablehtml");
+		
+		var tbody = document.createElement("tbody");
+		var thead = document.createElement("thead");
+		var tr = document.createElement("tr");
+		var th = document.createElement("th");
+		th.appendChild(document.createTextNode("IMSI"));
+		tr.appendChild(th);
+		thead.appendChild(tr);
+		table.appendChild(thead);
+		table.appendChild(tbody);
+		document.getElementById("queryresult").appendChild(table);
+		var completearray = [];
+		$.each(results, function(i, value){
+			var array = [];
+			array.push(value);
+			completearray.push(array);
+			
+		});
+		
+		$(document).ready(function(){
+		    $('#datatablehtml').dataTable({
+		    	"aaData": completearray
+		    });
+		});
+  
     }
 }
 

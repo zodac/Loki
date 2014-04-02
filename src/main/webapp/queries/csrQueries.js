@@ -132,7 +132,7 @@ function uniqueCauseCodeByIMSI(){
 		document.getElementById("queryresult").appendChild(table);
 		
 		var completearray = [];
-		$.each(results, function(value){
+		$.each(results, function(i,value){
 			var array = [];
 			array.push(value);
 			completearray.push(array);
