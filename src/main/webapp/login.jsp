@@ -65,7 +65,7 @@ if(!aul.isAlive()){ aul.start(); }
 						<br />
 						<div class="form-group">
 							<div class="col-md-offset-4 col-md-4">
-								<input class="btn btn-primary" type="submit" value="<%=Strings.LOGIN%>" />
+								<input class="btn btn-primary" type="submit" id="loginSubmit" value="<%=Strings.LOGIN%>" />
 							</div>
 						</div>
 					</form>

@@ -34,7 +34,7 @@ onload = checkSupp();
 					title="<%=Strings.TT_TO%>" value="2013-12-31T23:59:59" step="1" />
 			</div>
 		</div>
-		<span style="display:inline"><input class="btn btn-primary" type="submit" value="<%=Strings.SUBMIT%>" /></span>
+		<span style="display:inline"><input class="btn btn-primary" type="submit" id="seListIMSISubmit" value="<%=Strings.SUBMIT%>" /></span>
 	</form>
 
 	<div class="col-md-offset-2 col-md-7" id="queryresult"></div>

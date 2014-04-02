@@ -32,7 +32,7 @@ onload = checkNME();
 					name="to" title="<%=Strings.TT_TO%>" data-toggle="tooltip" data-placement="bottom" value="2013-12-31T23:59:59" step="1">
 			</div>
 		</div>
-				<span style="display:inline"><input class="btn btn-primary" type="submit" value="<%=Strings.SUBMIT%>" /></span>
+				<span style="display:inline"><input class="btn btn-primary" type="submit" id="countNumFailuresSubmit" value="<%=Strings.SUBMIT%>" /></span>
 
 	</form>
 	<div class="col-md-12" id="queryresult"></div>

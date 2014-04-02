@@ -89,7 +89,7 @@
 		<br />
 		<div class="form-group">
 			<div class="col-md-offset-4 col-md-4">
-				<input type="submit" class="btn btn-primary" value="<%=Strings.CREATE_USER%>" />
+				<input type="submit" class="btn btn-primary" id="addUserSubmit" value="<%=Strings.CREATE_USER%>" />
 			</div>
 		</div>
 	</form>
