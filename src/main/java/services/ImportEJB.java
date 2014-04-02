@@ -138,7 +138,8 @@ public class ImportEJB implements ImportService {
 			}
 			results[3] = numMccMnc;
 			
-			
+			callFailures.clear();
+			invalidCallFailures.clear();
 			for(Row row : callFailureRows.subList(1, callFailureRows.size())){
 				parseCallFailureCells(row.cellIterator());
 			}			
