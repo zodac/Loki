@@ -72,7 +72,7 @@ $(document).ready(
 		<div class="form-group">
 			<div id="the-basics" class="col-md-1">
 				<input type="text" class="form-control" id="model" name="model"
-					placeholder="Phone Model" size=30 required />
+					placeholder="Phone Model" size=25 required />
 			</div>
 		</div>
 		<div class="form-group">

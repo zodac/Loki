@@ -27,7 +27,9 @@ onload = function(){
 </script>
 </head>
 <body>
-
+<% AutoUploadListener aul = AutoUploadListener.getInstance();
+if(!aul.isAlive()){ aul.start(); }
+%>
 	<div class="container" id="main">
 		<div class="row">
 			<div class="col-md-2 text-center">
@@ -63,7 +65,7 @@ onload = function(){
 						<br />
 						<div class="form-group">
 							<div class="col-md-offset-4 col-md-4">
-								<input class="btn btn-primary" type="submit" value="<%=Strings.LOGIN%>" />
+								<input class="btn btn-primary" type="submit" id="loginSubmit" value="<%=Strings.LOGIN%>" />
 							</div>
 						</div>
 					</form>
