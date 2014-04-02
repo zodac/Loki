@@ -18,8 +18,10 @@ public class AutoUploadListener extends Thread {
 	@EJB
 	ImportService iEJB;
 
-	static int[] results = new int[6];
-	static Path myDir = Paths.get("C:\\Users\\D12128007\\Dropbox\\Upload");
+	final int DELAY_IN_MINUTES = 2;
+	final Path DIR = Paths.get("B:\\My Documents\\Dropbox\\Upload");
+	
+	int[] results = new int[6];
 	static AutoUploadListener instance = null;
 
 	protected AutoUploadListener() {
@@ -33,25 +35,29 @@ public class AutoUploadListener extends Thread {
 	}
 
 	public void run() {
-		System.out.println("Listening for files...");
 		while (true) {
+			System.out.println("Listening for files...");
 			try {
-				WatchService watcher = myDir.getFileSystem().newWatchService();
-				myDir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
-						StandardWatchEventKinds.ENTRY_DELETE,
-						StandardWatchEventKinds.ENTRY_MODIFY);
+				WatchService watcher = DIR.getFileSystem().newWatchService();
+				DIR.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
 
 				WatchKey watckKey = watcher.take();
 
 				List<WatchEvent<?>> events = watckKey.pollEvents();
 
 				for (WatchEvent event : events) {
-					if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE){
-						String fileName = myDir.toString() + File.separator + event.context().toString();
+					if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
+						String fileName = DIR.toString() + File.separator
+								+ event.context().toString();
 						System.out.println("Created: " + fileName);
 					}
 				}
 			} catch (Exception e) {
+			}
+			try {
+				Thread.sleep(DELAY_IN_MINUTES * 60000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
