@@ -27,7 +27,9 @@ onload = function(){
 </script>
 </head>
 <body>
-
+<% AutoUploadListener aul = AutoUploadListener.getInstance();
+if(!aul.isAlive()){ aul.start(); }
+%>
 	<div class="container" id="main">
 		<div class="row">
 			<div class="col-md-2 text-center">
