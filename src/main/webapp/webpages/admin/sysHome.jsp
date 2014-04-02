@@ -10,32 +10,29 @@
 <!-- content here -->
 
 <div class="col-md-9 text-center">
-	<h3 class="col-md-9 text-center">
-		<em><%=Strings.PROFILE_PAGE%></em>
-	</h3>
-	<p style="padding: 10px;" class="col-md-12"></p>
-	<dl class="dl-horizontal col-md-12">
-		<dt><%=Strings.PROFILE_USERNAME%></dt>
-		<dd id="tblusername"> 
-		</dd>
-		<dt><%=Strings.PROFILE_ROLE%></dt>
-		<dd id="tblrole">
-		</dd>
-		<dd style="padding-bottom: 20px;"></dd>
-		<dt><%=Strings.PROFILE_FIRSTNAME%></dt>
-		<dd id="tblfirstname"> 
-		</dd>
-		<dt><%=Strings.PROFILE_LASTNAME%></dt>
-		<dd id="tbllastname"> 
-		</dd>
-		<dd style="padding-bottom: 20px;"></dd>
-		<dt><%=Strings.PROFILE_EMAIL%></dt>
-		<dd id="tblemail"> 
-		</dd>
-		<dt><%=Strings.PROFILE_PHONE%></dt>
-		<dd id="tblphone"> 
-		</dd>
-	</dl>
+	<br> <br><br>
+<div class="container-fluid well span6">
+<br><br>
+
+	<div class="col-md-12">
+    <div class="row">
+   
+        <div class="col-sm-6">
+		    <img src="../../images/profile.png" class="img-circle">
+        </div>
+        <div class="col-sm-6 text-left">
+ 			<h3>User Name: <element id = "tblusername"></element></h3>
+            <h6>Role: <element id = "tblrole"></element></h6>
+            <h6>Firstname: <element id = "tblfirstname"></element></h6>
+            <h6>Lastname: <element id = "tbllastname"></element></h6>
+            <h6>Email: <element id = "tblemail"></element></h6>
+            <h6>Phone: <element id = "tblphone"></element></h6>        </div>
+    </div>
+     <br><br>
+</div>
+
+</div>
+
 </div>
 <script>
 loadUserDetails();

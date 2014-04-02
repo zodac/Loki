@@ -3,15 +3,16 @@
 <jsp:include page="../templates/header.jsp" />
 <script src="../../js/userConf.js"></script>
 <script>
-onload = checkSupp();
+	onload = checkSupp();
 </script>
 <div class="row">
 	<div class="col-md-3 text-left panel-group" id="accordion">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="seHome.jsp"><span
-					class="glyphicon glyphicon-home"></span> <strong><u><%=Strings.HOME%></u></strong></a></li>
+					class="glyphicon glyphicon-home"></span> <%=Strings.HOME%></a></li>
 			<li><a data-toggle="collapse" data-parent="#accordion"
-				href="#collapseOne"><span class="glyphicon glyphicon-stats"></span> <strong><u><%=Strings.SEQUERIES%></u></strong></a></li>
+				href="#collapseOne"><span class="glyphicon glyphicon-stats"></span>
+					<%=Strings.SEQUERIES%></a></li>
 
 			<div id="collapseOne" class="panel-collapse collapse">
 				<ul class="nav nav-pills nav-stacked text-left">
@@ -24,7 +25,8 @@ onload = checkSupp();
 				</ul>
 			</div>
 			<li><a data-toggle="collapse" data-parent="#accordion"
-				href="#collapseTwo"><span class="glyphicon glyphicon-stats"></span> <strong><u><%=Strings.CSQUERIES%></u></strong></a></li>
+				href="#collapseTwo"><span class="glyphicon glyphicon-stats"></span>
+					<%=Strings.CSQUERIES%></a></li>
 			<div id="collapseTwo" class="panel-collapse collapse">
 				<ul class="nav nav-pills nav-stacked text-left">
 					<li><a href="csEventCause.jsp"><span
@@ -45,43 +47,50 @@ onload = checkSupp();
 
 	<!-- content here -->
 
-	<div class="col-md-9">
-		<h3 class="col-md-12 text-center">
-			<strong><em><%=Strings.PROFILE_PAGE%></em></strong>
-		</h3>
-		<p style="padding: 1px;" class="col-md-12"></p>
-		<div class="col-md-6">
-			<dl class="dl-horizontal">
-				<dt><%=Strings.PROFILE_USERNAME%></dt>
-				<dd style="padding-bottom: 20px;" id= "tblusername"></dd>
-				<dt><%=Strings.PROFILE_ROLE%></dt>
-				<dd id = "tblrole"></dd>
+	<div class="col-md-9 text-center">
+		<br><br><br>
+		<div class="container-fluid well span6">
+			<br>
+			<br>
+			<div class="col-md-12">
+				<div class="row">
 
-			</dl>
-			<h4 class="center col-md-offset-3"
-				style="padding-top: 20px; padding-bottom: 20px;">
-				<strong><em>Contact Details</em></strong>
-			</h4>
-			<dl class="dl-horizontal">
-				<dt><%=Strings.PROFILE_EMAIL%></dt>
-				<dd style="padding-bottom: 20px;" id = "tblemail"></dd>
-				<dt><%=Strings.PROFILE_PHONE%></dt>
-				<dd id = "tblphone"></dd>
-			</dl>
-
-		</div>
-		<div class="col-md-6">
-			<dl class="dl-horizontal">
-				<dt><%=Strings.PROFILE_FIRSTNAME%></dt>
-				<dd style="padding-bottom: 20px;" id = "tblfirstname"></dd>
-				<dt><%=Strings.PROFILE_LASTNAME%></dt>
-				<dd id = "tbllastname"></dd>
-			</dl>
-			<div class=" col-md-12 center">
-				<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
-				<script type="IN/JYMBII" data-companyid="1060" data-format="inline"></script>
+					<div class="col-sm-6">
+						<img src="../../images/profile.png" class="img-circle">
+					</div>
+					<div class="col-sm-6 text-left">
+						<h3>
+							User Name:
+							<element id="tblusername"></element>
+						</h3>
+						<h6>
+							Role:
+							<element id="tblrole"></element>
+						</h6>
+						<h6>
+							Firstname:
+							<element id="tblfirstname"></element>
+						</h6>
+						<h6>
+							Lastname:
+							<element id="tbllastname"></element>
+						</h6>
+						<h6>
+							Email:
+							<element id="tblemail"></element>
+						</h6>
+						<h6>
+							Phone:
+							<element id="tblphone"></element>
+						</h6>
+					</div>
+				</div>
+				<br>
+				<br>
 			</div>
 		</div>
 	</div>
+</div>
+
 <script>loadUserDetails();</script>
-	<jsp:include page="../templates/footer.jsp" />
+<jsp:include page="../templates/footer.jsp" />
