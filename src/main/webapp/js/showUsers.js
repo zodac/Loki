@@ -1,4 +1,4 @@
-function showUsers(){
+/*function showUsers(){
 	var users = makeJSONObject("./../../webservice/Users");
 	
 	var table = document.createElement("table");
@@ -43,6 +43,10 @@ function showUsers(){
 	}
 	table.appendChild(tbody);
 	document.getElementById("users").appendChild(table);
+	
+	$(document).ready(function(){
+		$("#users").flexigrid();
+	});
 }
 
 function makeJSONObject(location) {
@@ -58,4 +62,6 @@ function makeJSONObject(location) {
 	
 	console.log(result);
 	return result;
-}
+}*/
+
+
