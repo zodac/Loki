@@ -7,15 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.HasInputDevices;
 
 public class BrowserTests {
 	 private WebDriver driver;
 	   private String baseUrl;
-	   private boolean acceptNextAlert = true;
-	   private StringBuffer verificationErrors = new StringBuffer();
+//	   private boolean acceptNextAlert = true;
+//	   private StringBuffer verificationErrors = new StringBuffer();
 	
 	   @Before
 	   public void setUp() throws Exception {
