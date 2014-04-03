@@ -6,6 +6,7 @@ $('#upload').ajaxForm({
 	success : function(response) {
 	},
 	error : function(error) {
+		document.getElementById("uploading").style.display="none";
 		var rawArray = JSON.stringify(error).toString().split(
 				"'")[1];
 		var rawValues = rawArray.substring(1,

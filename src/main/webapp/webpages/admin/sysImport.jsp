@@ -4,9 +4,16 @@
 <!-- content here -->
 <script src="../../js/jquery.form.min.js"></script>
 <script src="../../js/upload.js"></script>
-<script src="../../js/userConf.js"></script>
 <script>
 	onload = checkAdmin();
+</script>
+<script>
+	$(function() {
+		$('#upload').submit(function(event) {
+			event.preventDefault();
+			document.getElementById("uploading").style.display="block";
+		});
+	});
 </script>
 <div class="col-md-9 text-center">
 	<h3 class="col-md-offset-4 col-md-7 text-left">
@@ -32,6 +39,7 @@
 		</div>
 	</form>
 	<br /> <br />
+	<div class="col-md-4" style="display: none" id="uploading"><img src="../../images/uploading.gif"></div>
 	<div style="text-align: left" id="importresult"></div>
 	<br />
 	<div style="text-align: left; display: none" id="invalidfailures"></div>
