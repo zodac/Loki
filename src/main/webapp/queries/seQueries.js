@@ -84,7 +84,10 @@ function numberOfFailuresByModelAndTimePeriod(){
 }
 
 function allIMSIsByFailureClass(){
-	var fc = document.forms["sequery"]["failureclass"].value;
+	var inputFC = document.forms["sequery"]["failureclass"].value;
+	
+	var fc = inputFC.split(" -")[0];
+	var split = inputFC.split(" -")[1];
 	
 	if(!/^-{0,1}\d*\.{0,1}\d+$/.test(fc)){
 		clearResult();

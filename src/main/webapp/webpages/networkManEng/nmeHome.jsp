@@ -10,10 +10,9 @@
 	<div class="col-md-3 text-left panel-group" id="accordion">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="nmeHome.jsp"><span
-					class="glyphicon glyphicon-home"></span> <%=Strings.HOME%></a></li>
+					class="glyphicon glyphicon-home"></span> <strong><u><%=Strings.HOME%></u></strong></a></li>
 			<li><a data-toggle="collapse" data-parent="#accordion"
-				href="#collapseOne"><span class="glyphicon glyphicon-stats"></span>
-					<%=Strings.NMEQUERIES%></a></li>
+				href="#collapseOne"><span class="glyphicon glyphicon-stats"></span> <strong><u><%=Strings.NMEQUERIES%></u></strong></a></li>
 
 			<div id="collapseOne" class="panel-collapse collapse">
 				<ul class="nav nav-pills nav-stacked text-left">
@@ -30,8 +29,7 @@
 				</ul>
 			</div>
 			<li><a data-toggle="collapse" data-parent="#accordion"
-				href="#collapseTwo"><span class="glyphicon glyphicon-stats"></span>
-					<%=Strings.CSQUERIES%></a></li>
+				href="#collapseTwo"><span class="glyphicon glyphicon-stats"></span> <strong><u><%=Strings.CSQUERIES%></u></strong></a></li>
 			<div id="collapseTwo" class="panel-collapse collapse">
 				<ul class="nav nav-pills nav-stacked text-left">
 					<li><a href="csEventCause.jsp"><span
@@ -43,8 +41,7 @@
 				</ul>
 			</div>
 			<li><a data-toggle="collapse" data-parent="#accordion"
-				href="#collapsethree"><span class="glyphicon glyphicon-stats"></span>
-					<%=Strings.SEQUERIES%></a></li>
+				href="#collapsethree"><span class="glyphicon glyphicon-stats"></span> <strong><u><%=Strings.SEQUERIES%></u></strong></a></li>
 
 			<div id="collapsethree" class="panel-collapse collapse">
 				<ul class="nav nav-pills nav-stacked text-left">
