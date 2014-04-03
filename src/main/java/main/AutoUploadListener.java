@@ -10,10 +10,16 @@ import java.nio.file.WatchService;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import org.apache.commons.io.FilenameUtils;
 
 import services.ImportService;
 
 @SuppressWarnings("rawtypes")
+@Stateless
+@LocalBean
 public class AutoUploadListener extends Thread {
 	@EJB
 	ImportService iEJB;
@@ -47,9 +53,13 @@ public class AutoUploadListener extends Thread {
 
 				for (WatchEvent event : events) {
 					if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
-						String fileName = DIR.toString() + File.separator
-								+ event.context().toString();
-						System.out.println("Created: " + fileName);
+						String fileName = DIR.toString() + File.separator + event.context().toString();
+						String fileExtension = FilenameUtils.getExtension(fileName);
+						if(fileExtension.equals("xls") || fileExtension.equals("xlsx")){
+							iEJB.addToDatabase(new File(fileName), fileExtension);
+						} else{
+							System.out.println("File uploaded - not dataset: " + fileName);
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -61,5 +71,4 @@ public class AutoUploadListener extends Thread {
 			}
 		}
 	}
-
 }
