@@ -92,3 +92,26 @@ footer.container /* hereee */ {
 	/* Negative indent footer by it's height */
 	margin: 0 auto -60px;
 }
+
+.tt-hint {
+  color: #D3D3D3;
+}
+
+.tt-dropdown-menu {
+  max-height: 200px;
+  width: 250px;
+  overflow-y: auto;
+  text-align: left;
+  margin-top: 2px;
+  padding: 5px 0;
+  background-color: #FFFFFF;
+  border: 1px solid #ccc;
+}
+
+.tt-suggestion {
+  padding: 2px 10px;
+}
+
+.tt-suggestion p {
+  margin: 0;
+}

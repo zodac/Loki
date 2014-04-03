@@ -7,7 +7,7 @@
 			<li><a href="seHome.jsp"><span
 					class="glyphicon glyphicon-home"></span> <strong><u><%=Strings.HOME%></u></strong></a></li>
 			<li><a data-toggle="collapse" data-parent="#accordion"
-				href="#collapseOne"><span class="glyphicon glyphicon-stats"> </span><strong><u><%=Strings.SEQUERIES%></u></strong></a></li>
+				href="#collapseOne"><span class="glyphicon glyphicon-stats"></span> <strong><u><%=Strings.SEQUERIES%></u></strong></a></li>
 
 			<div id="collapseOne" class="panel-collapse collapse">
 				<ul class="nav nav-pills nav-stacked text-left">

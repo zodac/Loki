@@ -71,7 +71,7 @@ $(document).ready(
 		class="form-inline">
 		<div class="form-group">
 			<div id="the-basics" class="col-md-4">
-				<input type="text" class="form-control" id="model" name="model" size=25
+				<input type="text" class="form-control" id="model" name="model"
 					placeholder="<%=Strings.PH_PHONE_MODEL%>"
 					title="<%=Strings.TT_PHONE_MODEL%>">
 			</div>
