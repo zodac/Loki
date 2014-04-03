@@ -13,7 +13,7 @@
 					class="glyphicon glyphicon-home"></span> <strong><u><%=Strings.HOME%></u></strong></a></li>
 			<li><a data-toggle="collapse" data-parent="#accordion"
 				href="#collapseOne"><span class="glyphicon glyphicon-stats"></span>
-					<strong><u><%=Strings.CSQUERIES%></a></li>
+					<strong><u><%=Strings.CSQUERIES%></u></strong></a></li>
 
 			<div id="collapseOne" class="panel-collapse collapse">
 				<ul class="nav nav-pills nav-stacked text-left">
@@ -26,7 +26,7 @@
 				</ul>
 			</div>
 		</ul>
-		<a class="twitter-timeline" width="250" height "250" data-dnt="true"
+		<a class="twitter-timeline" width="250" height="250" data-dnt="true"
 			href="https://twitter.com/ericsson"
 			data-widget-id="444114613219520513"><%=Strings.TWEETS%></a>
 	</div>

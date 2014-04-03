@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page import="main.*"%>
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="../templates/csrepNav.jsp" />
