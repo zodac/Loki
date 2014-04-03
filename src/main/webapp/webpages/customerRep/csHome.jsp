@@ -12,7 +12,8 @@
 			<li><a href="csHome.jsp"><span
 					class="glyphicon glyphicon-home"></span> <strong><u><%=Strings.HOME%></u></strong></a></li>
 			<li><a data-toggle="collapse" data-parent="#accordion"
-				href="#collapseOne"><span class="glyphicon glyphicon-stats"></span> <strong><u><%=Strings.CSQUERIES%></a></li>
+				href="#collapseOne"><span class="glyphicon glyphicon-stats"></span>
+					<strong><u><%=Strings.CSQUERIES%></a></li>
 
 			<div id="collapseOne" class="panel-collapse collapse">
 				<ul class="nav nav-pills nav-stacked text-left">
@@ -33,52 +34,49 @@
 	<!-- content here -->
 
 	<div class="col-md-9 text-center">
-		<br>
-		<br>
-		<br>
+		<br> <br> <br>
 		<div class="container-fluid well span6">
-			<br>
-			<br>
-
+			<br> <br>
 			<div class="col-md-12">
 				<div class="row">
-
 					<div class="col-sm-6">
 						<img src="../../images/profile.png" class="img-circle">
 					</div>
 					<div class="col-sm-6 text-left">
-						<h3>
-							User Name:
-							<element id="tblusername"></element>
-						</h3>
-						<h6>
-							Role:
-							<element id="tblrole"></element>
-						</h6>
-						<h6>
-							Firstname:
-							<element id="tblfirstname"></element>
-						</h6>
-						<h6>
-							Lastname:
-							<element id="tbllastname"></element>
-						</h6>
-						<h6>
-							Email:
-							<element id="tblemail"></element>
-						</h6>
-						<h6>
-							Phone:
-							<element id="tblphone"></element>
-						</h6>
+						<table>
+							<tr>
+								<td style="min-width: 150px"><h3>User Name:</h3></td>
+								<td><h3 id="tblusername"></h3></td>
+							</tr>
+							<tr>
+								<td><h6>First Name:</h6></td>
+								<td><h6 id="tblfirstname"></h6></td>
+							</tr>
+							<tr>
+								<td><h6>Last Name:</h6></td>
+								<td><h6 id="tbllastname"></h6></td>
+							</tr>
+							<tr>
+								<td><h6>User Role:</h6></td>
+								<td><h6 id="tblrole"></h6></td>
+							</tr>
+							<tr>
+								<td><h6>Email:</h6></td>
+								<td><h6 id="tblemail"></h6></td>
+							</tr>
+							<tr>
+								<td><h6>Phone:</h6></td>
+								<td><h6 id="tblphone"></h6></td>
+							</tr>
+						</table>
 					</div>
 				</div>
-				<br>
-				<br>
+				<br> <br>
 			</div>
-
 		</div>
 	</div>
 </div>
-<script>loadUserDetails();</script>
+<script>
+	loadUserDetails();
+</script>
 <jsp:include page="../templates/footer.jsp" />
