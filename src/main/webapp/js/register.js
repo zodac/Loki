@@ -14,6 +14,9 @@ function registerUser(){
 	} else if(makeJSONObject("./../../webservice/Users/" + username) != ""){
 		alertify.error("Username taken!");
 		document.forms["register"]["userName"].focus();
+	} else if(password.length < 4){
+		alertify.error("Password must be at least 4 characters long!");
+		document.forms["register"]["password"].focus();
 	} else if(password != confirm){
 		alertify.error("Passwords must match!");
 		document.forms["register"]["password"].focus();

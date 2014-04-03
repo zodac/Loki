@@ -42,7 +42,7 @@
 			<div class="form-group">
 				<div class="col-md-offset-3 col-md-8">
 					<input type="password" class="form-control" id="password"
-						name="password" placeholder="<%=Strings.PH_PASSWORD%>" required />
+						name="password" placeholder="<%=Strings.PH_PASSWORD%>" title="<%=Strings.TT_PASSWORD%>" required />
 				</div>
 			</div>
 			<div class="form-group">

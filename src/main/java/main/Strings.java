@@ -89,6 +89,7 @@ public class Strings {
 	public static String TT_TO = "To";
 	public static String TT_EMAIL = "Must be in form 'email@address.com'";
 	public static String TT_PHONE = "Must be between 7-10 digits";
+	public static String TT_PASSWORD = "Must be at least 4 characters long";
 	
 		//SysAdmin
 	//Add User

@@ -7,6 +7,9 @@ $('#upload').ajaxForm({
 	},
 	error : function(error) {
 		document.getElementById("uploading").style.display="none";
+		document.getElementById("submitbutton").disabled = false;
+		clearResults();
+		
 		var rawArray = JSON.stringify(error).toString().split(
 				"'")[1];
 		var rawValues = rawArray.substring(1,
@@ -297,3 +300,14 @@ Date.prototype.customFormat = function(formatString) {
 			"#h#", h).replace("#mm#", mm).replace("#m#", m).replace("#ss#", ss)
 			.replace("#s#", s).replace("#ampm#", ampm).replace("#AMPM#", AMPM);
 };
+
+function clearResults() {
+	var mainNode = document.getElementById("invalidfailures");
+	while (mainNode.lastChild) {
+		mainNode.removeChild(mainNode.lastChild);
+	}
+	mainNode = document.getElementById("importfile");
+	while (mainNode.lastChild) {
+		mainNode.removeChild(mainNode.lastChild);
+	}
+}

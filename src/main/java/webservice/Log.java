@@ -2,24 +2,19 @@ package webservice;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.json.JSONArray;
 
 
 @Path("/Log")
@@ -39,6 +34,11 @@ public class Log {
 			
 			//URL url = getClass().getResource("log.txt");
 			File file = new File("log.txt");
+			
+			if(!file.exists()){
+				file.createNewFile();
+			}
+			
 			BufferedReader br;
 			
 			br = new BufferedReader(new FileReader(file));

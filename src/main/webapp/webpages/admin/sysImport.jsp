@@ -12,6 +12,7 @@
 		$('#upload').submit(function(event) {
 			event.preventDefault();
 			document.getElementById("uploading").style.display="block";
+			document.getElementById("submitbutton").disabled = true;
 		});
 	});
 </script>
@@ -33,7 +34,7 @@
 		
 		<div class="form-group">
 			<div class="col-md-offset-3 col-md-4">
-				<input type="submit" class="btn btn-primary"
+				<input id="submitbutton" type="submit" class="btn btn-primary"
 					value="<%=Strings.UPLOAD%>" />
 			</div>
 		</div>
