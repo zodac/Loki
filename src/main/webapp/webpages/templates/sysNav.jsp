@@ -12,5 +12,7 @@
 					class="glyphicon glyphicon-user"></span> <strong><u><%=Strings.ADD_USER%></u></strong></a></li>
 			<li><a href="sysListUsers.jsp"><span
 					class="glyphicon glyphicon-user"></span> <strong><u><%=Strings.SHOW_USERS%></u></strong></a></li>
+			<li><a href="sysLog.jsp"><span
+					class="glyphicon glyphicon-user"></span> <strong><u><%=Strings.LOGS%></u></strong></a></li>
 		</ul>
 	</div>

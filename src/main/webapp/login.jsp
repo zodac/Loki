@@ -16,24 +16,43 @@
 	$(function() {
 		$('#loginform').submit(function(event) {
 			event.preventDefault();
+
+			//append to file user name and time
 			loginUser();
 		});
 	});
 </script>
 <script>
-onload = function(){
-	deleteUser();
-};
+	onload = function() {
+
+		if (localStorage.getItem("User") != null) {
+
+			var userDets = localStorage.getItem("User");
+			var details = userDets.split(",",6);
+			var user = details[0]; 
+
+			var request = new XMLHttpRequest();
+			request.open("GET", "webservice/Log/" + user, false);
+			request.send(null);
+		}
+
+		deleteUser();
+
+	};
 </script>
 </head>
 <body>
-<% AutoUploadListener aul = AutoUploadListener.getInstance();
-if(!aul.isAlive()){ aul.start(); }
-%>
+	<%
+		AutoUploadListener aul = AutoUploadListener.getInstance();
+		if (!aul.isAlive()) {
+			aul.start();
+		}
+	%>
 	<div class="container" id="main">
 		<div class="row">
 			<div class="col-md-2 text-center">
-				<a href="login.jsp"><img src="images/logo.jpg" height="100" width="100" id="logo"></a>
+				<a href="login.jsp"><img src="images/logo.jpg" height="100"
+					width="100" id="logo"></a>
 			</div>
 			<div class="col-md-10" id="banner"
 				style="background-image: url(images/banner.png); height: 120px; width: 950px;">
@@ -65,7 +84,8 @@ if(!aul.isAlive()){ aul.start(); }
 						<br />
 						<div class="form-group">
 							<div class="col-md-offset-4 col-md-4">
-								<input class="btn btn-primary" type="submit" id="loginSubmit" value="<%=Strings.LOGIN%>" />
+								<input class="btn btn-primary" type="submit" id="loginSubmit"
+									value="<%=Strings.LOGIN%>" />
 							</div>
 						</div>
 					</form>
