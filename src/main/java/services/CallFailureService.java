@@ -27,5 +27,6 @@ public interface CallFailureService {
 	List<TopMOCEntity> getTopTenMOC(Date fromDate, Date toDate);
 	List<BigInteger> findIMSIsByFailureClass(int failureClassId);
 	List<TopIMSIByFailure> getTopTenIMSI(Date fDate, Date tDate);
+	long[] getAllIMSIs();
 }
 

@@ -49,7 +49,6 @@ public class UETypeJPA implements UETypeDAO {
 		return getUEType((Integer) uetypes.get(0)[0]);
 	}
 
-	@Override
 	public String[] getAllPhoneModels() {
 		List<Object> models = (List<Object>) em.createNativeQuery("SELECT DISTINCT model FROM UEType").getResultList();
 		int size = models.size();
