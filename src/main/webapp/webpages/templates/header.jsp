@@ -59,7 +59,7 @@
 	<div class="container" id="main">
 		<div class="row">
 			<div class="col-md-2 text-center">
-			<img onclick="redirectToHome()" src="../../images/logo.jpg" height="100" width="100" id="logo">
+			<a href="#" onclick="redirectToHome()"><img src="../../images/logo.jpg" height="100" width="100" id="logo"></a>
 			</div>
 			<div class="col-md-10" id="banner"
 				style="background-image: url(../../images/banner.png); height: 120px; width: 950px;">

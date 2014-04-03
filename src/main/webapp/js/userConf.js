@@ -74,6 +74,8 @@ function loadUserDetails() {
 
 function redirectToHome(){
 	if (localStorage.getItem("User") != null) {
+		var type = localStorage.getItem("User").split(",", 6)[1];
+		
 		if (type == "Network Management Engineer") {
 			location.replace("../../webpages/networkManEng/nmeHome.jsp");
 		} else if (type == "Support Engineer") {
