@@ -7,9 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import queryEntities.CountAndDuarationOfIMSI;
@@ -22,10 +20,7 @@ import entities.EventCause;
 
 @JPA
 @SuppressWarnings("unchecked")
-public class CallFailureJPA implements CallFailureDAO {
-	@PersistenceUnit
-	private EntityManagerFactory emf;
-	
+public class CallFailureJPA implements CallFailureDAO {	
 	@PersistenceContext
 	private EntityManager em;
 
@@ -183,7 +178,6 @@ public class CallFailureJPA implements CallFailureDAO {
 	}
 
 	public List<TopIMSIByFailure> getTopTenIMSI(Date fromDate, Date toDate) {
-		
 		List<Object[]> results = (List<Object[]>) em.createNativeQuery("SELECT imsi, COUNT(imsi) FROM CallFailure"
 														+ " WHERE date >= ?1 AND date <= ?2 GROUP BY imsi ORDER BY COUNT(imsi) DESC LIMIT 10")
 				.setParameter(1, fromDate)
@@ -201,6 +195,16 @@ public class CallFailureJPA implements CallFailureDAO {
 		}
 
 		return entities;
+	}
+
+	public long[] getAllIMSIs() {
+		List<Object> imsis = (List<Object>) em.createNativeQuery("SELECT DISTINCT imsi FROM CallFailure").getResultList();
+		int size = imsis.size();
+		long[] results = new long[size];
+		
+		for(int i = 0; i < size; i++){
+			results[i] = ((BigDecimal) imsis.get(i)).longValue();
+		}
+		return results;
 	}	
 }
-

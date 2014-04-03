@@ -28,7 +28,6 @@ public class CallFailureEJB implements CallFailureService {
 		this.dao = dao;
 	}
 
-	@Override
 	public List<EventIdCauseCodeCombo> findUniqueEventCauseAndOccurancesByTAC(int tac) {
 		return dao.findUniqueEventCauseAndOccurancesByTAC(tac);
 	}
@@ -61,24 +60,24 @@ public class CallFailureEJB implements CallFailureService {
 		return dao.numberOfFailuresByIMSIByTimePeriod(imsi, fromDate, toDate);
 	}
 
-	@Override
 	public List<TopMOCEntity> getTopTenMOCGraphical() {
 		return dao.getTopTenMOCGraphical();
 	}
 
-	@Override
 	public List<TopMOCEntity> getTopTenMOC(Date fromDate, Date toDate) {
 		return dao.getTopTenMOC(fromDate, toDate);
 	}
 
-	@Override
 	public List<BigInteger> findIMSIsByFailureClass(int failureClassId) {
 		return dao.findIMSIsByFailureClass(failureClassId);
 	}
 
-	@Override
 	public List<TopIMSIByFailure> getTopTenIMSI(Date fDate, Date tDate) {
 		return dao.getTopTenIMSI(fDate, tDate);
+	}
+
+	public long[] getAllIMSIs() {
+		return dao.getAllIMSIs();
 	}
 }
 

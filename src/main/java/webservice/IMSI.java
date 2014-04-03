@@ -24,4 +24,10 @@ public class IMSI {
     public long findIMSICount(@PathParam("imsi") long imsi) {
         return cfEJB.findIMSICount(imsi);
     }
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public long[] getAllIMSIs(){
+		return cfEJB.getAllIMSIs();
+	}
 }
