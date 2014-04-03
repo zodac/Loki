@@ -93,7 +93,7 @@ $(document).ready(
 		</div>
 		<span style="display: inline"><input class="btn btn-primary" type="submit" value="<%=Strings.SUBMIT%>" /></span>
 	</form>
-	<div class="col-md-12" id="queryresult"></div>
+	<div class="col-md-offset-4 col-md-3" id="queryresult"></div>
 </div>
 
 <jsp:include page="../templates/footer.jsp" />

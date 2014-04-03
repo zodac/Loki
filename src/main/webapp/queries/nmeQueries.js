@@ -11,33 +11,39 @@ function numberOfFailuresAndDuration() {
 		var results = makeJSONObject("./../../webservice/NMEQueries/FD/"
 				+ fromDate + "/" + toDate);
 		alertify.success(results.length + " results loaded!");
-
-		var div = document.createElement("div");
-		div.setAttribute("style", "max-height: 400px; overflow: auto;");
+		
 		var table = document.createElement("table");
 		table.setAttribute("class", "table table-striped table-bordered");
+		table.setAttribute("id", "datatablehtml");
 
 		var tbody = document.createElement("tbody");
-		table.appendChild(createHead("IMSI", "Number of failures",
-				"Total Duration (ms)"));
+		var thead = document.createElement("thead");
+		var tr = document.createElement("tr");
+		var th = document.createElement("th");
+		th.appendChild(document.createTextNode("IMSI"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Number of failures"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Total Duration (ms)"));
+		tr.appendChild(th);
+		thead.appendChild(tr);
+		table.appendChild(thead);
+		table.appendChild(tbody);
+		document.getElementById("queryresult").appendChild(table);
+
 
 		var dataForChart = [];
+		var completearray = [];
 
 		$.each(results, function(key, value) {
-			var row = document.createElement("tr");
-			var cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(value.imsi));
-			row.appendChild(cell);
-
-			cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(value.count));
-			row.appendChild(cell);
-
-			cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(value.numofFailures));
-			row.appendChild(cell);
-
-			tbody.appendChild(row);
+			var array = [];
+			array.push(value.imsi);
+			array.push(value.count);
+			array.push(value.numofFailures);
+			completearray.push(array);
+			
 			// for the tool-tips when count and duration are the same, entries
 			// are on top of each other
 			$.each(dataForChart, function() {
@@ -52,12 +58,11 @@ function numberOfFailuresAndDuration() {
 			});
 
 		});
-		table.appendChild(tbody);
-
-		div.appendChild(table);
-		document.getElementById("queryresult").appendChild(div);
 
 		$(document).ready(function() {
+			$('#datatablehtml').dataTable({
+		    	"aaData": completearray
+		    });
 			chart = new Highcharts.Chart({
 				chart : {
 					renderTo : 'scatterplot',
@@ -138,7 +143,19 @@ function uniqueEventCauseAndOccurancesByModel() {
 		table.setAttribute("class", "table table-striped table-bordered");
 
 		var tbody = document.createElement("tbody");
-		table.appendChild(createHead("Event ID", "Cause Code", "Occurrences"));
+		var thead = document.createElement("thead");
+		var tr = document.createElement("tr");
+		var th = document.createElement("th");
+		th.appendChild(document.createTextNode("Event ID"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Cause Code"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Occurrences"));
+		tr.appendChild(th);
+		thead.appendChild(tr);
+		table.appendChild(thead);
 		
 		var chart = $('#container').highcharts();;
 
@@ -306,67 +323,57 @@ function topMOC() {
 				+ fromDate + "/" + toDate);
 		alertify.success(results.length + " results loaded!");
 
-		var div = document.createElement("div");
-		div.setAttribute("style", "max-height: 400px; overflow: auto;");
 		var table = document.createElement("table");
 		table.setAttribute("class", "table table-striped table-bordered");
-
+		table.setAttribute("id", "datatablehtml");
+		
 		var tbody = document.createElement("tbody");
 		var thead = document.createElement("thead");
+		var tr = document.createElement("tr");
 		var th = document.createElement("th");
 		th.appendChild(document.createTextNode("Rank"));
-		thead.appendChild(th);
+		tr.appendChild(th);
 		th = document.createElement("th");
 		th.appendChild(document.createTextNode("Cell ID"));
-		thead.appendChild(th);
+		tr.appendChild(th);
 		th = document.createElement("th");
 		th.appendChild(document.createTextNode("Market"));
-		thead.appendChild(th);
+		tr.appendChild(th);
 		th = document.createElement("th");
 		th.appendChild(document.createTextNode("Operator"));
-		thead.appendChild(th);
+		tr.appendChild(th);
 		th = document.createElement("th");
 		th.appendChild(document.createTextNode("Failures"));
-		thead.appendChild(th);
+		tr.appendChild(th);
+		
+		thead.appendChild(tr);
 		table.appendChild(thead);
+		table.appendChild(tbody);
+		document.getElementById("queryresult").appendChild(table);
 
 		var counter = 1;
 		var dataForChart = [];
+		var completearray = [];
 
 		$.each(results, function(key, value) {
-			var row = document.createElement("tr");
-			var cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(counter));
-			row.appendChild(cell);
-
-			cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(value.cellId));
-			row.appendChild(cell);
-
-			cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(value.country));
-			row.appendChild(cell);
-
-			cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(value.operator));
-			row.appendChild(cell);
-
-			cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(value.numberOfFailures));
-			row.appendChild(cell);
-
-			tbody.appendChild(row);
+			var array = [];
+			array.push(counter);
+			array.push(value.cellId);
+			array.push(value.country);
+			array.push(value.operator);
+			array.push(value.numberOfFailures);
+			completearray.push(array);
 			counter++;
 
 			var yaxis = "cellId: " + value.cellId + ", " + value.country + ", "
 					+ value.operator;
 			dataForChart.push([ yaxis, value.numberOfFailures ]);
 		});
-		table.appendChild(tbody);
 
-		div.appendChild(table);
-		document.getElementById("queryresult").appendChild(div);
 		$(document).ready(function() {
+			$('#datatablehtml').dataTable({
+		    	"aaData": completearray
+		    });
 			chart = new Highcharts.Chart({
 				chart : {
 					renderTo : 'chartContainer',
@@ -419,44 +426,49 @@ function topIMSIs() {
 				+ fromDate + "/" + toDate);
 		alertify.success(results.length + " results loaded!");
 
-		var div = document.createElement("div");
-		div.setAttribute("style", "max-height: 400px; overflow: auto;");
 		var table = document.createElement("table");
 		table.setAttribute("class", "table table-striped table-bordered");
+		table.setAttribute("id", "datatablehtml");
 
 		var tbody = document.createElement("tbody");
-		table.appendChild(createHead("Rank", "IMSI", "Number of failures"));
+		var thead = document.createElement("thead");
+		var tr = document.createElement("tr");
+		var th = document.createElement("th");
+		th.appendChild(document.createTextNode("Rank"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("IMSI"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("Number of failures"));
+		tr.appendChild(th);
+		thead.appendChild(tr);
+		table.appendChild(thead);
+		table.appendChild(tbody);
+		document.getElementById("queryresult").appendChild(table);
 
 		var counter = 1;
 		var dataForChart = [];
 		var categories = [];
+		var completearray = [];
 		$.each(results, function(key, value) {
-			var row = document.createElement("tr");
-			var cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(counter));
-			row.appendChild(cell);
-
-			cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(value.imsi));
-			row.appendChild(cell);
-
-			cell = document.createElement("td");
-			cell.appendChild(document.createTextNode(value.numofFailures));
-			row.appendChild(cell);
-
-			tbody.appendChild(row);
+			var array = [];
+			array.push(counter);
+			array.push(value.imsi);
+			array.push(value.numofFailures);
+			completearray.push(array);
+			
 			counter++;
 			dataForChart.push({
 				y : value.numofFailures
 			});
 			categories.push([ value.imsi ]);
 		});
-		table.appendChild(tbody);
-
-		div.appendChild(table);
-		document.getElementById("queryresult").appendChild(div);
 
 		$(document).ready(function() {
+			$('#datatablehtml').dataTable({
+		    	"aaData": completearray
+		    });
 			chart = new Highcharts.Chart({
 				chart : {
 					renderTo : 'chartContainer',
