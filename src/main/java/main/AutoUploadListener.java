@@ -15,17 +15,18 @@ import javax.ejb.Stateless;
 
 import org.apache.commons.io.FilenameUtils;
 
-import services.ImportService;
+import services.AutoImportService;
 
 @SuppressWarnings("rawtypes")
 @Stateless
 @LocalBean
 public class AutoUploadListener extends Thread {
 	@EJB
-	ImportService iEJB;
+//	ImportService iEJB;
+	AutoImportService iEJB;
 
 	final int DELAY_IN_MINUTES = 2;
-	final Path DIR = Paths.get("B:\\My Documents\\Dropbox\\Upload");
+	final Path DIR = Paths.get("C:\\Users\\D12128007\\Dropbox\\Upload");
 	
 	int[] results = new int[6];
 	static AutoUploadListener instance = null;
@@ -56,6 +57,7 @@ public class AutoUploadListener extends Thread {
 						String fileName = DIR.toString() + File.separator + event.context().toString();
 						String fileExtension = FilenameUtils.getExtension(fileName);
 						if(fileExtension.equals("xls") || fileExtension.equals("xlsx")){
+							System.out.println("Starting import");
 							iEJB.addToDatabase(new File(fileName), fileExtension);
 						} else{
 							System.out.println("File uploaded - not dataset: " + fileName);

@@ -1,7 +1,5 @@
 <%@ page import="main.*"%>
-<%@ page import="java.util.*"%>
 <jsp:include page="../templates/header.jsp" />
-<script src="../../js/userConf.js"></script>
 <script>
 	onload = checkCS();
 </script>
