@@ -14,7 +14,7 @@ public class AutoUploadService {
 
 		try {
 			File f = new File(filePath);
-			PostMethod filePost = new PostMethod("http://localhost:8080/Loki/webservice/Upload/" + f.getName());
+			PostMethod filePost = new PostMethod("http://147.252.91.223:8080/Loki/webservice/Upload/" + f.getName());
 			Part[] parts = {
 					new StringPart("Content-Disposition", filePath),new StringPart("importfile", "importfile"),
 					new FilePart(f.getName(), f)

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +33,7 @@ public class Upload {
 	
 	@EJB
 	ImportService iEJB;
-	final String DIR = "C:\\Users\\C04352114\\Documents\\Upload\\";
+	final String DIR = "/home/zodac/Dropbox/Upload/";
 
 	
 	@POST
@@ -131,6 +130,7 @@ public class Upload {
 			System.out.println("built uploadFile");
 			iEJB.addToDatabase(uploadedFile, fileExtension);
 			Log.addLogList("File uploaded:"+fileName);
+			System.out.println("finished autoupload");
 		}
 
 	}
