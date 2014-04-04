@@ -7,6 +7,11 @@ function numberOfFailuresAndDuration() {
 		clearChart("scatterplot");
 		alertify.error("Invalid date range!");
 		document.forms["nmequery"]["from"].focus();
+	} else if(new Date(fromDate) > new Date()){
+		clearResult();
+		clearChart("scatterplot");
+		alertify.error("Invalid date range!");
+	    document.forms["nmequery"]["from"].focus();
 	} else {
 		var results = makeJSONObject("./../../webservice/NMEQueries/FD/"
 				+ fromDate + "/" + toDate);
@@ -326,6 +331,11 @@ function topMOC() {
 		clearChart("chartContainer");
 		alertify.error("Invalid date range!");
 		document.forms["nmequery"]["from"].focus();
+	} else if(new Date(fromDate) > new Date()){
+		clearResult();
+		clearChart("chartContainer");
+		alertify.error("Invalid date range!");
+	    document.forms["nmequery"]["from"].focus();
 	} else {
 		var results = makeJSONObject("./../../webservice/NMEQueries/"
 				+ fromDate + "/" + toDate);
@@ -429,6 +439,11 @@ function topIMSIs() {
 		clearChart("chartContainer");
 		alertify.error("Invalid date range!");
 		document.forms["nmequery"]["from"].focus();
+	} else if(new Date(fromDate) > new Date()){
+		clearResult();
+		clearChart("chartContainer");
+		alertify.error("Invalid date range!");
+	    document.forms["nmequery"]["from"].focus();
 	} else {
 		var results = makeJSONObject("./../../webservice/NMEQueries/IMSI/"
 				+ fromDate + "/" + toDate);

@@ -11,6 +11,14 @@
 	$(function() {
 		$('#upload').submit(function(event) {
 			event.preventDefault();
+			var mainNode = document.getElementById("importresult");
+			while (mainNode.lastChild) {
+				mainNode.removeChild(mainNode.lastChild);
+			}
+			mainNode = document.getElementById("invalidfailures");
+			while (mainNode.lastChild) {
+				mainNode.removeChild(mainNode.lastChild);
+			}
 			document.getElementById("uploading").style.display="block";
 			document.getElementById("submitbutton").disabled = true;
 		});

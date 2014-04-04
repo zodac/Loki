@@ -13,32 +13,26 @@
 <script src="js/login.js"></script>
 <script src="js/alertify.min.js"></script>
 <script>
-	$(function() {
-		$('#loginform').submit(function(event) {
-			event.preventDefault();
-
-			//append to file user name and time
-			loginUser();
-		});
+$(function() {
+	$('#loginform').submit(function(event) {
+		event.preventDefault();
+		loginUser();
 	});
+});
 </script>
 <script>
-	onload = function() {
+onload = function() {
+	if (localStorage.getItem("User") != null) {
+		var userDets = localStorage.getItem("User");
+		var details = userDets.split(",",6);
+		var user = details[0]; 
 
-		if (localStorage.getItem("User") != null) {
-
-			var userDets = localStorage.getItem("User");
-			var details = userDets.split(",",6);
-			var user = details[0]; 
-
-			var request = new XMLHttpRequest();
-			request.open("GET", "webservice/Log/" + user+" Logged Out.", false);
-			request.send(null);
-		}
-
-		deleteUser();
-
-	};
+		var request = new XMLHttpRequest();
+		request.open("GET", "webservice/Log/User '" + user + "' logged out.", false);
+		request.send(null);
+	}
+	deleteUser();
+};
 </script>
 </head>
 <body>

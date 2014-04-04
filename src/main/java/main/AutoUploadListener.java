@@ -10,6 +10,7 @@ import java.nio.file.WatchService;
 import java.util.List;
 
 import services.AutoUploadService;
+import webservice.Log;
 
 
 public class AutoUploadListener extends Thread {
@@ -37,7 +38,7 @@ public class AutoUploadListener extends Thread {
 
 
 		while (true) {
-			System.out.println("Listening for files...");
+			Log.addLogList("Checking for updated dataset.");
 			try {
 				WatchService watcher = DIR.getFileSystem().newWatchService();
 				DIR.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
@@ -50,7 +51,6 @@ public class AutoUploadListener extends Thread {
 					if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
 						fileName = DIR.toString() + File.separator
 								+ event.context().toString();
-						System.out.println("Created: " + fileName);
 						found = true;
 					}
 				}

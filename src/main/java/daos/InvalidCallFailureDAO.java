@@ -8,4 +8,5 @@ public interface InvalidCallFailureDAO {
 	void addInvalidCallFailure(InvalidCallFailure icf);
 	long getNumberOfInvalidCallFailures();
 	List<InvalidCallFailure> getAllInvalidCallFailures();
+	void addManyInvalidCallFailures(List<InvalidCallFailure> invalidCallFailures);
 }

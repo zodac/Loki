@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import daos.InvalidCallFailureDAO;
 import entities.InvalidCallFailure;
@@ -19,11 +18,15 @@ public class InvalidCallFailureJPA implements InvalidCallFailureDAO {
 	public void addInvalidCallFailure(InvalidCallFailure icf) {
 		em.persist(icf);
 	}
+	
+	public void addManyInvalidCallFailures(List<InvalidCallFailure> invalidCallFailures){
+		for(InvalidCallFailure invalidCallFailure : invalidCallFailures){
+			em.persist(invalidCallFailure);
+		}
+	}
 
 	public long getNumberOfInvalidCallFailures() {
-		Query query = em.createQuery("from InvalidCallFailure");
-		List<InvalidCallFailure> invalidcallfailures = (List<InvalidCallFailure>) query.getResultList(); 
-		return invalidcallfailures.size();
+		return em.createNativeQuery("from InvalidCallFailure").getResultList().size();
 	}
 	
 	public List<InvalidCallFailure> getAllInvalidCallFailures(){

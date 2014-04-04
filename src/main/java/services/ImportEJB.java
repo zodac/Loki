@@ -94,9 +94,9 @@ public class ImportEJB implements ImportService {
 	
 	private int[] generateDatabase(File uploadedFile, String fileExtension) {
 		Workbook excelData = null;
-		long startTime = System.nanoTime();
+		long startTime = System.currentTimeMillis();
 		
-		Log.addLogList(fileExtension+"- Beginning file import.");
+		Log.addLogList("Uploaded '" + uploadedFile.getName() + "'. Beginning dataset import.");
 		int[] results = new int[6]; //CallFailure, EventCause, FailureClass, MCC_MNC, UEType, InvalidCallFailure
 		try {
 			if(fileExtension.equals("xls")){
@@ -118,6 +118,7 @@ public class ImportEJB implements ImportService {
 				}
 			}
 			results[1] = numEventCause;
+			Log.addLogList(numEventCause + " new Event/Cause combinations added.");
 			
 			int numFailureClass = 0;
 			for(Row row : failureClassRows.subList(1, failureClassRows.size())){
@@ -126,6 +127,7 @@ public class ImportEJB implements ImportService {
 				}
 			}
 			results[2] = numFailureClass;
+			Log.addLogList(numFailureClass + " new Failure Classes added.");
 
 			int numUEType = 0;
 			for(Row row : ueTypeRows.subList(1, ueTypeRows.size())){
@@ -134,6 +136,7 @@ public class ImportEJB implements ImportService {
 				}
 			}
 			results[4] = numUEType;
+			Log.addLogList(numUEType + " new UE Types added.");
 			
 			int numMccMnc = 0;
 			for(Row row : mccMncRows.subList(1, mccMncRows.size())){
@@ -142,6 +145,7 @@ public class ImportEJB implements ImportService {
 				}
 			}
 			results[3] = numMccMnc;
+			Log.addLogList(numMccMnc + " new MCC_MNCs added.");
 			
 			callFailures.clear();
 			invalidCallFailures.clear();
@@ -150,19 +154,16 @@ public class ImportEJB implements ImportService {
 			}			
 			
 			failureDAO.addManyCallFailures(callFailures);
-			
+			Log.addLogList(callFailures.size() + " new Call Failures added.");
+			invalidDAO.addManyInvalidCallFailures(invalidCallFailures);
+			Log.addLogList(invalidCallFailures.size() + " Call Failures removed due to inconsistencies.");	
 			results[0] = callFailures.size();
-			
-			for(InvalidCallFailure invalidCallFailure : invalidCallFailures){
-				invalidDAO.addInvalidCallFailure(invalidCallFailure);
-			}
 			results[5] = invalidCallFailures.size();
+					
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		long endTime = System.nanoTime();
-		long duration = endTime - startTime;
-		Log.addLogList(fileExtension+"- Import complete. Time taken ="+duration);
+		Log.addLogList("'" + uploadedFile.getName() + "' import complete. Time taken: " + String.format("%.1f", (double) ((System.currentTimeMillis()-startTime)/1000)) + " seconds.");
 		return results;
 	}
 	

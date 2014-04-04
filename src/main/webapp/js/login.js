@@ -14,7 +14,7 @@ function loginUser(){
 			var user = details[0]; 
 
 			var request = new XMLHttpRequest();
-			request.open("GET", "webservice/Log/" + user+" -Logged in.", false);
+			request.open("GET", "webservice/Log/User '" + user + "' logged in.", false);
 			request.send(null);
 			
 			if(type == "System Administrator"){

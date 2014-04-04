@@ -32,7 +32,6 @@ function registerUser(){
 		var location = "./../../webservice/Users/"+username+"/"+password+"/"+usertype+"/"+email+"/"+phone+"/"+fname+"/"+lname;
 		request.open("GET", location, false);
 		request.send(null);
-		
 		window.location.href = "sysListUsers.jsp";
 	}
 }

@@ -2,32 +2,28 @@ package webservice;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.SimpleTimeZone;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.json.JSONArray;
-
 @Path("/Log")
 @Stateless
 @LocalBean
 public class Log {
+	private static String LOG_NAME = "log.txt";
+	
 	/**
 	 * Returns a list of logs from the logs file.
 	 * 
@@ -36,56 +32,57 @@ public class Log {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<String> getLogList() {
-
 		List<String> logs = new ArrayList<String>();
 		try {
-
-			File file = new File("log.txt");
-			BufferedReader br;
-			br = new BufferedReader(new FileReader(file));
-
+			File file = new File(LOG_NAME);
+			if(!file.exists()){
+				file.createNewFile();
+			}
+			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line = br.readLine();
-
+			
 			while (line != null) {
 				logs.add(line);
 				line = br.readLine();
 			}
-
 			br.close();
-
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return logs;
-
-	}
-
-	public static void addLogList(String logItem) {
-
-		try {
-
-			FileWriter filew = new FileWriter("log.txt", true);
-			
-			SimpleDateFormat sdf = new SimpleDateFormat();
-			sdf.setTimeZone(new SimpleTimeZone(0, "GMT"));
-			sdf.applyPattern("dd MMM yyyy HH:mm:ss z");
-			Date currentDate = new Date();
-			String d1 = sdf.format(currentDate).toString();
-			filew.write("\n"+d1+" :"+logItem);
-			
-			filew.close();		
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 
 	@GET
 	@Path("/{logDetails}")
 	public void addLogDetails(@PathParam("logDetails") String logDetails) {
 		addLogList(logDetails);
+	}
+	
+	@GET
+	@Path("/Clear")
+	public void clearLog(){
+		File log = new File(LOG_NAME);
+		
+		if(log.exists()){
+			log.delete();
+		}
+		
+		try {
+			File logFile = new File(LOG_NAME);
+			logFile.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addLogList(String logItem) {
+		try {
+			FileWriter filew = new FileWriter(LOG_NAME, true);
+			
+			filew.write("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()).toString() + "] " + logItem + "\n");
+			filew.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

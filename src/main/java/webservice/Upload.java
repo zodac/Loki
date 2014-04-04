@@ -30,11 +30,9 @@ import services.ImportService;
 @Stateless
 @LocalBean
 public class Upload {
-	
 	@EJB
 	ImportService iEJB;
 	final String DIR = "/home/zodac/Dropbox/Upload/";
-
 	
 	@POST
 	@Consumes("multipart/form-data")
@@ -123,7 +121,5 @@ public class Upload {
 			iEJB.addToDatabase(uploadedFile, fileExtension);
 			Log.addLogList("Remote file uploaded: "+fileName);
 		}
-
 	}
-
 }

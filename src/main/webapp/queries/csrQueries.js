@@ -5,6 +5,10 @@ function eventCauseByIMSI(){
     	clearResult();
     	alertify.error("Invalid IMSI format!");
     	document.forms["csrquery"]["imsi"].focus();
+    } else if(imsi.length > 19){
+    	clearResult();
+    	alertify.error("IMSI too long!");
+    	document.forms["csrquery"]["imsi"].focus();
     } else if(makeJSONObject("./../../webservice/IMSI/" + imsi) == 0){
     	clearResult();
     	alertify.log("No IMSIs found!");
@@ -55,6 +59,10 @@ function numberOfFailuresByIMSIByTimePeriod(){
     	clearResult();
     	alertify.error("Invalid IMSI format!");
     	document.forms["csrquery"]["imsi"].focus();
+    } else if(imsi.length > 19){
+    	clearResult();
+    	alertify.error("IMSI too long!");
+    	document.forms["csrquery"]["imsi"].focus();
     } else if(makeJSONObject("./../../webservice/IMSI/" + imsi) == 0){
     	clearResult();
     	alertify.log("Invalid IMSI value!");
@@ -67,6 +75,10 @@ function numberOfFailuresByIMSIByTimePeriod(){
 			clearResult();
 			alertify.error("Invalid date range!");
 			document.forms["csrquery"]["from"].focus();
+		} else if(new Date(fromDate) > new Date()){
+			clearResult();
+			alertify.error("Invalid date range!");
+		    document.forms["sequery"]["from"].focus();
 		} else{
 			var results = makeJSONObject("./../../webservice/CSRQueries/" + imsi + "/" + fromDate + "/" + toDate);
 			alertify.success(results.length + " results loaded!");
@@ -104,6 +116,10 @@ function uniqueCauseCodeByIMSI(){
 	if(!/^-{0,1}\d*\.{0,1}\d+$/.test(imsi)){
     	clearResult();
     	alertify.error("Invalid IMSI format!");
+    	document.forms["csrquery"]["imsi"].focus();
+    } else if(imsi.length > 19){
+    	clearResult();
+    	alertify.error("IMSI too long!");
     	document.forms["csrquery"]["imsi"].focus();
     } else if(makeJSONObject("./../../webservice/IMSI/" + imsi) == 0){
     	clearResult();

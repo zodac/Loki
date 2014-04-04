@@ -65,6 +65,7 @@ public class Users {
     	
     	userEJB.registerUser(user);
     	Response.ResponseBuilder builder = Response.ok();
+    	Log.addLogList("'" + userName + "' registered.");
     	
     	return builder.build();
     }

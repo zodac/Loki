@@ -6,6 +6,10 @@ function allIMSIsByTimePeriod(){
 		clearResult();
 		alertify.error("Invalid date range!");
 	    document.forms["sequery"]["from"].focus();
+	} else if(new Date(fromDate) > new Date()){
+		clearResult();
+		alertify.error("Invalid date range!");
+	    document.forms["sequery"]["from"].focus();
 	} else{
 		var results = makeJSONObject("./../../webservice/SEQueries/" + fromDate + "/" + toDate);
 		alertify.success(results.length + " results loaded!");
@@ -48,10 +52,15 @@ function numberOfFailuresByModelAndTimePeriod(){
 	if(model != ""){
 		var fromDate = document.forms["sequery"]["from"].value;
 		var toDate = document.forms["sequery"]["to"].value;
+		
 		if(new Date(fromDate) > new Date(toDate)) {
 			clearResult();
 			alertify.error("Invalid date range!");
 			document.forms["sequery"]["from"].focus();
+		} else if(new Date(fromDate) > new Date()){
+			clearResult();
+			alertify.error("Invalid date range!");
+		    document.forms["sequery"]["from"].focus();
 		} else{
 			var results = makeJSONObject("./../../webservice/SEQueries/" + modelInput + "/" + fromDate + "/" + toDate);
 			alertify.success(results.length + " results loaded!");
@@ -87,11 +96,14 @@ function allIMSIsByFailureClass(){
 	var inputFC = document.forms["sequery"]["failureclass"].value;
 	
 	var fc = inputFC.split(" -")[0];
-	var split = inputFC.split(" -")[1];
 	
 	if(!/^-{0,1}\d*\.{0,1}\d+$/.test(fc)){
 		clearResult();
 		alertify.error("Invalid FailureClass format!");
+    	document.forms["sequery"]["failureclass"].focus();
+    } else if(fc.length > 19){
+    	clearResult();
+    	alertify.error("FailureClass too long!");
     	document.forms["sequery"]["failureclass"].focus();
     } else if(makeJSONObject("./../../webservice/FailureClass/" + fc) == 0){
     	clearResult();

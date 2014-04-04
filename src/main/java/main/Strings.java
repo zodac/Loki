@@ -69,9 +69,9 @@ public class Strings {
 	public static String IMPORT = "Import dataset";
 	public static String ADD_USER = "Add user";
 	public static String SHOW_USERS = "Show list of users";
-	public static String LOGS = "Show list logs";
+	public static String LOGS = "View system log";
 	
-	//Form placeholders
+	//Form place holders
 	public static String PH_USERNAME = "Username";
 	public static String PH_PASSWORD = "Password";
 	public static String PH_CONFIRM = "Confirm password";
