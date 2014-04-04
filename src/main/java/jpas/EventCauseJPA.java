@@ -38,4 +38,8 @@ public class EventCauseJPA implements EventCauseDAO {
 	public EventCause getEventCause(EventCausePK epk) {
 		return em.find(EventCause.class, epk);	
 	}
+
+	public void removeEventCause(EventCausePK epk) {
+		em.remove(em.find(EventCause.class, epk));		
+	}
 }

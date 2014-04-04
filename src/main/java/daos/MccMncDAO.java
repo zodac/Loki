@@ -9,4 +9,5 @@ public interface MccMncDAO {
 	long getNumberOfMccMnc();
 	boolean doesMccMncExist(MccMncPK mpk);
 	MccMnc getMCC_MNC(MccMncPK mpk);
+	void removeMccMnc(MccMncPK mpk);
 }

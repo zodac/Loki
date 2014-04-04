@@ -56,4 +56,9 @@ public class FailureClassJPA implements FailureClassDAO {
 		}
 		return results;
 	}
+
+	@Override
+	public void removeFailureClass(FailureClass fc) {
+		em.remove(em.find(FailureClass.class, fc.getFailureClass()));
+	}
 }

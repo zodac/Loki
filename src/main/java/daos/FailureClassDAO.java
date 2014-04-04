@@ -9,4 +9,5 @@ public interface FailureClassDAO {
 	long getNumberOfFailureClasses();
 	long getFailureClassCount(int failureClassId);
 	String[] getAllFailureClassesAndDescriptions();
+	void removeFailureClass(FailureClass fc);
 }

@@ -8,4 +8,5 @@ public interface EventCauseDAO {
 	EventCause getEventCause(EventCausePK epk);
 	long getNumberOfEventCauses();
 	boolean doesEventCauseExist(EventCausePK ecpk);
+	void removeEventCause(EventCausePK epk);
 }

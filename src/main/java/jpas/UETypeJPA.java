@@ -59,4 +59,8 @@ public class UETypeJPA implements UETypeDAO {
 		}
 		return results;
 	}
+
+	public void removeUEType(UEType ueType) {
+		em.remove(em.find(UEType.class, ueType.getTac()));
+	}
 }

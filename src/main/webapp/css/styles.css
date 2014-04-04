@@ -10,8 +10,8 @@ html,body,.container {
 	height: 100%;
 }
 
-#logo, #lokilogo {
-	margin-top: 2px;
+#logo {
+	margin-top: 10px;
 }
 
 #bottomlogo {
@@ -32,7 +32,7 @@ html,body,.container {
 	margin-top: 10px;
 }
 
-footer.container /* hereee */ {
+footer.container {
 	position: relative;
 	margin-top: -60px; /* negative value of footer height */
 	height: 60px;
@@ -64,16 +64,12 @@ footer.container /* hereee */ {
 }
 
 .table-striped tbody tr:nth-child(odd) th {
-	/* header color for tables (change if necessary) */
 	background-color: #428bca;
 }
 
 .table-striped tbody tr:nth-child(odd) td {
-	/* alternating row color for tables (change if necessary) */
 	background-color: #A3C6E5;
 }
-
-.highlight  td { background-color: red !important; }
 
 #banner {
 	margin-left: 25px;
@@ -87,11 +83,10 @@ footer.container /* hereee */ {
 
 #main {
 	overflow: auto;
-	padding-bottom: 60px; /* this needs to be bigger than footer height*/
+	padding-bottom: 60px;
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	/* Negative indent footer by it's height */
 	margin: 0 auto -60px;
 }
 

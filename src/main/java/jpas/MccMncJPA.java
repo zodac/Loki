@@ -49,4 +49,8 @@ public class MccMncJPA implements MccMncDAO {
 	public MccMnc getMCC_MNC(MccMncPK mpk) {
 		return em.find(MccMnc.class, mpk);
 	}
+
+	public void removeMccMnc(MccMncPK mpk) {
+		em.remove(em.find(MccMnc.class, mpk));
+	}
 }
