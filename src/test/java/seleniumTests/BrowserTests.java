@@ -73,9 +73,10 @@ public void loginTest(){
 	   
 	   @Test
 public void customerRepQrycsEventCause(){
+		   driver.get(baseUrl);
 		   driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);   
 	   		driver.findElement(By.id("userName")).click();   
-	   		driver.findElement(By.id("userName")).sendKeys("cs");
+	   		driver.findElement(By.id("userName")).sendKeys("csr");
 	   		driver.findElement(By.id("password")).click();
 	   		driver.findElement(By.id("password")).sendKeys("pass");
 	   		driver.findElement(By.id("loginSubmit")).click();
@@ -88,14 +89,15 @@ public void customerRepQrycsEventCause(){
 	   
 	   @Test
 	   public void networkManEngQrynmeCountNumFailuresSubmit(){
-		   driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);   
-	   		driver.findElement(By.id("userName")).click();   
-	   		driver.findElement(By.id("userName")).sendKeys("nme");
-	   		driver.findElement(By.id("password")).click();
-	   		driver.findElement(By.id("password")).sendKeys("pass");
-	   		driver.findElement(By.id("loginSubmit")).click();
+		   driver.get(baseUrl);
+		   		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);   
+	   			driver.findElement(By.id("userName")).click();   
+	   			driver.findElement(By.id("userName")).sendKeys("nme");
+	   			driver.findElement(By.id("password")).click();
+	   			driver.findElement(By.id("password")).sendKeys("pass");
+	   			driver.findElement(By.id("loginSubmit")).click();
 	   		   	driver.get(baseUrl + "/webpages/networkManEng/nmeCountNumFailures.jsp");
-	   		   	driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	   		   	driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 	   		   	driver.findElement(By.id("from")).click();
 	   		   	driver.findElement(By.id("from")).sendKeys("2013-02-01T00:00:00");
 	   		   	driver.findElement(By.id("to")).click();
@@ -105,14 +107,15 @@ public void customerRepQrycsEventCause(){
 	   
 	   @Test
 	   public void supportEngQrynmeCountNumFailuresSubmit(){
-		   driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);   
+		   driver.get(baseUrl);
+		   	driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);   
 	   		driver.findElement(By.id("userName")).click();   
 	   		driver.findElement(By.id("userName")).sendKeys("se");
 	   		driver.findElement(By.id("password")).click();
 	   		driver.findElement(By.id("password")).sendKeys("pass");
 	   		driver.findElement(By.id("loginSubmit")).click();
 	   		   	driver.get(baseUrl + "/webpages/supportEng/seListIMSI.jsp");
-	   		   	driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	   		   	driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 	   		   	driver.findElement(By.id("from")).click();
 	   		   	driver.findElement(By.id("from")).sendKeys("2013-01-26T00:00:00");
 	   		   	driver.findElement(By.id("to")).click();

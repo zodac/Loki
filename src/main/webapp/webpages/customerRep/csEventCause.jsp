@@ -25,7 +25,7 @@ onload = checkCS();
 					required />
 			</div>
 		</div>
-		<input class="btn btn-primary" type="submit" value="<%=Strings.SUBMIT%>" />
+		<input class="btn btn-primary" type="submit" id="imsiSubmit" value="<%=Strings.SUBMIT%>" />
 	</form>
 
 	<div class="col-md-12" id="queryresult"></div>
