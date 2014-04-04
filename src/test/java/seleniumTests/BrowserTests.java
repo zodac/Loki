@@ -12,14 +12,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class BrowserTests {
 	 private WebDriver driver;
 	   private String baseUrl;
-//	   private boolean acceptNextAlert = true;
-//	   private StringBuffer verificationErrors = new StringBuffer();
+
 	
 	   @Before
 	   public void setUp() throws Exception {
 	      driver = new FirefoxDriver();
-	      baseUrl = "localhost:8080/SeleniumLoki";
-	     // baseUrl = "http://localhost:8080/Loki";
+	     baseUrl = "http://localhost:8080/Loki";
 	      driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 	   }
 	   
@@ -43,11 +41,18 @@ public void loginTest(){
 	   
 	   @Test
 	   public void addUserTest(){
+		   driver.get(baseUrl);
+		   
+		   		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);   
+		   		driver.findElement(By.id("userName")).click();   
+		   		driver.findElement(By.id("userName")).sendKeys("user");
+		   		driver.findElement(By.id("password")).click();
+		   		driver.findElement(By.id("password")).sendKeys("pass");
+		   		driver.findElement(By.id("loginSubmit")).click();	
+		   		
 	   		   driver.get(baseUrl + "/webpages/admin/sysAddUser.jsp");
 	   		   driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-	   		   // can't select an option from dropdown list yet
 	   		   driver.findElement(By.id("role")).click();;
-	   	
 	   		   driver.findElement(By.id("userName")).click();
 	   		   driver.findElement(By.id("userName")).sendKeys("Jason");
 	   		   driver.findElement(By.id("password")).click();
@@ -68,6 +73,12 @@ public void loginTest(){
 	   
 	   @Test
 public void customerRepQrycsEventCause(){
+		   driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);   
+	   		driver.findElement(By.id("userName")).click();   
+	   		driver.findElement(By.id("userName")).sendKeys("cs");
+	   		driver.findElement(By.id("password")).click();
+	   		driver.findElement(By.id("password")).sendKeys("pass");
+	   		driver.findElement(By.id("loginSubmit")).click();
 		   	driver.get(baseUrl + "/webpages/customerRep/csEventCause.jsp");
 		   	driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		   	driver.findElement(By.id("imsi")).click();
@@ -77,6 +88,12 @@ public void customerRepQrycsEventCause(){
 	   
 	   @Test
 	   public void networkManEngQrynmeCountNumFailuresSubmit(){
+		   driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);   
+	   		driver.findElement(By.id("userName")).click();   
+	   		driver.findElement(By.id("userName")).sendKeys("nme");
+	   		driver.findElement(By.id("password")).click();
+	   		driver.findElement(By.id("password")).sendKeys("pass");
+	   		driver.findElement(By.id("loginSubmit")).click();
 	   		   	driver.get(baseUrl + "/webpages/networkManEng/nmeCountNumFailures.jsp");
 	   		   	driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	   		   	driver.findElement(By.id("from")).click();
@@ -88,6 +105,12 @@ public void customerRepQrycsEventCause(){
 	   
 	   @Test
 	   public void supportEngQrynmeCountNumFailuresSubmit(){
+		   driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);   
+	   		driver.findElement(By.id("userName")).click();   
+	   		driver.findElement(By.id("userName")).sendKeys("se");
+	   		driver.findElement(By.id("password")).click();
+	   		driver.findElement(By.id("password")).sendKeys("pass");
+	   		driver.findElement(By.id("loginSubmit")).click();
 	   		   	driver.get(baseUrl + "/webpages/supportEng/seListIMSI.jsp");
 	   		   	driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	   		   	driver.findElement(By.id("from")).click();
