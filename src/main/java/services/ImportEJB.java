@@ -92,6 +92,7 @@ public class ImportEJB implements ImportService {
 	
 	private int[] generateDatabase(File uploadedFile, String fileExtension) {
 		Workbook excelData = null;
+		System.out.println("got into generate database");
 		int[] results = new int[6]; //CallFailure, EventCause, FailureClass, MCC_MNC, UEType, InvalidCallFailure
 		try {
 			if(fileExtension.equals("xls")){
@@ -155,7 +156,7 @@ public class ImportEJB implements ImportService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("got to the end of generate database");
 		return results;
 	}
 	
