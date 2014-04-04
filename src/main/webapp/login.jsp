@@ -52,7 +52,7 @@
 		<div class="row">
 			<div class="col-md-2 text-center">
 				<a href="#" onclick="redirectToHome()"><img src="images/logo.jpg" height="70" width="70" id="logo"></a>
-			<a href="#" onclick="redirectToHome()"><img src="images/LOKI.jpg" height="50" width="140" id="lokilogo"></a>
+			<a href="#" onclick="redirectToHome()"><img src="images/LOKI.png" height="50" width="140" id="lokilogo"></a>
 			</div>
 			<div class="col-md-10" id="banner"
 				style="background-image: url(images/banner.png); height: 120px; width: 950px;">
