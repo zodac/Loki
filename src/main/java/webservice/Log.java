@@ -40,10 +40,8 @@ public class Log {
 		List<String> logs = new ArrayList<String>();
 		try {
 
-			// URL url = getClass().getResource("log.txt");
 			File file = new File("log.txt");
 			BufferedReader br;
-
 			br = new BufferedReader(new FileReader(file));
 
 			String line = br.readLine();

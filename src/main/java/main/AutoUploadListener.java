@@ -11,12 +11,8 @@ import java.util.List;
 
 import services.AutoUploadService;
 
-//@Stateless
-//@LocalBean
-//@SuppressWarnings("rawtypes")
+
 public class AutoUploadListener extends Thread {
-	//@EJB
-	//ImportService iEJB;
 
 	final int DELAY_IN_MINUTES = 2;
 	final Path DIR = Paths.get("/home/zodac/Dropbox/Upload/");
@@ -63,7 +59,6 @@ public class AutoUploadListener extends Thread {
 			}
 			try {
 				if(found){
-					System.out.println("found starting execute");
 					AutoUploadService.executePost(fileName);
 					found = false;
 				}

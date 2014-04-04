@@ -39,18 +39,15 @@ public class Upload {
 	@POST
 	@Consumes("multipart/form-data")
 	public Response uploadFile(MultipartFormDataInput dataset) {
-		System.out.println("got to post");
 		Map<String, List<InputPart>> uploadForm = dataset.getFormDataMap();
 		List<InputPart> inputParts = uploadForm.get("importfile");
 		int[] results = new int[6];
 
 		for(InputPart inputPart : inputParts){
-			System.out.println("got past inputparts");
 			try{
 				MultivaluedMap<String, String> header = inputPart.getHeaders();
-				System.out.println("header: "+header);
 				String fileName = getFileName(header);
-				System.out.println("inpost file name: "+fileName);
+
 				String fileExtension = FilenameUtils.getExtension(fileName);
 				if(fileExtension.equals("xls") || fileExtension.equals("xlsx")){
 					if(!fileName.equals("unknown")){
@@ -58,9 +55,7 @@ public class Upload {
 						byte[] bytes = IOUtils.toByteArray(inputStream);
 
 						File uploadedFile = writeFile(bytes, fileName);
-						System.out.println("built uploadFile");
 						results = iEJB.addToDatabase(uploadedFile, fileExtension);
-						System.out.println("starting ejb thingy");
 					}
 				} else{
 				}
@@ -79,7 +74,6 @@ public class Upload {
 		String[] contentDisposition = header.getFirst("Content-Disposition").split(";");
 
 		for (String filename : contentDisposition) {
-			System.out.println(filename);
 			if ((filename.trim().startsWith("filename"))) {
 				String[] name = filename.split("=");
 
@@ -120,17 +114,14 @@ public class Upload {
 	@Path("/{fileName}")
 	@Consumes("multipart/form-data")
 	public void uploadFile(@PathParam("fileName") String fileName) {
-		System.out.println("got int new post");
 
 		String fileExtension = FilenameUtils.getExtension(fileName);
 		if(fileExtension.equals("xls") || fileExtension.equals("xlsx")){
 
 
 			File uploadedFile = new File(DIR + fileName);
-			System.out.println("built uploadFile");
 			iEJB.addToDatabase(uploadedFile, fileExtension);
-			Log.addLogList("File uploaded:"+fileName);
-			System.out.println("finished autoupload");
+			Log.addLogList("Remote file uploaded: "+fileName);
 		}
 
 	}

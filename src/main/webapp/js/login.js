@@ -9,6 +9,13 @@ function loginUser(){
 		if (userJSON.userPassword == hex_sha1(password)) {
 			var type = userJSON.usertype;
 			createUser();
+			var userDets = localStorage.getItem("User");
+			var details = userDets.split(",",6);
+			var user = details[0]; 
+
+			var request = new XMLHttpRequest();
+			request.open("GET", "webservice/Log/" + user+" -Logged in.", false);
+			request.send(null);
 			
 			if(type == "System Administrator"){
 				location.replace("webpages/admin/sysHome.jsp");

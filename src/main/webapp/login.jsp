@@ -32,7 +32,7 @@
 			var user = details[0]; 
 
 			var request = new XMLHttpRequest();
-			request.open("GET", "webservice/Log/" + user, false);
+			request.open("GET", "webservice/Log/" + user+" Logged Out.", false);
 			request.send(null);
 		}
 

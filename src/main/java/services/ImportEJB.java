@@ -25,6 +25,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import webservice.Log;
+
 import com.google.common.collect.Lists;
 
 import daos.CallFailureDAO;
@@ -92,7 +94,9 @@ public class ImportEJB implements ImportService {
 	
 	private int[] generateDatabase(File uploadedFile, String fileExtension) {
 		Workbook excelData = null;
-		System.out.println("got into generate database");
+		long startTime = System.nanoTime();
+		
+		Log.addLogList(fileExtension+"- Beginning file import.");
 		int[] results = new int[6]; //CallFailure, EventCause, FailureClass, MCC_MNC, UEType, InvalidCallFailure
 		try {
 			if(fileExtension.equals("xls")){
@@ -156,7 +160,9 @@ public class ImportEJB implements ImportService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("got to the end of generate database");
+		long endTime = System.nanoTime();
+		long duration = endTime - startTime;
+		Log.addLogList(fileExtension+"- Import complete. Time taken ="+duration);
 		return results;
 	}
 	

@@ -20,7 +20,6 @@ public class AutoUploadService {
 					new FilePart(f.getName(), f)
 			};
 			filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost.getParams()));
-			System.out.println(parts);
 			HttpClient client = new HttpClient();
 			int status = client.executeMethod(filePost);
 
