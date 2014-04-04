@@ -24,7 +24,7 @@ function registerUser(){
 		alertify.error("Invalid email format!");
 		document.forms["register"]["email"].focus();
 		return false;
-	} else if(!/^-{0,1}\d*\.{0,1}\d+$/.test(phone) || phone.length < 7 || phone.length > 10){
+	} else if(!/^-{0,1}\d*\.{0,1}\d+$/.test(phone) || phone.length < 7 || phone.length > 15){
 		alertify.error("Invalid phone number!");
 		document.forms["register"]["phone"].focus();
 	} else {

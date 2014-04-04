@@ -12,16 +12,14 @@ import java.util.List;
 import services.AutoUploadService;
 import webservice.Log;
 
-
 public class AutoUploadListener extends Thread {
-
-	final int DELAY_IN_MINUTES = 2;
+	final int DELAY_IN_MINUTES = 5;
 	final Path DIR = Paths.get("/home/zodac/Dropbox/Upload/");
-
 	int[] results = new int[6];
 	static AutoUploadListener instance = null;
 
 	protected AutoUploadListener() {
+		
 	}
 
 	public static AutoUploadListener getInstance() {
@@ -36,7 +34,6 @@ public class AutoUploadListener extends Thread {
 		boolean found = false;
 		String fileName = "";
 
-
 		while (true) {
 			Log.addLogList("Checking for updated dataset.");
 			try {
@@ -49,13 +46,12 @@ public class AutoUploadListener extends Thread {
 
 				for (WatchEvent event : events) {
 					if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
-						fileName = DIR.toString() + File.separator
-								+ event.context().toString();
+						fileName = DIR.toString() + File.separator + event.context().toString();
 						found = true;
 					}
 				}
-
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			try {
 				if(found){
@@ -66,8 +62,6 @@ public class AutoUploadListener extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
 		}
-
 	}
 }
