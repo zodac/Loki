@@ -10,8 +10,8 @@ html,body,.container {
 	height: 100%;
 }
 
-#logo {
-	margin-top: 10px;
+#logo, #lokilogo {
+	margin-top: 2px;
 }
 
 #bottomlogo {
@@ -72,6 +72,8 @@ footer.container /* hereee */ {
 	/* alternating row color for tables (change if necessary) */
 	background-color: #A3C6E5;
 }
+
+.highlight  td { background-color: red !important; }
 
 #banner {
 	margin-left: 25px;

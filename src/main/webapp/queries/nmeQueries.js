@@ -54,7 +54,7 @@ function numberOfFailuresAndDuration() {
 			dataForChart.push({
 				x : value.count,
 				y : value.numofFailures,
-				tooltip : 'IMSI: ' + value.imsi
+				tooltip : + 'Failures: ' + value.count + '<br />IMSI: ' + value.imsi 
 			});
 
 		});
@@ -85,11 +85,11 @@ function numberOfFailuresAndDuration() {
 					},
 					labels : {
 						overflow : 'justify',
-						format : '{value} m/s'
+						format : '{value} ms'
 					}
 				},
 				title : {
-					text : null
+					text : 'Number of failures of each IMSI with their combined duration'
 				},
 				plotOptions : {
 					scatter : {
@@ -140,6 +140,7 @@ function uniqueEventCauseAndOccurancesByModel() {
 		var div = document.createElement("div");
 		div.setAttribute("style", "max-height: 400px; overflow: auto;");
 		var table = document.createElement("table");
+		table.setAttribute("id", "tabledata");
 		table.setAttribute("class", "table table-striped table-bordered");
 
 		var tbody = document.createElement("tbody");
@@ -212,7 +213,7 @@ function uniqueEventCauseAndOccurancesByModel() {
 							plotShadow : false
 						},
 						title : {
-							text : null
+							text : 'Percentage of event id and cause code occurances of ' + modelInput
 						},
 						tooltip : {
 							formatter : function() {
@@ -247,6 +248,13 @@ function uniqueEventCauseAndOccurancesByModel() {
 					$(".more").click(function(){
 			            toggleElement($(this).attr('id'));
 			        });
+					$("#tabledata tbody tr").click(function() {
+					    var selected = $(this).hasClass("highlight");
+					    $("#tabledata tbody tr").removeClass("highlight");
+					    if(!selected){
+					            $(this).addClass("highlight");
+					    }
+					});
 				});
 	} else {
 		clearResult();
@@ -383,7 +391,7 @@ function topMOC() {
 					plotShadow : false
 				},
 				title : {
-					text : null
+					text : 'Top 10 Market/Operator/Cell Nodes over a duration'
 				},
 				tooltip : {
 					formatter : function() {
@@ -491,7 +499,7 @@ function topIMSIs() {
 					}
 				},
 				title : {
-					text : null
+					text : 'Top 10 IMSIs for a given time period'
 				},
 				 credits: {
 				      enabled: false

@@ -19,6 +19,7 @@
 			<td>First Name</td>
 			<td>Surname</td>
 			<td>User Role</td>
+			<td>Email</td>
 		</tr>
 		</thead>
 		<tbody>
@@ -36,6 +37,8 @@
 				array.push(value.firstName);
 				array.push(value.lastName);
 				array.push(value.usertype);
+				array.push(value.emailAddress);
+				
 				completearray.push(array);
 
 			});
