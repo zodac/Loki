@@ -8,7 +8,6 @@ public class TopIMSIByFailure implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private BigDecimal IMSI;
-	
 	private BigInteger NumofFailures;
 
 	public TopIMSIByFailure() {
@@ -29,8 +28,4 @@ public class TopIMSIByFailure implements Serializable {
 	public void setNumofFailures(BigInteger numofFailures) {
 		NumofFailures = numofFailures;
 	}
-	
-	
-	
-
 }

@@ -65,7 +65,7 @@ $(document).ready(
 	});
 </script>
 <div class="col-md-9 text-center">
-	<h4 class="col-md-12 text-center"><%=Strings.UNIQUE_EVENTID_AND_CAUSECODE_COMBINATION_AND_OCCURANCES_BY_MODEL%></h4>
+	<h4 class="col-md-12 text-center"><%=Strings.UNIQUE_EVENTID_AND_CAUSECODE_COMBINATION_AND_OCCURRENCES_BY_MODEL%></h4>
 	<br /> <br /> <br />
 	<form name="nmequery" id="nmequery" 
 		class="form-inline">

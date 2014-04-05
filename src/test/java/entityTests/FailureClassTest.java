@@ -20,12 +20,8 @@ public class FailureClassTest {
 	@Test
 	public void testSetFailureClass() {
 		failureClass.setFailureClass(FAILURE_CLASS_TEST_ID);
-		assertEquals(FAILURE_CLASS_TEST_ID, failureClass.getFailureClass());
-	}
-	
-	@Test
-	public void testSetDescription() {
 		failureClass.setDescription(FAILURE_CLASS_TEST_DESC);
+		assertEquals(FAILURE_CLASS_TEST_ID, failureClass.getFailureClass());
 		assertEquals(FAILURE_CLASS_TEST_DESC, failureClass.getDescription());
 	}
 }

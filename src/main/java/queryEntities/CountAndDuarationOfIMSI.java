@@ -12,6 +12,7 @@ public class CountAndDuarationOfIMSI implements Serializable {
 	private Long NumofFailures;
 	
 	public CountAndDuarationOfIMSI(){
+		
 	}
 
 	public BigInteger getIMSI() {
@@ -37,7 +38,4 @@ public class CountAndDuarationOfIMSI implements Serializable {
 	public void setNumofFailures(Long obj) {
 		NumofFailures = obj;
 	}
-	
-	
-
 }

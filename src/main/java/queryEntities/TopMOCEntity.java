@@ -4,26 +4,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import javax.persistence.Column;
-
-/**
- * The persistent class for the user database table.
- * 
- */
 public class TopMOCEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(length=255)
 	private int cellId;
-
-	@Column(length=255)
 	private String country;
-	
-	@Column(length=255)
 	private String operator;
-	
 	private BigInteger numberOfFailures;
-	
 	private BigDecimal ofAllFailures;
 
 	public TopMOCEntity() {
