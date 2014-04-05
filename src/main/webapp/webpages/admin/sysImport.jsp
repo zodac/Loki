@@ -48,7 +48,7 @@
 		</div>
 	</form>
 	<br /> <br />
-	<div class="col-md-4" style="display: none" id="uploading"><img src="../../images/uploading.gif"></div>
+	<div class="col-md-10" style="display: none" id="uploading"><img src="../../images/uploading.gif"></div>
 	<div style="text-align: left" id="importresult"></div>
 	<br />
 	<div style="text-align: left; display: none" id="invalidfailures"></div>

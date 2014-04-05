@@ -116,7 +116,7 @@ function numberOfFailuresAndDuration() {
 						}
 					}, 
 					series: {
-	                    turboThreshold: 10000
+	                    turboThreshold: 25000
 	                }
 				
 				},
