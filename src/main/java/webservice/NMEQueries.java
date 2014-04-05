@@ -70,12 +70,22 @@ public class NMEQueries {
     public List<TopMOCEntity> getTopTenMOCGraphical() {
         return cfEJB.getTopTenMOCGraphical();
     }
-    
+
     @GET
     @Path("/FailClass")
     @Produces(MediaType.APPLICATION_JSON)
     public List<MOCByFailureClass> getMOCGraphicalByFailureClass() {
         return cfEJB.getMOCGraphicalByFailureClass();
+    }
+    
+    @GET
+    @Path("/FailClass/{fromDate}/{toDate}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<MOCByFailureClass> getTopTenMOCByFailureClass(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
+    	Date fDate = trimDate(fromDate);
+		Date tDate = trimDate(toDate);
+		
+        return cfEJB.getTopTenMOCByFailureClass(fDate, tDate);
     }
 
     public static Date trimDate(String date) {

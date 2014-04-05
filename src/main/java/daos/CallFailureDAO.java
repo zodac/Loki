@@ -30,5 +30,6 @@ public interface CallFailureDAO {
 	List<TopIMSIByFailure> getTopTenIMSI(Date fromDate, Date toDate);
 	long[] getAllIMSIs();
 	List<MOCByFailureClass> getMOCGraphicalByFailureClass();
+	List<MOCByFailureClass> getTopTenMOCByFailureClass(Date fromDate, Date toDate);
 }
 

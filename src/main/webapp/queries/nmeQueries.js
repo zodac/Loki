@@ -275,6 +275,12 @@ function uniqueEventCauseAndOccurancesByModel() {
 
 function topMOCGraph() {
 	var newArrayForDrillingInto  =[];
+	var results = makeJSONObject("./../../webservice/NMEQueries/FailClass");
+		$.each(results, function(key, value){
+			newArrayForDrillingInto.push([value.cellId, value.operator, value.failureClass, value.occurences]);	
+		});
+
+	
 	var valuesInDrillDown = [];
 	var dataForChart = [];
 	var dataForDrillDown = [];
@@ -283,11 +289,6 @@ function topMOCGraph() {
 	    lang: {
 	        drillUpText: '<--- Back to Top 10 Nodes'
 	    }
-	});
-	$.getJSON("./../../webservice/NMEQueries/FailClass", function(data){
-		$.each(data, function(key, value){
-			newArrayForDrillingInto.push([value.cellId, value.operator, value.failureClass, value.occurences]);	
-		});
 	});
 	
 	$.getJSON("./../../webservice/NMEQueries", function(data) {
@@ -326,7 +327,7 @@ function topMOCGraph() {
 					plotShadow : false
 				},
 				title : {
-					text : 'Top 10 Market/Operator/Cell Nodes over a duration'
+					text : null
 				},
 				tooltip : {
 					formatter : function() {
@@ -364,70 +365,29 @@ function topMOCGraph() {
 					series : dataForDrillDown
 				}
 			});
-		});
-		
-		
-		
-		
+		});	
 	});
-	
-	
-	
-	/*$(document).ready(
-			function() {
-				var categories = [];
-				var options = {
-					chart : {
-						renderTo : 'queryresult',
-						type : 'column',
-						plotBackgroundColor : null,
-						plotBorderWidth : null,
-						plotShadow : false
-					},
-					title : {
-						text : null
-					},
-					tooltip : {
-						formatter : function() {
-							return '% Of All Failures:<b>' + categories[this.x]
-									+ '</b><br/>' + 'Number Of Failures:<b>'
-									+ this.y + '</b>';
-						}
-					},
-					xAxis : {
-						categories : []
-					},
-					yAxis : {
-						min : 0,
-						title : {
-							text : 'Number Of Failures'
-						}
-					},
-					 credits: {
-					      enabled: false
-					  },
-					series : [ {
-						showInLegend : false,
-					} ]
-				};
-				$.getJSON("./../../webservice/NMEQueries", function(data) {
-					var val1 = [];
-					$.each(data, function(key, value) {
-						categories.push(value["ofAllFailures"]);
-						var yaxis = value.cellId + ", "
-								+ value.country + ", " + value.operator;
-						val1.push([ yaxis, value.numberOfFailures ]);
-					});
-					options.series[0].data = val1;
-					new Highcharts.Chart(options);
-				});
-
-			});*/
 }
 
 function topMOC() {
 	var fromDate = document.forms["nmequery"]["from"].value;
 	var toDate = document.forms["nmequery"]["to"].value;
+	var newArrayForDrillingInto  =[];
+	var valuesInDrillDown = [];
+	var dataForChart = [];
+	var dataForDrillDown = [];
+	//var categories = [];
+	
+	Highcharts.setOptions({
+	    lang: {
+	        drillUpText: '<--- Back to Top 10 Nodes'
+	    }
+	});
+	$.getJSON("./../../webservice/NMEQueries/FailClass/"+ fromDate + "/" + toDate, function(data){
+		$.each(data, function(key, value){
+			newArrayForDrillingInto.push([value.cellId, value.operator, value.failureClass, value.occurences]);	
+		});
+	});
 
 	if (new Date(fromDate) > new Date(toDate)) {
 		clearResult();
@@ -473,8 +433,8 @@ function topMOC() {
 		document.getElementById("queryresult").appendChild(table);
 
 		var counter = 1;
-		var dataForChart = [];
 		var completearray = [];
+		//var categories = [];
 
 		$.each(results, function(key, value) {
 			var array = [];
@@ -485,12 +445,36 @@ function topMOC() {
 			array.push(value.numberOfFailures);
 			completearray.push(array);
 			counter++;
-
-			var yaxis = value.cellId + ", " + value.country + ", "
-					+ value.operator;
-			dataForChart.push([ yaxis, value.numberOfFailures ]);
 		});
-
+		$.getJSON("./../../webservice/NMEQueries/"
+				+ fromDate + "/" + toDate, function(data){
+		$.each(data, function(key, value){
+			var cell = value.cellId;
+			
+			var op = value.operator;
+			valuesInDrillDown = [];
+			
+			for (var i = 0; i < newArrayForDrillingInto.length; i++) {
+				console.log(cell);
+				console.log(newArrayForDrillingInto);
+				if (newArrayForDrillingInto[i][0] === cell && newArrayForDrillingInto[i][1] === op){
+					var name = "Failure Class " + newArrayForDrillingInto[i][2] + " : " + returnFailureDesc(newArrayForDrillingInto[i][2]);
+					console.log(name);
+					valuesInDrillDown.push([name, newArrayForDrillingInto[i][3]]);
+				}
+			}
+			dataForChart.push({
+				name : value.cellId + ", " + value.country + ", " + value.operator,
+				y : value.numberOfFailures,
+				drilldown : key + '',
+				mydata : 'inchart'
+			});
+			dataForDrillDown.push({
+				id : key + '',
+				data : valuesInDrillDown,
+				mydata : ' '
+			});
+		});
 		$(document).ready(function() {
 			$('#datatablehtml').dataTable({
 		    	"aaData": completearray
@@ -504,11 +488,11 @@ function topMOC() {
 					plotShadow : false
 				},
 				title : {
-					text : 'Top 10 Market/Operator/Cell Nodes over a duration'
+					text : 'Top 10 Market/Operator/Cell Nodes for a given time period'
 				},
 				tooltip : {
 					formatter : function() {
-						return 'Number Of Failures:<b>' + this.y + '</b>';
+							return 'Number Of Failures:<b>' + this.y + '</b>';
 					}
 				},
 				xAxis : {
@@ -520,15 +504,23 @@ function topMOC() {
 						text : 'Number Of Failures'
 					}
 				},
-				 credits: {
-				      enabled: false
-				 },
-				series : [ {
+				credits : {
+					enabled : false
+				},
+				legend: {
+	                    enabled: false
+	            },
+				series : [{
 					showInLegend : false,
 					data : dataForChart
-				} ]
+				}],
+				drilldown : {
+					showInLegend : false,
+					series : dataForDrillDown
+				}
 			});
 
+		});
 		});
 	}
 }

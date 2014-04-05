@@ -232,4 +232,32 @@ public class CallFailureJPA implements CallFailureDAO {
 
 		return entities;
 	}
+
+	@Override
+	public List<MOCByFailureClass> getTopTenMOCByFailureClass(Date fromDate,
+			Date toDate) {
+		List<Object[]> results = (List<Object[]>) em
+				.createNativeQuery(
+						"SELECT t1.cellId, t2.country, t1.Failure_Class, count(*) as Occurences,  t2.operator"
+						+ " FROM CallFailure t1, MccMnc t2 WHERE t2.mcc=t1.market AND t2.mnc=t1.operator AND t1.date >= ?1 AND t1.date <= ?2 GROUP BY"
+						+ " t1.cellId, t1.market, t1.operator, t1.Failure_Class order by count(*) desc").setParameter(1, fromDate).setParameter(2, toDate)
+				.getResultList();
+		List<MOCByFailureClass> entities = new ArrayList<MOCByFailureClass>();
+
+		for (Object[] obj : results) {
+			MOCByFailureClass top = new MOCByFailureClass();
+
+			top.setCellId((Integer) obj[0]);
+			top.setCountry(String.valueOf(obj[1]));
+			top.setFailureClass((Integer) obj[2]);
+			top.setOccurences((BigInteger) obj[3]);
+			top.setOperator(String.valueOf(obj[4]));
+			entities.add(top);
+		}
+
+		return entities;
+	}
 }
+
+
+

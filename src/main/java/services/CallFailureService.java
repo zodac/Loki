@@ -30,5 +30,6 @@ public interface CallFailureService {
 	List<TopIMSIByFailure> getTopTenIMSI(Date fDate, Date tDate);
 	long[] getAllIMSIs();
 	List<MOCByFailureClass> getMOCGraphicalByFailureClass();
+	List<MOCByFailureClass> getTopTenMOCByFailureClass(Date fromDate, Date toDate);
 }
 

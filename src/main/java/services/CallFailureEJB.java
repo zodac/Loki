@@ -84,5 +84,10 @@ public class CallFailureEJB implements CallFailureService {
 	public List<MOCByFailureClass> getMOCGraphicalByFailureClass(){
 		return dao.getMOCGraphicalByFailureClass();
 	}
+
+	@Override
+	public List<MOCByFailureClass> getTopTenMOCByFailureClass(Date fromDate, Date toDate) {
+		return dao.getTopTenMOCByFailureClass(fromDate, toDate);
+	}
 }
 
