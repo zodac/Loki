@@ -37,13 +37,7 @@ public class EventCausePK implements Serializable {
 		if (this == other) {
 			return true;
 		}
-		if (!(other instanceof EventCausePK)) {
-			return false;
-		}
-		EventCausePK castOther = (EventCausePK)other;
-		return 
-			(this.a_Event_ID == castOther.a_Event_ID)
-			&& (this.b_Cause_Code == castOther.b_Cause_Code);
+		return false;
 	}
 
 	public int hashCode() {

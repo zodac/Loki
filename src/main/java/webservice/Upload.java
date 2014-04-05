@@ -81,7 +81,7 @@ public class Upload {
 		return "unknown";
 	}
 
-	private File writeFile(byte[] content, String filename){
+	public static File writeFile(byte[] content, String filename){
 		createTempFolders();
 		File file = new File("C:\\tmp\\" + filename);
 		if (file.exists()) {
@@ -112,7 +112,6 @@ public class Upload {
 	@Path("/{fileName}")
 	@Consumes("multipart/form-data")
 	public void uploadFile(@PathParam("fileName") String fileName) {
-
 		String fileExtension = FilenameUtils.getExtension(fileName);
 		if(fileExtension.equals("xls") || fileExtension.equals("xlsx")){
 
