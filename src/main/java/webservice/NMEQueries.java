@@ -38,20 +38,9 @@ public class NMEQueries {
     @Path("/FD/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<CountAndDuarationOfIMSI> findNumberOfFailuresAndDuration(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
-    	Date fDate = null;
-    	Date tDate = null;
-    	
-    	try {
-			fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fromDate.replace('T', ' '));
-			tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(toDate.replace('T', ' '));
-		} catch (ParseException e) {
-			try{
-				fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fromDate.replace('T', ' '));
-				tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toDate.replace('T', ' '));
-			} catch (ParseException e1){
-				e1.printStackTrace();
-			}
-		}
+    	Date fDate = trimDate(fromDate);
+		Date tDate = trimDate(toDate);
+		
         return cfEJB.findNumberOfFailuresAndDuration(fDate, tDate);
     }
     
@@ -59,20 +48,9 @@ public class NMEQueries {
     @Path("/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<TopMOCEntity> getTopTenMOC(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
-    	Date fDate = null;
-    	Date tDate = null;
-    	
-    	try {
-			fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fromDate.replace('T', ' '));
-			tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(toDate.replace('T', ' '));
-		} catch (ParseException e) {
-			try{
-				fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fromDate.replace('T', ' '));
-				tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toDate.replace('T', ' '));
-			} catch (ParseException e1){
-				e1.printStackTrace();
-			}
-		}
+    	Date fDate = trimDate(fromDate);
+		Date tDate = trimDate(toDate);
+		
         return cfEJB.getTopTenMOC(fDate, tDate);
     }
     
@@ -80,20 +58,9 @@ public class NMEQueries {
     @Path("/IMSI/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<TopIMSIByFailure> getTopTenIMSI(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
-    	Date fDate = null;
-    	Date tDate = null;
-    	
-    	try {
-			fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fromDate.replace('T', ' '));
-			tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(toDate.replace('T', ' '));
-		} catch (ParseException e) {
-			try{
-				fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fromDate.replace('T', ' '));
-				tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toDate.replace('T', ' '));
-			} catch (ParseException e1){
-				e1.printStackTrace();
-			}
-		}
+    	Date fDate = trimDate(fromDate);
+		Date tDate = trimDate(toDate);
+		
         return cfEJB.getTopTenIMSI(fDate, tDate);
     }
     
@@ -103,4 +70,17 @@ public class NMEQueries {
         return cfEJB.getTopTenMOCGraphical();
     }
 
+    public static Date trimDate(String date) {
+		Date outputDate = null;
+		try {
+			outputDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date.replace('T', ' '));
+		} catch (ParseException e) {
+			try {
+				outputDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date.replace('T', ' '));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return outputDate;
+	}
 }
