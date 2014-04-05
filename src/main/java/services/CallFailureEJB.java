@@ -14,6 +14,7 @@ import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
+import queryEntities.MOCByFailureClass;
 import daos.CallFailureDAO;
 import entities.EventCause;
 @Stateless
@@ -78,6 +79,10 @@ public class CallFailureEJB implements CallFailureService {
 
 	public long[] getAllIMSIs() {
 		return dao.getAllIMSIs();
+	}
+	
+	public List<MOCByFailureClass> getMOCGraphicalByFailureClass(){
+		return dao.getMOCGraphicalByFailureClass();
 	}
 }
 

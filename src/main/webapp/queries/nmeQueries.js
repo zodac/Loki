@@ -274,7 +274,106 @@ function uniqueEventCauseAndOccurancesByModel() {
 }
 
 function topMOCGraph() {
-	$(document).ready(
+	var newArrayForDrillingInto  =[];
+	var valuesInDrillDown = [];
+	var dataForChart = [];
+	var dataForDrillDown = [];
+	var categories = [];
+	Highcharts.setOptions({
+	    lang: {
+	        drillUpText: '<--- Back to Top 10 Nodes'
+	    }
+	});
+	$.getJSON("./../../webservice/NMEQueries/FailClass", function(data){
+		$.each(data, function(key, value){
+			newArrayForDrillingInto.push([value.cellId, value.operator, value.failureClass, value.occurences]);	
+		});
+	});
+	
+	$.getJSON("./../../webservice/NMEQueries", function(data) {
+		$.each(data, function(key, value){
+			var cell = value.cellId;
+			var op = value.operator;
+			valuesInDrillDown = [];
+			categories.push(value["ofAllFailures"]);
+			
+			for (var i = 0; i < newArrayForDrillingInto.length; i++) {
+				if (newArrayForDrillingInto[i][0] === cell && newArrayForDrillingInto[i][1] === op){
+					var name = "Failure Class " + newArrayForDrillingInto[i][2] + " : " + returnFailureDesc(newArrayForDrillingInto[i][2]);
+					console.log(name);
+					valuesInDrillDown.push([name, newArrayForDrillingInto[i][3]]);
+				}
+			}
+			dataForChart.push({
+				name : value.cellId + ", " + value.country + ", " + value.operator,
+				y : value.numberOfFailures,
+				drilldown : key + '',
+				mydata : 'inchart'
+			});
+			dataForDrillDown.push({
+				id : key + '',
+				data : valuesInDrillDown,
+				mydata : ' '
+			});
+		});
+		$(document).ready(function() {
+			chart = new Highcharts.Chart({
+				chart : {
+					renderTo : 'queryresult',
+					type : 'column',
+					plotBackgroundColor : null,
+					plotBorderWidth : null,
+					plotShadow : false
+				},
+				title : {
+					text : 'Top 10 Market/Operator/Cell Nodes over a duration'
+				},
+				tooltip : {
+					formatter : function() {
+						if(this.point.mydata === 'inchart'){
+							return '% Of All Failures:<b>' + categories[this.x]
+								+ '</b><br/>' + 'Number Of Failures:<b>'
+								+ this.y + '</b>';
+						}
+						else{
+							return 'Number Of Failures:<b>' + this.y + '</b>';
+						}
+					}
+				},
+				xAxis : {
+					categories : []
+				},
+				yAxis : {
+					min : 0,
+					title : {
+						text : 'Number Of Failures'
+					}
+				},
+				credits : {
+					enabled : false
+				},
+				legend: {
+	                    enabled: false
+	            },
+				series : [{
+					showInLegend : false,
+					data : dataForChart
+				}],
+				drilldown : {
+					showInLegend : false,
+					series : dataForDrillDown
+				}
+			});
+		});
+		
+		
+		
+		
+	});
+	
+	
+	
+	/*$(document).ready(
 			function() {
 				var categories = [];
 				var options = {
@@ -323,7 +422,7 @@ function topMOCGraph() {
 					new Highcharts.Chart(options);
 				});
 
-			});
+			});*/
 }
 
 function topMOC() {
@@ -576,5 +675,23 @@ function clearChart(chartName) {
 	var mainNode = document.getElementById(chartName);
 	while (mainNode.lastChild) {
 		mainNode.removeChild(mainNode.lastChild);
+	}
+}
+
+function returnFailureDesc(numClass){
+	if(numClass === 0){
+		return "EMERGENCY";
+	}
+	else if(numClass === 1){
+		return "HIGH PRIORITY ACCESS";
+	}
+	else if(numClass === 2){
+		return "MT ACCESS";
+	}
+	else if(numClass === 3){
+		return "MO SIGNALLING";
+	}
+	else{
+		return "MO DATA";
 	}
 }

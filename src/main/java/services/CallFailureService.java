@@ -9,6 +9,7 @@ import javax.jws.WebService;
 
 import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
+import queryEntities.MOCByFailureClass;
 import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
 import entities.EventCause;
@@ -28,5 +29,6 @@ public interface CallFailureService {
 	List<BigInteger> findIMSIsByFailureClass(int failureClassId);
 	List<TopIMSIByFailure> getTopTenIMSI(Date fDate, Date tDate);
 	long[] getAllIMSIs();
+	List<MOCByFailureClass> getMOCGraphicalByFailureClass();
 }
 

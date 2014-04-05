@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
+import queryEntities.MOCByFailureClass;
 import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
 import services.CallFailureService;
@@ -68,6 +69,13 @@ public class NMEQueries {
     @Produces(MediaType.APPLICATION_JSON)
     public List<TopMOCEntity> getTopTenMOCGraphical() {
         return cfEJB.getTopTenMOCGraphical();
+    }
+    
+    @GET
+    @Path("/FailClass")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<MOCByFailureClass> getMOCGraphicalByFailureClass() {
+        return cfEJB.getMOCGraphicalByFailureClass();
     }
 
     public static Date trimDate(String date) {

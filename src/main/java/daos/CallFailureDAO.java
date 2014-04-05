@@ -6,6 +6,7 @@ import java.util.List;
 
 import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
+import queryEntities.MOCByFailureClass;
 import queryEntities.TopIMSIByFailure;
 import queryEntities.TopMOCEntity;
 import entities.CallFailure;
@@ -28,5 +29,6 @@ public interface CallFailureDAO {
 	List<BigInteger> findIMSIsByFailureClass(int failureClassId);
 	List<TopIMSIByFailure> getTopTenIMSI(Date fromDate, Date toDate);
 	long[] getAllIMSIs();
+	List<MOCByFailureClass> getMOCGraphicalByFailureClass();
 }
 
