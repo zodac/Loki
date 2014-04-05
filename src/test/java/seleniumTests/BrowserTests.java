@@ -1,20 +1,19 @@
 package seleniumTests;
 
-import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import static org.junit.Assert.assertEquals;
+
+
+import java.util.concurrent.TimeUnit;
+import org.junit.*;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-@Ignore
+
 public class BrowserTests {
 	private WebDriver driver;
 	private String baseUrl;
-
+	
 	@Before
 	public void setUp() throws Exception {
 		driver = new FirefoxDriver();
@@ -38,6 +37,7 @@ public class BrowserTests {
 		driver.findElement(By.id("password")).sendKeys("pass");
 		// clicks the login button
 		driver.findElement(By.id("loginSubmit")).click();
+	    assertEquals("http://localhost:8080/Loki/webpages/admin/sysHome.jsp", this.driver.getCurrentUrl());
 	}
 
 	@Test
@@ -54,9 +54,9 @@ public class BrowserTests {
 		driver.get(baseUrl + "/webpages/admin/sysAddUser.jsp");
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		driver.findElement(By.id("role")).click();
-		;
+		driver.findElement(By.id("role")).sendKeys("s");
 		driver.findElement(By.id("userName")).click();
-		driver.findElement(By.id("userName")).sendKeys("Jason");
+		driver.findElement(By.id("userName")).sendKeys("NewtestUser11");
 		driver.findElement(By.id("password")).click();
 		driver.findElement(By.id("password")).sendKeys("pass");
 		driver.findElement(By.id("confirm")).click();
@@ -71,7 +71,9 @@ public class BrowserTests {
 		driver.findElement(By.id("phone")).sendKeys("0895676560");
 
 		driver.findElement(By.id("addUserSubmit")).click();
+		assertEquals("http://localhost:8080/Loki/webpages/admin/sysListUsers.jsp", this.driver.getCurrentUrl());  
 	}
+
 
 	@Test
 	public void customerRepQrycsEventCause() {
@@ -87,6 +89,9 @@ public class BrowserTests {
 		driver.findElement(By.id("imsi")).click();
 		driver.findElement(By.id("imsi")).sendKeys("344930000000011");
 		driver.findElement(By.id("imsiSubmit")).click();
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		WebElement qryResultTbl = driver.findElement(By.id("datatablehtml"));
+		Assert.assertEquals(true, qryResultTbl.isDisplayed());
 	}
 
 	@Test
@@ -105,7 +110,10 @@ public class BrowserTests {
 		driver.findElement(By.id("to")).click();
 		driver.findElement(By.id("to")).sendKeys("2013-10-06T23:59:00");
 		driver.findElement(By.id("countNumFailuresSubmit")).click();
-	}
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		WebElement qryResultTbl = driver.findElement(By.id("datatablehtml"));
+		Assert.assertEquals(true, qryResultTbl.isDisplayed());
+		}
 
 	@Test
 	public void supportEngQrynmeCountNumFailuresSubmit() {
@@ -123,8 +131,23 @@ public class BrowserTests {
 		driver.findElement(By.id("to")).click();
 		driver.findElement(By.id("to")).sendKeys("2013-09-31T22:59:00");
 		driver.findElement(By.id("seListIMSISubmit")).click();
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		WebElement qryResultTbl = driver.findElement(By.id("datatablehtml"));
+		Assert.assertEquals(true, qryResultTbl.isDisplayed());
 	}
 
+	@Test
+	public void userPermissions(){
+		driver.get(baseUrl);
+		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+		driver.findElement(By.id("userName")).click();
+		driver.findElement(By.id("userName")).sendKeys("nme");
+		driver.findElement(By.id("password")).click();
+		driver.findElement(By.id("password")).sendKeys("pass");
+		driver.findElement(By.id("loginSubmit")).click();
+		driver.get(baseUrl + "/webpages/admin/sysAddUser.jsp");
+		assertEquals("http://localhost:8080/Loki/webpages/networkManEng/nmeHome.jsp", this.driver.getCurrentUrl());
+	}
 	@After
 	public void tearDown() throws Exception {
 		driver.quit();
