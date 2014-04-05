@@ -1,0 +1,15 @@
+entityTests\UserTest.class
+entityTests\EventCausePKTest.class
+entityTests\CallFailureTest.class
+entityTests\MccMncPKTest.class
+entityTests\FailureClassTest.class
+entityTests\MccMncTest.class
+entityTests\CountAndDurationTest.class
+seleniumTests\BrowserTests.class
+entityTests\EventCauseComboTest.class
+entityTests\InvalidCallFailureTest.class
+entityTests\TopMOCTest.class
+entityTests\TopIMSITest.class
+entityTests\UETypeTest.class
+otherTests\StringTest.class
+entityTests\EventCauseTest.class

@@ -114,7 +114,11 @@ function numberOfFailuresAndDuration() {
 								}
 							}
 						}
-					}
+					}, 
+					series: {
+	                    turboThreshold: 10000
+	                }
+				
 				},
 				tooltip : {
 					formatter : function() {
@@ -311,7 +315,7 @@ function topMOCGraph() {
 					var val1 = [];
 					$.each(data, function(key, value) {
 						categories.push(value["ofAllFailures"]);
-						var yaxis = "cellId: " + value.cellId + ", "
+						var yaxis = value.cellId + ", "
 								+ value.country + ", " + value.operator;
 						val1.push([ yaxis, value.numberOfFailures ]);
 					});
@@ -383,7 +387,7 @@ function topMOC() {
 			completearray.push(array);
 			counter++;
 
-			var yaxis = "cellId: " + value.cellId + ", " + value.country + ", "
+			var yaxis = value.cellId + ", " + value.country + ", "
 					+ value.operator;
 			dataForChart.push([ yaxis, value.numberOfFailures ]);
 		});

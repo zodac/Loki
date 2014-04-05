@@ -35,7 +35,7 @@
 	position: fixed; z-index: 99999;
 	top: 100px; left: 50%;
 	width: 350px;
-	margin-left: -275px;
+	margin-left: -175px;
 	opacity: 1;
 }
 	.alertify-hidden {
