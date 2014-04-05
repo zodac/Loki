@@ -12,6 +12,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -19,6 +20,7 @@ import daos.MccMncDAO;
 import entities.MccMnc;
 import entities.MccMncPK;
 
+@Ignore
 @RunWith(Arquillian.class)
 public class MccMncTest {
 	private static String MCC_MNC_TEST_COUNTRY = "Test Country";

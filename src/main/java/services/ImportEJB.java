@@ -409,7 +409,7 @@ public class ImportEJB implements ImportService {
 		}
 	}
 	
-	private static boolean isDateValid(Date date){
+	public static boolean isDateValid(Date date){
 		String dateString = dateFormatter.format(date);
 		
 		int day = Integer.parseInt(dateString.substring(0, 2));
@@ -451,7 +451,7 @@ public class ImportEJB implements ImportService {
 		return true;
 	}
 	
-	private static boolean isLeapYear(int year){
+	public static boolean isLeapYear(int year){
 		return ((year%4 == 0) && (year%100 != 0) || (year%400 == 0));
 	}
 }

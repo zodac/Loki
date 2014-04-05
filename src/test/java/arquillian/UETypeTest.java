@@ -12,12 +12,14 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import daos.UETypeDAO;
 import entities.UEType;
 
+@Ignore
 @RunWith(Arquillian.class)
 public class UETypeTest {
 	private static final int UETYPE_TEST_TAC = -1;

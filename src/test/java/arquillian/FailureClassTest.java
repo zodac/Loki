@@ -12,12 +12,14 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import daos.FailureClassDAO;
 import entities.FailureClass;
 
+@Ignore
 @RunWith(Arquillian.class)
 public class FailureClassTest {
 	private static final int FAILURE_CLASS_TEST_ID = -1;

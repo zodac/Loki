@@ -12,6 +12,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -19,6 +20,7 @@ import daos.EventCauseDAO;
 import entities.EventCause;
 import entities.EventCausePK;
 
+@Ignore
 @RunWith(Arquillian.class)
 public class EventCauseTest {
 	private static final int EVENT_CAUSE_TEST_EVENT_ID = -1;

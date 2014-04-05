@@ -37,13 +37,7 @@ public class MccMncPK implements Serializable {
 		if (this == other) {
 			return true;
 		}
-		if (!(other instanceof MccMncPK)) {
-			return false;
-		}
-		MccMncPK castOther = (MccMncPK)other;
-		return 
-			(this.mcc == castOther.mcc)
-			&& (this.mnc == castOther.mnc);
+		return false;
 	}
 
 	public int hashCode() {
