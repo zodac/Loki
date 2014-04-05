@@ -31,7 +31,7 @@ public class EventCausePKTest {
 	}
 	
 	@Test
-	public void testHashCode(){
+	public void testXHashCode(){
 		assertEquals(false, epk.hashCode()==new EventCausePK().hashCode());
 	}
 }

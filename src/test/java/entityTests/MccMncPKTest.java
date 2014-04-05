@@ -31,7 +31,7 @@ public class MccMncPKTest {
 	}
 	
 	@Test
-	public void testHashCode(){
+	public void testXHashCode(){
 		assertEquals(false, mpk.hashCode()==new MccMncPK().hashCode());
 	}
 }

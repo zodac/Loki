@@ -28,21 +28,9 @@ public class SEQueries {
     @Path("/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<BigInteger> findAllIMSIsByTimePeriod(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
-    	Date fDate = null;
-    	Date tDate = null;
-    	
-    	try {
-			fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fromDate.replace('T', ' '));
-			tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(toDate.replace('T', ' '));
-		} catch (ParseException e) {
-			try{
-				fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fromDate.replace('T', ' '));
-				tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toDate.replace('T', ' '));
-			} catch (ParseException e1){
-				e1.printStackTrace();
-			}
-		}
-    	
+		Date fDate = trimDate(fromDate);
+		Date tDate = trimDate(toDate);
+				
         return cfEJB.findAllIMSIsByTimePeriod(fDate, tDate);
     }
     
@@ -50,20 +38,8 @@ public class SEQueries {
     @Path("/{model}/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<BigInteger> findNumberOfFailuresByModelAndTimePeriod(@PathParam("model") String model, @PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
-    	Date fDate = null;
-    	Date tDate = null;
-    	
-    	try {
-			fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fromDate.replace('T', ' '));
-			tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(toDate.replace('T', ' '));
-		} catch (ParseException e) {
-			try{
-				fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fromDate.replace('T', ' '));
-				tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toDate.replace('T', ' '));
-			} catch (ParseException e1){
-				e1.printStackTrace();
-			}
-		}
+    	Date fDate = trimDate(fromDate);
+		Date tDate = trimDate(toDate);
     	
         return cfEJB.findNumberOfFailuresByModelAndTimePeriod(model, fDate, tDate);
     }
@@ -74,4 +50,18 @@ public class SEQueries {
     public List<BigInteger> findIMSIsByFailureClass(@PathParam("failureClassId") int failureClassId) {    	
         return cfEJB.findIMSIsByFailureClass(failureClassId);
     }
+    
+    public static Date trimDate(String date) {
+		Date outputDate = null;
+		try {
+			outputDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date.replace('T', ' '));
+		} catch (ParseException e) {
+			try {
+				outputDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date.replace('T', ' '));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return outputDate;
+	}
 }

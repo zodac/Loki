@@ -42,20 +42,23 @@ public class CSRQueries {
     @Path("/{imsi}/{fromDate}/{toDate}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Long> numberOfFailuresByIMSIByTimePeriod(@PathParam("imsi") long imsi, @PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
-		Date fDate = null;
-    	Date tDate = null;
-    	
-    	try {
-			fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fromDate.replace('T', ' '));
-			tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(toDate.replace('T', ' '));
+		Date fDate = trimDate(fromDate);
+		Date tDate = trimDate(toDate);
+		
+        return cfEJB.numberOfFailuresByIMSIByTimePeriod(imsi, fDate, tDate);
+    }
+	
+	public static Date trimDate(String date) {
+		Date outputDate = null;
+		try {
+			outputDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date.replace('T', ' '));
 		} catch (ParseException e) {
-			try{
-				fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(fromDate.replace('T', ' '));
-				tDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(toDate.replace('T', ' '));
-			} catch (ParseException e1){
+			try {
+				outputDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date.replace('T', ' '));
+			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
 		}
-        return cfEJB.numberOfFailuresByIMSIByTimePeriod(imsi, fDate, tDate);
-    }
+		return outputDate;
+	}
 }

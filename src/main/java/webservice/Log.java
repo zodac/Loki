@@ -35,9 +35,7 @@ public class Log {
 		List<String> logs = new ArrayList<String>();
 		try {
 			File file = new File(LOG_NAME);
-			if(!file.exists()){
-				file.createNewFile();
-			}
+			createNewFile(file);
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line = br.readLine();
 			
@@ -61,17 +59,31 @@ public class Log {
 	@GET
 	@Path("/Clear")
 	public void clearLog(){
-		File log = new File(LOG_NAME);
+		resetLog(LOG_NAME);
+	}
+
+	public static void resetLog(String logName) {
+		File log = new File(logName);
 		
 		if(log.exists()){
 			log.delete();
 		}
 		
 		try {
-			File logFile = new File(LOG_NAME);
+			File logFile = new File(logName);
 			logFile.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void createNewFile(File file){
+		if(!file.exists()){
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
