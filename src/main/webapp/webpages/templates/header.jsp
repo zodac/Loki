@@ -22,7 +22,7 @@
 <script src="../../js/userConf.js"></script>
 <script>
 	$(function() {
-		$("#to, #from, #email, #phone").tooltip({
+		$("#to, #from, #email, #phone, #imsi, #password").tooltip({
 			position : "right center",
 			offset : [ -2, 10 ],
 			effect : "explode",

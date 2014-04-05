@@ -10,7 +10,7 @@
          <!-- <property name="executionType">MANAGED</property> -->
       </protocol>
       <configuration>
-         <property name="jbossHome">C:\jboss-as-7.1.1.Final</property>
+         <property name="jbossHome">C:\Program Files\jboss-as-7.1.1.Final</property>
          <property name="allowConnectingToRunningServer">true</property>
       </configuration>
    </container>
