@@ -44,7 +44,10 @@ function clearLog() {
 
 			$(document).ready(function() {
 				$('#datatablehhtml').dataTable({
-					"aaData" : completearray
+					"aaSorting" : [[0, 'desc']],
+					"iDisplayLength": 25,
+					"aaData" : completearray,
+					
 				});
 			});
 		</script>

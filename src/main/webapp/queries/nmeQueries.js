@@ -59,7 +59,7 @@ function numberOfFailuresAndDuration() {
 			dataForChart.push({
 				x : value.count,
 				y : value.numofFailures,
-				tooltip : + 'Failures: ' + value.count + '<br />IMSI: ' + value.imsi 
+				tooltip : 'Failures: ' + value.count + '<br />IMSI: ' + value.imsi 
 			});
 
 		});
