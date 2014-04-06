@@ -200,8 +200,10 @@ public class CallFailureJPA implements CallFailureDAO {
 	}
 	
 	public List<TopIMSIByFailureClass> getFailureClassesOfIMSI(Date fromDate, Date toDate) {
-		List<Object[]> results = (List<Object[]>) em.createNativeQuery("SELECT COUNT(*) as count, Failure_Class, imsi FROM CallFailure"
-														+ " WHERE date >= ?1 AND date <= ?2 GROUP BY imsi, Failure_Class")
+		List<Object[]> results = (List<Object[]>) em.createNativeQuery(("SELECT t1.count, t1.Failure_Class, t1.imsi, t2.sum, t1.date FROM" 
+				+	" (SELECT imsi, Failure_Class, count(*) as count, date FROM CallFailure GROUP BY imsi,Failure_Class) as t1,"
+				+ " (SELECT count(imsi) as sum, imsi FROM CallFailure GROUP BY imsi) as t2"
+				+ " WHERE t1.imsi=t2.imsi AND t1.date >= ?1 AND t1.date <= ?2 ORDER BY t2.sum desc limit 50"))
 				.setParameter(1, fromDate)
 				.setParameter(2, toDate).getResultList();
 		

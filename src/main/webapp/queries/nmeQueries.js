@@ -537,11 +537,13 @@ function topIMSIs() {
 	    }
 	});
 	
-	$.getJSON("./../../webservice/NMEQueries/IMSIFailClass/"+ fromDate + "/" + toDate, function(results){
-	$.each(results, function(key, value){
+	var r = makeJSONObject("./../../webservice/NMEQueries/IMSIFailClass/"+ fromDate + "/" + toDate);
+	
+	//$.getJSON("./../../webservice/NMEQueries/IMSIFailClass/"+ fromDate + "/" + toDate, function(results){
+	$.each(r, function(key, value){
 		newArrayForDrillingInto.push([value.count, value.failureClass, value.imsi]);	
 	});
-	});
+	//});
 	
 
 
