@@ -455,8 +455,6 @@ function topMOC() {
 			valuesInDrillDown = [];
 			
 			for (var i = 0; i < newArrayForDrillingInto.length; i++) {
-				console.log(cell);
-				console.log(newArrayForDrillingInto);
 				if (newArrayForDrillingInto[i][0] === cell && newArrayForDrillingInto[i][1] === op){
 					var name = "Failure Class " + newArrayForDrillingInto[i][2] + " : " + returnFailureDesc(newArrayForDrillingInto[i][2]);
 					console.log(name);
@@ -526,8 +524,26 @@ function topMOC() {
 }
 
 function topIMSIs() {
+	var dataForChart = [];
+	var dataForDrillDown = [];
+	var valuesInDrillDown = [];
+	var newArrayForDrillingInto  =[];
 	var fromDate = document.forms["nmequery"]["from"].value;
 	var toDate = document.forms["nmequery"]["to"].value;
+	
+	Highcharts.setOptions({
+	    lang: {
+	        drillUpText: '<--- Back to Top 10 IMSI\'s'
+	    }
+	});
+	
+	$.getJSON("./../../webservice/NMEQueries/IMSIFailClass/"+ fromDate + "/" + toDate, function(results){
+	$.each(results, function(key, value){
+		newArrayForDrillingInto.push([value.count, value.failureClass, value.imsi]);	
+	});
+	});
+	
+
 
 	if (new Date(fromDate) > new Date(toDate)) {
 		clearResult();
@@ -566,9 +582,8 @@ function topIMSIs() {
 		document.getElementById("queryresult").appendChild(table);
 
 		var counter = 1;
-		var dataForChart = [];
-		var categories = [];
 		var completearray = [];
+		
 		$.each(results, function(key, value) {
 			var array = [];
 			array.push(counter);
@@ -577,11 +592,30 @@ function topIMSIs() {
 			completearray.push(array);
 			
 			counter++;
-			dataForChart.push({
-				y : value.numofFailures
-			});
-			categories.push([ value.imsi ]);
 		});
+		$.getJSON("./../../webservice/NMEQueries/IMSI/"+ fromDate + "/" + toDate, function(data){
+			$.each(data, function(key, value) {
+				valuesInDrillDown = [];
+				var imsi = value.imsi;
+
+						for (var i = 0; i < newArrayForDrillingInto.length; i++) {
+							if (newArrayForDrillingInto[i][2] === imsi) {
+								var name = "Failure Class " + newArrayForDrillingInto[i][1] + ": " + returnFailureDesc(newArrayForDrillingInto[i][1]);
+								valuesInDrillDown.push([name, newArrayForDrillingInto[i][0]]);
+							}
+						}
+				
+				dataForChart.push({
+					name : " " + value.imsi,
+					y : value.numofFailures,
+					drilldown : key + '',
+					mydata : 'chartdata'
+				});
+				dataForDrillDown.push({
+					id : key + '',
+					data : valuesInDrillDown
+				});
+			});
 
 		$(document).ready(function() {
 			$('#datatablehtml').dataTable({
@@ -590,41 +624,62 @@ function topIMSIs() {
 			chart = new Highcharts.Chart({
 				chart : {
 					renderTo : 'chartContainer',
-					type : 'bar'
+					type : 'pie',
+					plotBackgroundColor : null,
+					plotBorderWidth : null,
+					plotShadow : false
+				},
+				title : {
+					text : 'Top 10 IMSIs in a given time period'
+				},
+				tooltip : {
+					formatter : function() {
+							return 'Number Of Failures:<b>' + this.y + '</b>';
+					}
 				},
 				xAxis : {
-					categories : categories,
-					title : {
-						text : null
-					}
+					type: 'category',
+		            showEmpty: false,
+					labels: {
+	                    overflow: 'justify'
+	               },
+	               title:{
+	               	 margin: 25,
+	               	text : 'IMSI'
+	               }
 				},
 				yAxis : {
 					min : 0,
 					title : {
-						text : 'Number Of Failures',
-						align : 'middle'
-					},
-					labels : {
-						overflow : 'justify'
+						text : 'Number Of Failures'
 					}
 				},
-				title : {
-					text : 'Top 10 IMSIs for a given time period'
+				plotOptions: {
+		            series: {
+		                borderWidth: 0,
+		                dataLabels: {
+		                    enabled: true,
+		                }
+		            }
 				},
-				 credits: {
-				      enabled: false
-				  },
-				tooltip : {
-					formatter : function() {
-						return 'Number Of Failures:<b>' + this.y + '</b>';
-					}
+				credits : {
+					enabled : false
 				},
-				series : [ {
+				legend: {
+	                    enabled: true
+	            },
+				series : [{
 					showInLegend : false,
-					data : dataForChart
-				} ]
+					data : dataForChart,
+					type: 'bar'
+				}],
+				drilldown : {
+					showInLegend : true,
+					series : dataForDrillDown
+				}
 			});
 		});
+	});
 	}
 }
 

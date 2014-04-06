@@ -14,6 +14,7 @@ import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.MOCByFailureClass;
 import queryEntities.TopIMSIByFailure;
+import queryEntities.TopIMSIByFailureClass;
 import queryEntities.TopMOCEntity;
 import daos.CallFailureDAO;
 import entities.CallFailure;
@@ -192,6 +193,27 @@ public class CallFailureJPA implements CallFailureDAO {
 			top.setIMSI((BigDecimal) obj[0]);
 			top.setNumofFailures((BigInteger) obj[1]);
 
+			entities.add(top);
+		}
+
+		return entities;
+	}
+	
+	public List<TopIMSIByFailureClass> getFailureClassesOfIMSI(Date fromDate, Date toDate) {
+		List<Object[]> results = (List<Object[]>) em.createNativeQuery("SELECT COUNT(*) as count, Failure_Class, imsi FROM CallFailure"
+														+ " WHERE date >= ?1 AND date <= ?2 GROUP BY imsi, Failure_Class")
+				.setParameter(1, fromDate)
+				.setParameter(2, toDate).getResultList();
+		
+		List<TopIMSIByFailureClass> entities = new ArrayList<TopIMSIByFailureClass>();
+
+		for (Object[] obj : results) {
+			TopIMSIByFailureClass top = new TopIMSIByFailureClass();
+
+			top.setCount((BigInteger) obj[0]);
+			top.setFailureClass((Integer) obj[1]);
+			top.setIMSI((BigDecimal) obj[2]);
+			
 			entities.add(top);
 		}
 

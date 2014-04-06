@@ -18,6 +18,7 @@ import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.MOCByFailureClass;
 import queryEntities.TopIMSIByFailure;
+import queryEntities.TopIMSIByFailureClass;
 import queryEntities.TopMOCEntity;
 import services.CallFailureService;
 
@@ -63,6 +64,16 @@ public class NMEQueries {
 		Date tDate = trimDate(toDate);
 		
         return cfEJB.getTopTenIMSI(fDate, tDate);
+    }
+    
+    @GET
+    @Path("/IMSIFailClass/{fromDate}/{toDate}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TopIMSIByFailureClass> getFailureClassesOfIMSI(@PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate) {
+    	Date fDate = trimDate(fromDate);
+		Date tDate = trimDate(toDate);
+		
+        return cfEJB.getFailureClassesOfIMSI(fDate, tDate);
     }
     
     @GET

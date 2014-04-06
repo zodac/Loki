@@ -11,6 +11,7 @@ import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.MOCByFailureClass;
 import queryEntities.TopIMSIByFailure;
+import queryEntities.TopIMSIByFailureClass;
 import queryEntities.TopMOCEntity;
 import entities.EventCause;
 @WebService
@@ -31,5 +32,6 @@ public interface CallFailureService {
 	long[] getAllIMSIs();
 	List<MOCByFailureClass> getMOCGraphicalByFailureClass();
 	List<MOCByFailureClass> getTopTenMOCByFailureClass(Date fromDate, Date toDate);
+	List<TopIMSIByFailureClass> getFailureClassesOfIMSI(Date fDate, Date tDate);
 }
 

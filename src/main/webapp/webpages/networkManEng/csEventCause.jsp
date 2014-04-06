@@ -22,7 +22,7 @@ onload = checkNME();
 		<div class="form-group">
 			<div class="col-md-4">
 				<input type="text" class="form-control" id="imsi" name="imsi"
-					placeholder="<%=Strings.PH_IMSI%>" title="<%=Strings.TT_IMSI%>"
+					placeholder="<%=Strings.PH_IMSI%>" 
 					required />
 			</div>
 		</div>

@@ -13,6 +13,7 @@ import jpas.JPA;
 import queryEntities.CountAndDuarationOfIMSI;
 import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.TopIMSIByFailure;
+import queryEntities.TopIMSIByFailureClass;
 import queryEntities.TopMOCEntity;
 import queryEntities.MOCByFailureClass;
 import daos.CallFailureDAO;
@@ -88,6 +89,12 @@ public class CallFailureEJB implements CallFailureService {
 	@Override
 	public List<MOCByFailureClass> getTopTenMOCByFailureClass(Date fromDate, Date toDate) {
 		return dao.getTopTenMOCByFailureClass(fromDate, toDate);
+	}
+
+	@Override
+	public List<TopIMSIByFailureClass> getFailureClassesOfIMSI(Date fDate,
+			Date tDate) {
+		return dao.getFailureClassesOfIMSI(fDate, tDate);
 	}
 }
 
