@@ -1,16 +1,12 @@
 package entityTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
 
-import org.hibernate.jpa.criteria.ValueHandlerFactory.BigIntegerValueHandler;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import queryEntities.EventIdCauseCodeCombo;
 import queryEntities.MOCByFailureClass;
 
 public class MOCByFailureClassTest {
@@ -40,8 +36,5 @@ public class MOCByFailureClassTest {
 		assertEquals(failureClass,mocFailure.getFailureClass());
 		assertEquals(occurences,mocFailure.getOccurences());
 		assertEquals(operator, mocFailure.getOperator());
-		
-		
 	}
-
 }
