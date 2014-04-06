@@ -63,7 +63,7 @@ public class Strings {
 	public static String UNIQUE_EVENTID_AND_CAUSECODE_COMBINATION_AND_OCCURRENCES_BY_MODEL = "List unique Event ID and Cause Code combinations and their occurrences by phone model";
 	public static String TOP_10_MARKET_OPERATOR_CELL_NODES_BY_TIME_PERIOD = "Top 10 Market/Operator/Cell Nodes in a given time period";
 	public static String TOP_10_IMSIS = "Top 10 IMSIs in a given time period";
-	public static String TOP_10_MARKET_OPERATOR_CELL_NODES_GRAPHICAL = "Top 10 Market/Operator/Cell Nodes with graphical representation";
+	public static String TOP_10_MARKET_OPERATOR_CELL_NODES_GRAPHICAL = "Top 10 Market/Operator/Cell Nodes";
 	
 	//Navigation - SysAdmin
 	public static String IMPORT = "Import dataset";
