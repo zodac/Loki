@@ -1,6 +1,6 @@
 <%@ page import="main.*"%>
 <script src="../../js/highcharts.js"></script>
-<script src="http://code.highcharts.com/modules/drilldown.js"></script>
+<script src="../../js/drilldown.js"></script>
 <script src="../../queries/nmeQueries.js"></script>
 <script src="../../queries/csrQueries.js"></script>
 <script src="../../queries/seQueries.js"></script>
